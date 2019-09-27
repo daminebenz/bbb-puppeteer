@@ -14,7 +14,7 @@ const puppeteer = require('puppeteer');
             console.log('page'+i);
             }))
         }
-        
+
         // promoting Bot-0 to Presenter
         
         // browser.newPage().then(async page => {
@@ -54,5 +54,6 @@ const puppeteer = require('puppeteer');
                 .then(console.log('Test passed'))
         });
         
+
     })
 })();
