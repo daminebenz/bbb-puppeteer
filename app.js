@@ -14,7 +14,9 @@ const puppeteer = require('puppeteer');
             console.log('page'+i);
             }))
         }
-
+        
+        // promoting Bot-0 to Presenter
+        
         // browser.newPage().then(async page => {
         //     await page.goto(`https://8d1ab45384a1.bbbvm.imdt.com.br/demo/demoHTML5.jsp?username=Moderator1&isModerator=true&action=create`);
             
@@ -52,6 +54,5 @@ const puppeteer = require('puppeteer');
                 .then(console.log('Test passed'))
         });
         
-
     })
 })();
