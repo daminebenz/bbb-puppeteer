@@ -25,13 +25,14 @@ connectWithMicrophone.init = puppeteer.launch({
             await page.waitFor('[aria-labelledby="dropdown-item-label-14"]');
             await page.click('[aria-labelledby="dropdown-item-label-14"]');
             await page.screenshot({path: 'images/6-End-Meeting-window.png'});
-            await page.waitFor(3000);
+            await page.waitFor(35000)
             await page.waitFor('[data-test="confirmEndMeeting"]');
             await page.click('[data-test="confirmEndMeeting"]');
             // await page.screenshot({path: 'Logout-clicked.png'});
             
             await page.waitFor(3000);
             await page.screenshot({path: 'images/7-Logout-feedback-screen.png'});
+            await page.waitFor(3000);
             browser.close();
         } catch (error) {
             console.error({ error }, 'Something happened at page');

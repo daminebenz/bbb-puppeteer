@@ -20,7 +20,7 @@ pageTitleCheck.init = puppeteer.launch({
         else {
             console.log('the Page Title check has failed !',evaluatedTitle)
         }
-        await page.waitFor(3000);
+        await page.waitFor(35000);
 
         browser.close();
     });

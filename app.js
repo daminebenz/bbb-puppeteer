@@ -10,6 +10,6 @@ const connectWithMicrophone = require('./tests/connectWithMicrophone');
     await puppeteerA;
     await puppeteerB;
     await connectWithMicrophone;
-    // await sendPrivateMessage;
+    await sendPrivateMessage;
     await sendPublicMessage;
 })();

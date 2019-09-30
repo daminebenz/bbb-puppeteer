@@ -24,7 +24,7 @@ puppeteerA.init = puppeteer.launch({
         await page.waitFor(3000);
         
         await page.evaluate(() => document.querySelectorAll('[aria-label^="Bot-2"]')[0].click());
-        
+
         await page.evaluate( () => 
            document.querySelector('[data-test="dropdownContent"][aria-expanded="true"]')
            .querySelector('[data-test="setPresenter"]')

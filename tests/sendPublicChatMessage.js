@@ -8,6 +8,11 @@ sendPublicMessage.init = puppeteer.launch({
 
         browser.newPage().then(async page => {
         await page.goto(`https://8d1ab45384a1.bbbvm.imdt.com.br/demo/demoHTML5.jsp?username=Messenger1&isModerator=true&action=create`);
+        
+        await page.waitFor('[aria-describedby^="modalDismissDescription"]');
+        await page.click('[aria-describedby^="modalDismissDescription"]');
+        await page.waitFor(3000);
+
         await page.keyboard.type( "message sent", {
             delay: 100
         });
@@ -18,6 +23,9 @@ sendPublicMessage.init = puppeteer.launch({
     
         await page.waitFor(3000);
         await page.screenshot({path: 'images/4-text-message-sent.png'});
+        
+        await page.waitFor(35000)
+
         browser.close();
     });
 });
