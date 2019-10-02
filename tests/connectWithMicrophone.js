@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 
 let connectWithMicrophone = {}
 connectWithMicrophone.init = puppeteer.launch({
-    headless: false,
+    headless: true,
     args: [ '--use-fake-ui-for-media-stream' ]
 }).then(async browser => {
         browser.newPage().then(async page => {
@@ -11,9 +11,8 @@ connectWithMicrophone.init = puppeteer.launch({
 
             await page.waitFor('.icon-bbb-unmute');
             await page.click('.icon-bbb-unmute');
-            await page.waitFor(20000);
-            await page.waitFor('.icon-bbb-thumbs_up');
-            await page.click('.icon-bbb-thumbs_up');
+            await page.waitFor('[aria-label="Echo is audible"]');
+            await page.click('[aria-label="Echo is audible"]');
             await page.screenshot({path: 'images/2-echo-test-thumb-up.png'});
             await page.waitFor(9000);
             await page.screenshot({path: 'images/3-microphone-connection.png'});
@@ -22,16 +21,9 @@ connectWithMicrophone.init = puppeteer.launch({
             await page.click('[aria-label="Options"]');
             await page.screenshot({path: 'images/5-Options-clicked.png'});
             await page.waitFor(3000);
-            await page.waitFor('[aria-labelledby="dropdown-item-label-14"]');
-            await page.click('[aria-labelledby="dropdown-item-label-14"]');
-            await page.screenshot({path: 'images/6-End-Meeting-window.png'});
-            await page.waitFor(35000)
-            await page.waitFor('[data-test="confirmEndMeeting"]');
-            await page.click('[data-test="confirmEndMeeting"]');
-            // await page.screenshot({path: 'Logout-clicked.png'});
-            
-            await page.waitFor(3000);
-            await page.screenshot({path: 'images/7-Logout-feedback-screen.png'});
+            await page.waitFor('[aria-labelledby="dropdown-item-label-16"]');
+            await page.click('[aria-labelledby="dropdown-item-label-16"]');
+            await page.screenshot({path: 'images/6-disconnection-window.png'});
             await page.waitFor(3000);
             browser.close();
         } catch (error) {
@@ -40,7 +32,6 @@ connectWithMicrophone.init = puppeteer.launch({
             await page.waitFor(3000);
             browser.close();
         }
-    
         browser.close();
     });
 
