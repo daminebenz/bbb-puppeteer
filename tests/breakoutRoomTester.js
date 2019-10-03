@@ -15,16 +15,12 @@ breakoutRoomTester.init = puppeteer.launch({
             await pageBreakoutroom.click('[aria-describedby^="modalDismissDescription"]');
             await pageBreakoutroom.waitFor(3000);
 
+            // joining available breakoutrooms sessions
             await pageBreakoutroom.waitFor('[aria-label="Breakout Rooms"]');
             await pageBreakoutroom.click('[aria-label="Breakout Rooms"]');
 
             await pageBreakoutroom.waitFor('[aria-label="Join room 1"]');
             await pageBreakoutroom.click('[aria-label="Join room 1"]');
-
-            // await pageBreakoutroom.waitFor(3000);
-            // await pageBreakoutroom.waitFor('[aria-label="End all breakout rooms"]');
-            // await pageBreakoutroom.waitFor(3000);
-            // await pageBreakoutroom.click('[aria-label="End all breakout rooms"]');
  
             await pageBreakoutroom.waitFor(3000);
             await pageBreakoutroom.waitFor('[aria-describedby^="modalDismissDescription"]');

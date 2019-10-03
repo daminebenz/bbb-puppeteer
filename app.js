@@ -3,21 +3,23 @@ const puppeteerB = require('./tests/puppeteerB');
 const pageTitleCheck = require('./tests/pageTitleCheck');
 const sendPrivateMessage = require('./tests/sendPrivateMessage');
 const sendPublicMessage = require('./tests/sendPublicChatMessage');
-const connectWithMicrophone = require('./tests/connectWithMicrophone');
+const testingAudio = require('./tests/testingAudio');
 const breakoutrooms = require('./tests/breakoutrooms');
 const breakoutRoomTester = require('./tests/breakoutRoomTester');
+const sharedNotes = require('./tests/sharedNotes');
 
 (async () => {
     
     try {
         await pageTitleCheck;
-        await puppeteerA;
-        await puppeteerB;
-        await connectWithMicrophone;
-        await sendPrivateMessage;
-        await sendPublicMessage;
-        await breakoutrooms;
-        await breakoutRoomTester;
+        await puppeteerA;// connecting with Bots and a Moderator1, and setting Messenger2 as a Presenter
+        await puppeteerB;// connecting with a Moderator2 and checking if Bot-1 is available in the Userslist
+        await testingAudio;// connecting with Microphone and testing all available functionalites of the audio use
+        await sendPrivateMessage;// sending private message from Messenger 1 to Messenger 2
+        await sendPublicMessage;// sending public message to public chat
+        await breakoutrooms;// creating breakoutrooms
+        await breakoutRoomTester;// joining an existing Breakoutroom session
+        await sharedNotes;// WIP
     }    
     catch (error){
         console.log({error},'there was an error !')
