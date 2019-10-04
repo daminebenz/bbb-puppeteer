@@ -217,8 +217,8 @@ sharedNotes.init = puppeteer.launch({
         catch (error) {
             console.log({error}, 'there was an error at Shared Notes !');
         }
-        console.log(colors.error(failed+' failed Tests of 12 !'));
-        console.log(colors.info(passed+' passed Tests of 12 !'));
+        console.log(colors.error(failed+' failed Tests of 13 !'));
+        console.log(colors.info(passed+' passed Tests of 13 !'));
         browser.close();
     });
 });
