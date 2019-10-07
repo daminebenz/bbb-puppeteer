@@ -19,7 +19,7 @@ const sharedNotes = require('./tests/sharedNotes');
         await sendPublicMessage;// sending public message to public chat
         await breakoutrooms;// creating breakoutrooms
         await breakoutRoomTester;// joining an existing Breakoutroom session
-        await sharedNotes;// WIP
+        await sharedNotes;// testing all of the functionalities of Shared Notes
     }    
     catch (error){
         console.log({error},'there was an error !')
