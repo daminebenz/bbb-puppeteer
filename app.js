@@ -1,12 +1,12 @@
-const puppeteerA = require('./tests/puppeteerA');
-const puppeteerB = require('./tests/puppeteerB');
-const pageTitleCheck = require('./tests/pageTitleCheck');
-const sendPrivateMessage = require('./tests/sendPrivateMessage');
-const sendPublicMessage = require('./tests/sendPublicChatMessage');
-const testingAudio = require('./tests/testingAudio');
-const breakoutrooms = require('./tests/breakoutrooms');
-const breakoutRoomTester = require('./tests/breakoutRoomTester');
-const sharedNotes = require('./tests/sharedNotes');
+const puppeteerA = require('./tests/puppeteerA.test');
+const puppeteerB = require('./tests/puppeteerB.test');
+const pageTitleCheck = require('./tests/pageTitleCheck.test');
+const sendPrivateMessage = require('./tests/sendPrivateMessage.test');
+const sendPublicMessage = require('./tests/sendPublicChatMessage.test');
+const testingAudio = require('./tests/testingAudio.test');
+const breakoutrooms = require('./tests/breakoutrooms.test');
+const breakoutRoomTester = require('./tests/breakoutRoomTester.test');
+const sharedNotes = require('./tests/sharedNotes.test');
 
 (async () => {
     
