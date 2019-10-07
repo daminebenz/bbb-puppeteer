@@ -34,7 +34,7 @@ sharedNotes.init = puppeteer.launch({
                 
             } catch (error) {
                 failed+=1;
-                console.log(colors.error('Error while opening Shared Notes !',{error}));
+                console.log(colors.error({error},'Error while opening Shared Notes !'));
             }
 
             try{
@@ -47,7 +47,7 @@ sharedNotes.init = puppeteer.launch({
                 
             } catch (error) {
                 failed+=1;
-                console.log(colors.error('Error while trying to write in Shared Notes !',{error}))
+                console.log(colors.error({error},'Error while trying to write in Shared Notes !'))
             }
 
             try {
@@ -65,7 +65,7 @@ sharedNotes.init = puppeteer.launch({
                 console.log(colors.info('Selecting all written shared notes  => Passed '+ passed +' of 13 !'));
             } catch (error) {
                 failed+=1;
-                console.log(colors.error('Error while selecting all written shared notes !',{error}));
+                console.log(colors.error({error},'Error while selecting all written shared notes !'));
             }
 
             try {
@@ -84,7 +84,7 @@ sharedNotes.init = puppeteer.launch({
                 console.log(colors.info('Formatting Shared Notes in Text Bold  => Passed '+ passed +' of 13 !'));
             } catch (error) {
                 failed+=1;
-                console.log(colors.error('Error while formatting Shared Notes in Text Bold !',{error}));
+                console.log(colors.error({error},'Error while formatting Shared Notes in Text Bold !'));
             }
             
             try {
@@ -96,7 +96,7 @@ sharedNotes.init = puppeteer.launch({
                 console.log(colors.info('Hiding Shared Notes  => Passed '+ passed +' of 13 !'));
             } catch (error) {
                 failed+=1;
-                console.log(colors.error('Error while hiding Shared Notes !',{error}));
+                console.log(colors.error({error},'Error while hiding Shared Notes !'));
             }
 
             try {
@@ -108,7 +108,7 @@ sharedNotes.init = puppeteer.launch({
                 console.log(colors.info('Reopening Shared Notes  => Passed '+ passed +' of 13 !'));
             } catch(error){
                 failed+=1;
-                console.log(colors.error('Error while reopening Shared Notes !',{error}));
+                console.log(colors.error({error},'Error while reopening Shared Notes !'));
             }
 
             try {
@@ -126,7 +126,7 @@ sharedNotes.init = puppeteer.launch({
                 console.log(colors.info('Selecting all written shared notes  => Passed '+ passed +' of 13 !'));
             } catch (error){
                 failed+=1;
-                console.log(colors.error('Error while selecting all written shared notes !',{error}));
+                console.log(colors.error({error},'Error while selecting all written shared notes !'));
             }
 
             try {
@@ -138,7 +138,7 @@ sharedNotes.init = puppeteer.launch({
                 console.log(colors.info('Deleting all written shared notes  => Passed '+ passed +' of 13 !'));
             } catch (error) {
                 failed+=1;
-                console.log(colors.error('Error while deleting all written shared notes !',{error}));
+                console.log(colors.error({error},'Error while deleting all written shared notes !'));
             }
 
             try {
@@ -150,7 +150,7 @@ sharedNotes.init = puppeteer.launch({
                 console.log(colors.info('Hiding Shared Notes  => Passed '+ passed +' of 13 !'));
             } catch (error) {
                 failed+=1;
-                console.log(colors.error('Error while hiding Shared Notes !',{error}));
+                console.log(colors.error({error},'Error while hiding Shared Notes !'));
             }
             
             try {
@@ -163,7 +163,7 @@ sharedNotes.init = puppeteer.launch({
                 console.log(colors.info('Reopening Shared Notes  => Passed '+ passed +' of 13 !'));
             } catch(error){
                 failed+=1;
-                console.log(colors.error('Error while reopening Shared Notes !',{error}));
+                console.log(colors.error({error},'Error while reopening Shared Notes !'));
             }
 
             try {
@@ -176,7 +176,7 @@ sharedNotes.init = puppeteer.launch({
                 
             } catch (error) {
                 failed+=1;
-                console.log(colors.error('Error while trying to write in Shared Notes !',{error}))
+                console.log(colors.error({error},'Error while trying to write in Shared Notes !'))
             }
             
             try {
@@ -188,7 +188,7 @@ sharedNotes.init = puppeteer.launch({
                 console.log(colors.info('Hiding Shared Notes  => Passed '+ passed +' of 13 !'));
             } catch (error) {
                 failed+=1;
-                console.log(colors.error('Error while hiding Shared Notes !',{error}));
+                console.log(colors.error({error},'Error while hiding Shared Notes !'));
             }
 
             try {            
@@ -210,7 +210,7 @@ sharedNotes.init = puppeteer.launch({
             }
             catch (error){
                 failed+=1;
-                console.log(colors.error('Error while Exporting Shared Notes as PDF !',{error}))
+                console.log(colors.error({error},'Error while Exporting Shared Notes as PDF !'))
             }
             
         }
