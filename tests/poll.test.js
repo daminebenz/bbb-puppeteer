@@ -18,7 +18,7 @@ poll.init = puppeteer.launch({
         let failed = 0;
         await page.setViewport({ width: 1042, height: 617});
         try {
-            await page.goto(`https://8d1ab45384a1.bbbvm.imdt.com.br/demo/demoHTML5.jsp?username=screenSharingTest&isModerator=true&action=create`, { waitUntil : ['load', 'domcontentloaded']});
+            await page.goto(`https://8d1ab45384a1.bbbvm.imdt.com.br/demo/demoHTML5.jsp?username=PollTest&isModerator=true&action=create`, { waitUntil : ['load', 'domcontentloaded']});
             
             await page.waitFor(3000);
             await page.waitFor('[aria-describedby^="modalDismissDescription"]');
@@ -36,7 +36,7 @@ poll.init = puppeteer.launch({
                 await page.evaluate(()=>document.querySelectorAll('[class="button--Z2dosza md--Q7ug4 default--Z19H5du pollBtn--119tJ5"]')[5].click());
                 await page.waitFor(5000)
                 passed += 1;;
-                console.log(colors.info('Starting Poll => Passed '+ passed +' of 7 !'));
+                console.log(colors.info('Starting Poll => Passed '+ passed +' of 9 !'));
             }
             catch (error){
                 failed+=1;
@@ -48,7 +48,7 @@ poll.init = puppeteer.launch({
                 await page.evaluate(()=>document.querySelectorAll('[class="button--Z2dosza md--Q7ug4 primary--1IbqAO btn--dDLST"]')[0].click());
                 await page.waitFor(3000);
                 passed++;
-                console.log(colors.info('Publishing Poll Results => Passed '+passed+' of 7 !'));
+                console.log(colors.info('Publishing Poll Results => Passed '+passed+' of 9 !'));
             } catch (error) {
                 failed++;
                 console.log(colors.error({error},'Error while Publishing Poll results !'))
@@ -63,7 +63,7 @@ poll.init = puppeteer.launch({
                 await page.click('[aria-labelledby="dropdown-item-label-22"][aria-describedby="dropdown-item-desc-23"]');
                 await page.waitFor(3000);              
                 passed ++;;
-                console.log(colors.info('Starting Poll => Passed '+ passed +' of 7 !'));
+                console.log(colors.info('Starting Poll => Passed '+ passed +' of 9 !'));
             }
             catch (error){
                 failed++;
@@ -72,27 +72,16 @@ poll.init = puppeteer.launch({
 
             try{
                 // Writing custom Poll options
-                await page.waitFor('[class="button--Z2dosza md--Q7ug4 default--Z19H5du customBtn--Z8fMMN"]');
-                await page.click('[class="button--Z2dosza md--Q7ug4 default--Z19H5du customBtn--Z8fMMN"]');
+                await page.waitFor('[aria-label="Custom poll"]');
+                await page.click('[aria-label="Custom poll"]');
                 await page.waitFor(3000);
                 await page.waitFor('[class="pollInput--Z2euEV9"]');
                 await page.click('[class="pollInput--Z2euEV9"]');
-                await page.keyboard.type('Poll option 1 !');
+                await page.keyboard.type('Poll option 1 !',{delay: 100});
                 await page.keyboard.press('Tab');
-                await page.keyboard.type('Poll option 2 !')
+                await page.keyboard.type('Poll option 2 !',{delay: 100})
                 passed++;
-                console.log(colors.info('Writing Poll options => Passed '+passed+' of 7 !'));
-            } catch (error){
-                failed++;
-                console.log(colors.error({error}, 'Error while writing Poll options !'));
-            }
-
-            try {
-                // Starting the custom Poll
-                await page.evaluate(()=>document.querySelectorAll('[class="button--Z2dosza md--Q7ug4 primary--1IbqAO btn--1lLcwA"]')[0].click());
-                await page.waitFor(5000);
-                passed++;
-                console.log(colors.info('Starting the Custom Poll => Passed '+passed+ ' of 7 !'));
+                console.log(colors.info('Writing Poll options => Passed '+passed+' of 9 !'));
             }
             catch(error) {
                 failed++;
@@ -101,11 +90,12 @@ poll.init = puppeteer.launch({
 
             try{
                 // Publishing Poll results
-                await page.waitFor(5000);
-                await page.evaluate(()=>document.querySelectorAll('[class="button--Z2dosza md--Q7ug4 primary--1IbqAO btn--dDLST"]')[0].click());
+                await page.waitFor(3000);
+                await page.waitFor('[aria-label="Start custom poll"]');
+                await page.click('[aria-label="Start custom poll"]');
                 await page.waitFor(3000);
                 passed++;
-                console.log(colors.info('Publishing Poll Results => Passed '+passed+' of 7 !'));
+                console.log(colors.info('Publishing Poll Results => Passed '+passed+' of 9 !'));
             } catch (error) {
                 failed++;
                 console.log(colors.error({error},'Error while Publishing Poll results !'))
@@ -113,21 +103,69 @@ poll.init = puppeteer.launch({
 
             try{
                 // Hiding Poll results from presentation
-                await page.waitFor('[id="tippy-88"]');
-                await page.click('[id="tippy-88"]');
+                await page.waitFor('[aria-label="Clear all annotations"]');
+                await page.click('[aria-label="Clear all annotations"]');
                 passed++;
-                console.log(colors.info('Hiding Poll results => Passed '+passed+' of 7 !'))
+                console.log(colors.info('Hiding Poll results => Passed '+passed+' of 9 !'))
+            } catch(error){
+                failed++;
+                console.log(colors.error({error}, 'Error while hiding Poll results !'))
+            }
+
+            try {
+                // Starting Poll from Uploaded File
+                await page.waitFor('[class="lg--Q7ufB buttonWrapper--x8uow button--ZzeTUF"]');
+                await page.click('[class="lg--Q7ufB buttonWrapper--x8uow button--ZzeTUF"]');
+                await page.waitFor(3000);
+                await page.waitFor('[aria-labelledby="dropdown-item-label-24"][aria-describedby="dropdown-item-desc-25"]');
+                await page.click('[aria-labelledby="dropdown-item-label-24"][aria-describedby="dropdown-item-desc-25"]');
+                await page.waitFor(3000);
+                const fileInput = await page.$('input[type=file]');
+                await fileInput.uploadFile('/home/imdt/puppeteer/files/customPoll.pdf');
+                await page.evaluate(()=>{
+                    document.querySelector('[class="button--Z2dosza md--Q7ug4 primary--1IbqAO confirm--1BlGTz"]')
+                    .click()
+                })
+                await page.waitFor('[aria-label="Quick Poll"]');
+                await page.click('[aria-label="Quick Poll"]');
+                await page.waitFor(3000);
+                await page.evaluate(()=>{document.querySelectorAll('[class="verticalList--Ghtxj"][role="menu"]')[2].click()});
+                passed++;
+                console.log(colors.info('Starting Poll from Uploaded File => Passed '+passed+' of 9 !'))
+            } catch (error) {
+                failed++;
+                console.log(colors.error({error}, 'There was an error when starting Poll from Uploaded File !'))
+            }
+
+            try{
+                // Publishing Poll results
+                await page.waitFor(3000);
+                await page.evaluate(()=>document.querySelectorAll('[class="button--Z2dosza md--Q7ug4 primary--1IbqAO btn--dDLST"]')[0].click());
+                await page.waitFor(3000);
+                passed++;
+                console.log(colors.info('Publishing Poll Results => Passed '+passed+' of 9 !'));
+            } catch (error) {
+                failed++;
+                console.log(colors.error({error},'Error while Publishing Poll results !'))
+            }
+
+            try{
+                // Hiding Poll results from presentation
+                await page.waitFor('[aria-label="Clear all annotations"]');
+                await page.click('[aria-label="Clear all annotations"]');
+                passed++;
+                console.log(colors.info('Hiding Poll results => Passed '+passed+' of 9 !'))
             } catch(error){
                 failed++;
                 console.log(colors.error({error}, 'Error while hiding Poll results !'))
             }
         }
         catch (error) {
-            console.log(colors.warn({error},'There was an error at Polls !'));
+            console.log(colors.warn({error},'There was an error at the Polls test !'));
         }
 
-        console.log(colors.error(failed+' failed Tests of 7 !'));
-        console.log(colors.info(passed+' passed Tests of 7 !'));
+        console.log(colors.error(failed+' failed Tests of 9 !'));
+        console.log(colors.info(passed+' passed Tests of 9 !'));
         browser.close();
     });
 });
