@@ -7,8 +7,8 @@ colors.setTheme({
     warn: 'yellow'
 });
 
-let lock = {}
-lock.init = puppeteer.launch({
+let lockedViewer2 = {}
+lockedViewer2.init = puppeteer.launch({
         headless: false,
         args: [ '--use-fake-ui-for-media-stream' ],
         executablePath: '/usr/bin/google-chrome'
@@ -47,7 +47,6 @@ lock.init = puppeteer.launch({
 
         console.log(colors.error(failed+' failed Tests of 9 !'));
         console.log(colors.info(passed+' passed Tests of 9 !'));
-        browser.close();
     });
 });
-module.exports = lock;
+module.exports = lockedViewer2;

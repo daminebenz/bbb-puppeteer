@@ -7,9 +7,9 @@ colors.setTheme({
     warn: 'yellow'
 });
 
-let lock = {}
-lock.init = puppeteer.launch({
-        headless: false,
+let lockedViewer1 = {}
+lockedViewer1.init = puppeteer.launch({
+        headless: true,
         args: [ '--use-fake-ui-for-media-stream' ],
         executablePath: '/usr/bin/google-chrome'
     }).then(async browser => {
@@ -26,14 +26,7 @@ lock.init = puppeteer.launch({
             await page.waitFor(3000);
         
             try {
-                // WIP                 
-                // WIP                 
-                // WIP                 
-                // WIP                 
-                // WIP                 
-                // WIP                 
-                // WIP                 
-                // WIP                 
+
                 passed++;
                 console.log(colors.info('Logging in with a Viewer'+passed+' of 2 !'));
             }
@@ -48,7 +41,6 @@ lock.init = puppeteer.launch({
 
         console.log(colors.error(failed+' failed Tests of 9 !'));
         console.log(colors.info(passed+' passed Tests of 9 !'));
-        browser.close();
     });
 });
-module.exports = lock;
+module.exports = lockedViewer1;
