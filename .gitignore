@@ -1,2 +1,3 @@
 node_modules
 images
+tests/lockedViewer2.test.js
