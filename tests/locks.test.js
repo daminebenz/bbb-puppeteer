@@ -33,58 +33,67 @@ lock.init = puppeteer.launch({
                 await page.waitFor(3000);
                 await page.evaluate(()=> document.querySelector('i[class~="icon-bbb-lock"]').parentNode.click())
                 await page.waitFor(3000);
+                passed++;
+                console.log(colors.info('Opening Locks Menu => Passed '+passed+' of 4 !'))
+            } catch(error){
+                failed++;
+                console.log(colors.error({error},'Error while opening Locks Menu !'))
+            }
 
-                // Enabling Edit Shared Notes Lock
+            try {
+                // Enabling first unlocked Lock option
                 await page.waitForSelector('[class="react-toggle-track invertBackground--xefHH"]', {timeout: 0});
                 await page.click('[class="react-toggle-track invertBackground--xefHH"]');
-                
                 await page.waitFor(3000);
-                
-                // Applying
+                passed++;
+                console.log(colors.info('Enabling first unlocked Lock option => Passed '+passed+' of 4 !'))
+            } catch(error){
+                failed++;
+                console.log(colors.error({error},'Error while enabling first unlocked Lock option !'))
+            }
+
+            try {
+                // Applying selected Lock options
                 await page.evaluate(
                     ()=>document.querySelectorAll('[class="button--Z2dosza md--Q7ug4 primary--1IbqAO"]')[0]
                     .click()
-                    );
-                        
-                // Looking and Checking if lockedViewer1 is locked or not
-                if(page.evaluate(()=> document.querySelectorAll('[aria-label^="lockedViewer1"]')[0].length > 0)) {
-                    // doing something (WIP)
-                    if(page.evaluate(()=>document.querySelector('[class="icon-bbb-lock"]'))) {
-                        console.log(colors.warn('lockedViewer1 is Locked !'))
-                    } else{
-                        console.log(colors.warn('lockedViewer1 isn\'t Locked !'))
-                    }
-                }
+                );
+                passed++;
+                console.log(colors.info('Applying selected Lock options => Passed '+passed+' of 4 !'))
+            } catch(error){
+                failed++;
+                console.log(colors.error({error},'Error while applying selected Lock options !'))
+            }
 
+            try {
                 // Unlocking lockedViewer1
                 await page.evaluate(() => document.querySelectorAll('[aria-label^="lockedViewer1"]')[0].click());
                 await page.waitFor(5000);
 
-                // Unlocking lockedViewer1 if he's Locked                    
-                let expectedLockButton = 'Unlock lockedViewer1';
-                const unlockButton = page.evaluate(()=>document.getElementsByClassName('span.itemLabel--Z12glHA').innerText);
+                const element = page.waitForSelector('span[class="userNameSub--1RuGj6"] > span');
+                var length = element.length;
 
-                if(expectedLockButton=unlockButton){
-                    page.evaluate(()=> document.querySelectorAll('[class="item--yl1AH"]')[28].click());
-                } else if (unlockButton=null) {
-                    console.log('lockedViewer1 doesn\'t have any Locks activated !')
+                if(length > 0 ){
+                    // Unlock him if he's Locked
+                    await page.evaluate(()=>document.querySelector('i[class="itemIcon--Z207zn1 icon-bbb-unlock"]').click());
+                } else if (length = null ) {
+                    // Lock him if he's Unlocked
+                    await page.evaluate(()=>document.querySelector('i[class="itemIcon--Z207zn1 icon-bbb-lock"]').click());
                 }
-
-                await page.waitFor(3000);
                 passed++;
-                console.log(colors.info('Enabling Share webcam Lock => Passed '+passed+' of 2 !'));
-            }
-            catch (error){
+                console.log(colors.info('Unlocking lockedViewer1 => Passed '+passed+' of 4 !'))
+            } catch(error){
                 failed++;
-                console.log(colors.error({error},'Error while enabling share webcam !'));
+                console.log(colors.error({error},'Error while unlocking lockedViewer1 !'))
             }
         }
         catch (error) {
             console.log(colors.warn({error},'There was an error at the Locks test !'));
         }
 
-        console.log(colors.error(failed+' failed Tests of 9 !'));
-        console.log(colors.info(passed+' passed Tests of 9 !'));
+        console.log(colors.error(failed+' failed Tests of 4 !'));
+        console.log(colors.info(passed+' passed Tests of 4 !'));
+        page.close();
     });
 });
 module.exports = lock;

@@ -21,14 +21,13 @@ lockedViewer1.init = puppeteer.launch({
             await page.goto(`https://8d1ab45384a1.bbbvm.imdt.com.br/demo/demoHTML5.jsp?username=lockedViewer1&isModerator=false&action=create`);
             
             await page.waitFor(3000);
-            await page.waitFor('[aria-describedby^="modalDismissDescription"]');
-            await page.click('[aria-describedby^="modalDismissDescription"]');
+            await page.evaluate(()=>document.querySelector('[aria-describedby^="modalDismissDescription"]').click())
             await page.waitFor(3000);
         
             try {
 
                 passed++;
-                console.log(colors.info('Logging in with a Viewer'+passed+' of 2 !'));
+                console.log(colors.info('Logging in with a Viewer => Passed '+passed+' of 1 !'));
             }
             catch (error){
                 failed++;
@@ -39,8 +38,8 @@ lockedViewer1.init = puppeteer.launch({
             console.log(colors.warn({error},'There was an error at the Locks test !'));
         }
 
-        console.log(colors.error(failed+' failed Tests of 9 !'));
-        console.log(colors.info(passed+' passed Tests of 9 !'));
+        console.log(colors.error(failed+' failed Tests of 1 !'));
+        console.log(colors.info(passed+' passed Tests of 1 !'));
     });
 });
 module.exports = lockedViewer1;
