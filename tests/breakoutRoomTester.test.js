@@ -16,9 +16,7 @@ breakoutRoomTester.init = puppeteer.launch({
             await pageBreakoutroom.waitFor(3000);
 
             // joining available breakoutrooms sessions
-            await pageBreakoutroom.waitFor('[aria-label="Breakout Rooms"]');
-            await pageBreakoutroom.click('[aria-label="Breakout Rooms"]');
-
+            await pageBreakoutroom.evaluate(()=>document.querySelector('i[class="itemIcon--Z207zn1 icon-bbb-rooms"]').parentNode.click());
             await pageBreakoutroom.waitFor('[aria-label="Join room 1"]');
             await pageBreakoutroom.click('[aria-label="Join room 1"]');
  
