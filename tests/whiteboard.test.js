@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const ViewerDrawing = require('./ViewerDrawing.test');
 var colors = require('colors/safe');
 
 colors.setTheme({
@@ -45,7 +46,7 @@ drawer.init = puppeteer.launch({
                 }
                 await page.waitFor(5000);
                 passed++;
-                console.log(colors.info('Drawing => Passed '+passed+' of 2 !'))
+                console.log(colors.info('Drawing => Passed '+passed+' of 4 !'))
             } catch(error){
                 failed++;
                 console.log(colors.error({error},'There was an error while Drawing !'))
@@ -57,7 +58,7 @@ drawer.init = puppeteer.launch({
                 await page.click('[aria-label="Clear all annotations"]');
                 await page.waitFor(3000);
                 passed++;
-                console.log(colors.info('Clear all annotations => Passed '+passed+' of 5 !'))
+                console.log(colors.info('Clear all annotations => Passed '+passed+' of 4 !'))
             } catch(error){
                 failed++;
                 console.log(colors.error({error},'There was an error while clearing all annotations !'));
@@ -80,31 +81,39 @@ drawer.init = puppeteer.launch({
                 const drawingOffset = 15;
                 const steps = 5;
                 for (i = 0; i <= 20; i++) {
-                    await page.mouse.move(bounds.top + (i * drawingOffset), bounds.left + (i * drawingOffset), { steps });
+                    await page.mouse.move(bounds.left + (i * drawingOffset), bounds.top + (i * drawingOffset), { steps });
                     await page.mouse.down();
-                    await page.mouse.move(bounds.bottom + (i * drawingOffset), bounds.left - (i * drawingOffset)), { steps };
+                    await page.mouse.move(bounds.left + (i * drawingOffset), bounds.bottom - (i * drawingOffset)), { steps };
                     await page.mouse.up();
                 }
                 await page.waitFor(3000);
                 passed++;
-                console.log(colors.info('Drawing in Violet color => Passed'+passed+'of 4 !'))
+                console.log(colors.info('Drawing in Violet color => Passed'+passed+' of 4 !'))
             } catch(error){
                 failed++
                 console.log(colors.error({error},'There was an error at drawing in Violet color !'))
             }
             try {
                 // Enabling Multi-User Whiteboard
-                passed;/* WIP */
+                await page.waitFor('[aria-label="Turn multi-user whiteboard on"]');
+                await page.click('[aria-label="Turn multi-user whiteboard on"]');
+                await page.waitFor(3000).then(
+                    await ViewerDrawing
+                )
+                
+                passed++;
+                console.log(colors.info('Enabling Multi-User Whiteboard => Passed '+passed+' of 4 !'))
+                /* WIP */
             } catch (error){
                 failed++;
-                console.log(colors.error({error},'WIP'))
+                console.log(colors.error({error},'There was an error while enabling Multi-User Whiteboard !'))
             }
         } catch (error) {
             console.log(colors.warn({error},'There was an error at clicking Undo button !'));
         }
 
-        console.log(colors.error(failed+' failed Tests of 2 !'));
-        console.log(colors.info(passed+' passed Tests of 2 !'));
+        console.log(colors.error(failed+' failed Tests of 4 !'));
+        console.log(colors.info(passed+' passed Tests of 4 !'));
         browser.close();
     });
 });
