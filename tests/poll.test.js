@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 var colors = require('colors/safe');
+const URL = process.argv[2]
 
 colors.setTheme({
     info: 'green',
@@ -18,7 +19,7 @@ poll.init = puppeteer.launch({
         let failed = 0;
         await page.setViewport({ width: 1042, height: 617});
         try {
-            await page.goto(`https://8d1ab45384a1.bbbvm.imdt.com.br/demo/demoHTML5.jsp?username=PollTest&isModerator=true&action=create`, { waitUntil : ['load', 'domcontentloaded']});
+            await page.goto(`${URL}/demo/demoHTML5.jsp?username=PollTest&isModerator=true&action=create`, { waitUntil : ['load', 'domcontentloaded']});
             
             await page.waitFor(3000);
             await page.waitFor('[aria-describedby^="modalDismissDescription"]');
