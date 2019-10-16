@@ -1,8 +1,3 @@
-
-
-## for single tests
-```node tests/**.test.js ```
-
 # bbb-puppeteer
 
 Puppeteer scripts to test the BigBlueButton client.
