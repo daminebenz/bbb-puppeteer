@@ -7,7 +7,19 @@
 #
 # Description: The following script runs a BBB Test starting from tests/poll.test.js file
 #              and it logs all the Test Log into logs/test-01
+#              
+#              This Test is doing the following:
+#               - Starting a Poll
+#               - Publishing Poll results
+#               - Starting a new Poll
+#               - Writing custom Poll options
+#               - Publishing Poll results
+#               - Hiding Poll results from presentation
+#               - Starting Poll from Uploaded File
+#               - Publishing Poll results
+#               - Hiding Poll results from presentation
 #
+#              
 # Error Log: Any errors or output associated with the script can be found in logs/test-01
 #
 
