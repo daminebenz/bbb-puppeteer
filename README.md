@@ -22,8 +22,6 @@ The basic operation is to run `test-XX.sh`, a BASH script that in turn runs a nu
 `test-XX.sh` uses an environment variable `URL` to connect to the BigBlueButton server.
 
 ~~~
-export URL=https://8d1ab45384a1.bbbvm.imdt.com.br
-~~~
 
 ## Running
 
