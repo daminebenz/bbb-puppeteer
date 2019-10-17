@@ -1,15 +1,23 @@
 const puppeteer = require('puppeteer');
+const URL = process.argv[2]
+
+colors.setTheme({
+    info: 'green',
+    error: 'red',
+    warn: 'yellow'
+});
 
 let puppeteerA = {}
 puppeteerA.init = puppeteer.launch({
     headless: true,
-    args: [ '--use-fake-ui-for-media-stream' ]
+    args: [ '--use-fake-ui-for-media-stream',
+            '--window-size=800,600']
 }).then(async browser => {
     promises = [];
     for(let i = 1; i < 3; i++){
         await promises.push(browser.newPage().then(async page => {
             try{
-                await page.goto(`https://8d1ab45384a1.bbbvm.imdt.com.br/demo/demoHTML5.jsp?username=Bot-${i}&action=create`);
+                await page.goto(`${URL}/demo/demoHTML5.jsp?username=Bot-${i}&action=create`);
                 await page.waitFor('[aria-describedby^="modalDismissDescription"]');
                 await page.click('[aria-describedby^="modalDismissDescription"]');
                 await page.waitFor(3000);
@@ -24,7 +32,7 @@ puppeteerA.init = puppeteer.launch({
     
         browser.newPage().then(async page => {
         try {
-            await page.goto(`https://8d1ab45384a1.bbbvm.imdt.com.br/demo/demoHTML5.jsp?username=Moderator1&isModerator=true&action=create`);
+            await page.goto(`${URL}/demo/demoHTML5.jsp?username=Moderator1&isModerator=true&action=create`);
             
             await page.waitFor(3000);
             await page.waitFor('[aria-describedby^="modalDismissDescription"]');
@@ -43,7 +51,7 @@ puppeteerA.init = puppeteer.launch({
             console.log('Puppeteer A browser closes')
         }
         catch (error) {
-            console.log({error}, 'there was an error at Locating Messenger2 (PuppeteerA)') 
+            console.log(colors.error({error}, 'There was an error locating Messenger2 !'))
         }
         browser.close();
     });

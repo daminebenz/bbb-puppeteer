@@ -1,12 +1,20 @@
 const puppeteer = require('puppeteer');
+const URL = process.argv[2]
+
+colors.setTheme({
+    info: 'green',
+    error: 'red',
+    warn: 'yellow'
+});
 
 let puppeteerB = {}
 puppeteerB.init = puppeteer.launch({
     headless: true,
-    args: [ '--use-fake-ui-for-media-stream' ]
+    args: [ '--use-fake-ui-for-media-stream',
+            '--window-size=800,600']
 }).then(async browser => {
     browser.newPage().then(async page => {
-        await page.goto(`https://8d1ab45384a1.bbbvm.imdt.com.br/demo/demoHTML5.jsp?username=Moderator2&isModerator=true&action=create`);
+        await page.goto(`${URL}/demo/demoHTML5.jsp?username=Moderator2&isModerator=true&action=create`);
         await page.waitFor(3000);
         try { 
             await page.waitFor('[aria-describedby^="modalDismissDescription"]');

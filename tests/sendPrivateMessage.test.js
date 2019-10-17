@@ -1,13 +1,17 @@
 const puppeteer = require('puppeteer');
+const URL = process.argv[2]
 
 let sendPrivateMessage = {}
 sendPrivateMessage.init = puppeteer.launch({
     headless: true,
-    args: [ '--use-fake-ui-for-media-stream' ]
-}).then(async browser => {
+    args: [ '--use-fake-ui-for-media-stream',
+            '--window-size=800,600']
+    }).then(async browser => {
         browser.newPage().then(async page => {
+        let passed = 0;
+        let failed = 0;
         try {
-            await page.goto(`https://8d1ab45384a1.bbbvm.imdt.com.br/demo/demoHTML5.jsp?username=Messenger2&isModerator=true&action=create`);
+            await page.goto(`${URL}/demo/demoHTML5.jsp?username=Messenger2&isModerator=true&action=create`);
             
             await page.waitFor('[aria-describedby^="modalDismissDescription"]');
             await page.click('[aria-describedby^="modalDismissDescription"]');
@@ -33,16 +37,16 @@ sendPrivateMessage.init = puppeteer.launch({
                 () => document.querySelectorAll('[accesskey="G"]')[0]
                 .click());
 
-            await page.waitFor(35000)
+            await page.waitFor(35000);
+            passed++;
+            console.log(colors.info('Locating Messenger1 and Sending him a Private Message => Passed '+passed+' of 1 !'))
         }
         catch (error) {
-            console.log({error}, 'Messenger1 was not found')
-            console.log('Messenger1 browser will close in 5 seconds after finding an error')
-            await page.waitFor(5000);
-            console.log('Messenger1 browser closes')
-            browser.close();
+            failed++;
+            console.log(colors.error({error}, 'There was an Error locating Messenger1 !'))
         }
-
+        console.log(colors.error(failed+' failed Test of 1 !'));
+        console.log(colors.info(passed+' passed Test of 1 !'));
         browser.close();
     });
 

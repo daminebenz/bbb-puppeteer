@@ -11,8 +11,8 @@ colors.setTheme({
 let poll = {}
 poll.init = puppeteer.launch({
         headless: false,
-        args: [ '--use-fake-ui-for-media-stream' ],
-        executablePath: '/usr/bin/google-chrome'
+        args: [ '--use-fake-ui-for-media-stream',
+                '--window-size=800,600']
     }).then(async browser => {
         browser.newPage().then(async page => {
         let passed = 0;
@@ -122,7 +122,7 @@ poll.init = puppeteer.launch({
                 await page.click('[aria-labelledby="dropdown-item-label-24"][aria-describedby="dropdown-item-desc-25"]');
                 await page.waitFor(3000);
                 const fileInput = await page.$('input[type=file]');
-                await fileInput.uploadFile('/home/imdt/puppeteer/files/customPoll.pdf');
+                await fileInput.uploadFile('C:\Users\damin\Desktop\bbb-puppeteer\files\customPoll.pdf');
                 await page.evaluate(()=>{
                     document.querySelector('[class="button--Z2dosza md--Q7ug4 primary--1IbqAO confirm--1BlGTz"]')
                     .click()

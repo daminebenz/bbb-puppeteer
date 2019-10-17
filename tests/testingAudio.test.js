@@ -1,22 +1,25 @@
 const puppeteer = require('puppeteer');
 var colors = require('colors/safe');
+const URL = process.argv[2]
 
 colors.setTheme({
     info: 'green',
-    error: 'red'
+    error: 'red',
+    warn: 'yellow'
 });
 
 let testingAudio = {}
 testingAudio.init = puppeteer.launch({
     headless: false,
-    args: [ '--use-fake-ui-for-media-stream' ]
+    args: [ '--use-fake-ui-for-media-stream',
+            '--window-size=800,600']
     }).then(async browser => {
         browser.newPage().then(async page => {
         let passed = 0;
         let failed = 0;
         try {
             try {
-                await page.goto(`https://8d1ab45384a1.bbbvm.imdt.com.br/demo/demoHTML5.jsp?username=aaaa&isModerator=true&action=create`);
+                await page.goto(`${URL}/demo/demoHTML5.jsp?username=aaaa&isModerator=true&action=create`);
                 // Connecting using Microphone
                 await page.waitFor('[class="jumbo--Z12Rgj4 buttonWrapper--x8uow audioBtn--1H6rCK"]');
                 await page.click('[class="jumbo--Z12Rgj4 buttonWrapper--x8uow audioBtn--1H6rCK"]');

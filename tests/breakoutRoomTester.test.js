@@ -1,4 +1,11 @@
 const puppeteer = require('puppeteer');
+const URL = process.argv[2]
+
+colors.setTheme({
+    info: 'green',
+    error: 'red',
+    warn: 'yellow'
+});
 
 let breakoutRoomTester = {}
 breakoutRoomTester.init = puppeteer.launch({
@@ -9,7 +16,7 @@ breakoutRoomTester.init = puppeteer.launch({
     browser.newPage().then(async pageBreakoutroom => {
         try {
             await pageBreakoutroom.waitFor(10000);
-            await pageBreakoutroom.goto(`https://8d1ab45384a1.bbbvm.imdt.com.br/demo/demoHTML5.jsp?username=breakoutRoomTester&isModerator=true&action=create`);
+            await pageBreakoutroom.goto(`${URL}/demo/demoHTML5.jsp?username=breakoutRoomTester&isModerator=true&action=create`);
             await pageBreakoutroom.waitFor(3000);
             await pageBreakoutroom.waitFor('[aria-describedby^="modalDismissDescription"]');
             await pageBreakoutroom.click('[aria-describedby^="modalDismissDescription"]');

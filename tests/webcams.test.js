@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
-const pptr = require('puppeteer-core');
 var colors = require('colors/safe');
+const URL = process.argv[2]
 
 colors.setTheme({
     info: 'green',
@@ -11,15 +11,15 @@ colors.setTheme({
 let webcams = {}
 webcams.init = puppeteer.launch({
         headless: false,
-        args: [ '--use-fake-ui-for-media-stream' ],
-        executablePath: '/usr/bin/google-chrome'
+        args: [ '--use-fake-ui-for-media-stream',
+                '--window-size=800,600']
     }).then(async browser => {
         browser.newPage().then(async page => {
         let passed = 0;
         let failed = 0;
         await page.setViewport({ width: 1042, height: 617});
         try {
-            await page.goto(`https://8d1ab45384a1.bbbvm.imdt.com.br/demo/demoHTML5.jsp?username=WebcamEnabled&isModerator=true&action=create`, { waitUntil : ['load', 'domcontentloaded']});
+            await page.goto(`${URL}/demo/demoHTML5.jsp?username=WebcamEnabled&isModerator=true&action=create`, { waitUntil : ['load', 'domcontentloaded']});
             
             await page.waitFor(3000);
             await page.waitFor('[aria-describedby^="modalDismissDescription"]');
