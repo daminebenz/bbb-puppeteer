@@ -35,10 +35,10 @@ lock.init = puppeteer.launch({
                 await page.evaluate(()=> document.querySelector('i[class~="icon-bbb-lock"]').parentNode.click())
                 await page.waitFor(3000);
                 passed++;
-                console.log(colors.info('Opening Locks Menu => Passed '+passed+' of 4 !'))
+                console.log(colors.info('    Opening Locks Menu => Passed '+passed+' of 4 !    '))
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'Error while opening Locks Menu !'))
+                console.log(colors.error({error},'    Error while opening Locks Menu !    '))
             }
 
             try {
@@ -47,10 +47,10 @@ lock.init = puppeteer.launch({
                 await page.click('[class="react-toggle-track invertBackground--xefHH"]');
                 await page.waitFor(3000);
                 passed++;
-                console.log(colors.info('Enabling first unlocked Lock option => Passed '+passed+' of 4 !'))
+                console.log(colors.info('    Enabling first unlocked Lock option => Passed '+passed+' of 4 !    '))
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'Error while enabling first unlocked Lock option !'))
+                console.log(colors.error({error},'    Error while enabling first unlocked Lock option !    '))
             }
 
             try {
@@ -60,10 +60,10 @@ lock.init = puppeteer.launch({
                     .click()
                 );
                 passed++;
-                console.log(colors.info('Applying selected Lock options => Passed '+passed+' of 4 !'))
+                console.log(colors.info('    Applying selected Lock options => Passed '+passed+' of 4 !    '))
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'Error while applying selected Lock options !'))
+                console.log(colors.error({error},'    Error while applying selected Lock options !    '))
             }
 
             try {
@@ -82,18 +82,18 @@ lock.init = puppeteer.launch({
                     await page.evaluate(()=>document.querySelector('i[class="itemIcon--Z207zn1 icon-bbb-lock"]').click());
                 }
                 passed++;
-                console.log(colors.info('Unlocking lockedViewer1 => Passed '+passed+' of 4 !'))
+                console.log(colors.info('    Unlocking lockedViewer1 => Passed '+passed+' of 4 !    '))
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'Error while unlocking lockedViewer1 !'))
+                console.log(colors.error({error},'    Error while unlocking lockedViewer1 !    '))
             }
         }
         catch (error) {
-            console.log(colors.warn({error},'There was an error at the Locks test !'));
+            console.log(colors.warn({error},'    There was an error at the Locks test !    '));
         }
 
-        console.log(colors.error(failed+' failed Tests of 4 !'));
-        console.log(colors.info(passed+' passed Tests of 4 !'));
+        console.log(colors.error('   '+failed+' failed Tests of 4 !    '));
+        console.log(colors.info('   '+passed+' passed Tests of 4 !    '));
         page.close();
     });
 });

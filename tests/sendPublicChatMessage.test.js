@@ -37,14 +37,14 @@ sendPublicMessage.init = puppeteer.launch({
             
             await page.waitFor(35000)
             passed++;
-            console.log(colors.info('Sending a Public Message => Passed '+passed+' of 1 !'))
+            console.log(colors.info('    Sending a Public Message => Passed '+passed+' of 1 !    '))
         }
         catch (error) {
             failed++;
-            console.log(colors.error({error}, 'there was an error sending a Public Chat Message'))
+            console.log(colors.error({error}, '    There was an error sending a Public Chat Message !    '))
         }
-        console.log(colors.error(failed+' failed Test of 1 !'));
-        console.log(colors.info(passed+' passed Test of 1 !'));
+        console.log(colors.error('   '+failed+' failed Test of 1 !    '));
+        console.log(colors.info('   '+passed+' passed Test of 1 !    '));
         browser.close();
     });
 });

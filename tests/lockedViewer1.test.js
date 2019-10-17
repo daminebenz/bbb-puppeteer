@@ -28,19 +28,19 @@ lockedViewer1.init = puppeteer.launch({
             try {
 
                 passed++;
-                console.log(colors.info('Logging in with a Viewer => Passed '+passed+' of 1 !'));
+                console.log(colors.info('    Logging in with a Viewer => Passed '+passed+' of 1 !    '));
             }
             catch (error){
                 failed++;
-                console.log(colors.error({error},'Error while logging in with a ViewerLocked1 !'));
+                console.log(colors.error({error},'    Error while logging in with a ViewerLocked1 !    '));
             }
         }
         catch (error) {
-            console.log(colors.warn({error},'There was an error at the Locks test !'));
+            console.log(colors.warn({error},'    There was an error at the Locks test !    '));
         }
 
-        console.log(colors.error(failed+' failed Tests of 1 !'));
-        console.log(colors.info(passed+' passed Tests of 1 !'));
+        console.log(colors.error('   '+failed+' failed Tests of 1 !    '));
+        console.log(colors.info('   '+passed+' passed Tests of 1 !    '));
     });
 });
 module.exports = lockedViewer1;

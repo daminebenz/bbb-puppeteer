@@ -38,11 +38,11 @@ webcams.init = puppeteer.launch({
                 await page.click('[class="button--Z2dosza md--Q7ug4 primary--1IbqAO"]');
                 await page.waitFor(9000);
                 passed += 1;
-                console.log(colors.info('Enabling Webcams => Passed '+ passed +' of 4 !'));
+                console.log(colors.info('    Enabling Webcams => Passed '+ passed +' of 4 !    '));
             }
             catch (error){
                 failed+=1;
-                console.log(colors.error({error},'Error while enabling Webcams !'));
+                console.log(colors.error({error},'    Error while enabling Webcams !    '));
             }
             
             try {
@@ -50,10 +50,10 @@ webcams.init = puppeteer.launch({
                 await page.evaluate(()=> document.querySelectorAll('[data-test="presentationFullscreenButton"]')[1].click());
                 await page.waitFor(9000);
                 passed++;
-                console.log(colors.info('Enabling full screen Webcams => Passed '+passed+' of 4 !'));
+                console.log(colors.info('    Enabling full screen Webcams => Passed '+passed+' of 4 !    '));
             } catch (error) {
                 failed++;
-                console.log(colors.error({error},'Error while full screen Webcams !'));
+                console.log(colors.error({error},'    Error while full screen Webcams !    '));
             }
 
             try {
@@ -61,10 +61,10 @@ webcams.init = puppeteer.launch({
                 await page.waitFor(9000);
                 await page.evaluate(()=> document.querySelectorAll('[data-test="presentationFullscreenButton"]')[1].click());
                 passed++;
-                console.log(colors.info('Leaving Webcam Full Screen => Passed '+passed+' of 4 !'));
+                console.log(colors.info('    Leaving Webcam Full Screen => Passed '+passed+' of 4 !    '));
             } catch (error){
                 failed++;
-                console.log(colors.error({error},'Error while leaving full screen !'));
+                console.log(colors.error({error},'    Error while leaving full screen !    '));
             }
             
             try {
@@ -72,18 +72,18 @@ webcams.init = puppeteer.launch({
                 await page.waitFor('[class="lg--Q7ufB buttonWrapper--x8uow button--qv0Xy"]');
                 await page.click('[class="lg--Q7ufB buttonWrapper--x8uow button--qv0Xy"]')
                 passed++;
-                console.log(colors.info('Disabling Webcam => Passed '+passed+' of 4'))
+                console.log(colors.info('Disabling Webcam => Passed '+passed+' of 4 !    '))
             } catch (error) {
                 failed++;
-                console.log(colors.error({error},'Error while disabling Webcam !'))
+                console.log(colors.error({error},'    Error while disabling Webcam !    '))
             }
         }
         catch (error) {
-            console.log(colors.warn({error},'There was an error at Webcams !'));
+            console.log(colors.warn({error},'    There was an error at Webcams !    '));
         }
 
-        console.log(colors.error(failed+' failed Tests of 4 !'));
-        console.log(colors.info(passed+' passed Tests of 4 !'));
+        console.log(colors.error('   '+failed+' failed Tests of 4 !    '));
+        console.log(colors.info('   '+passed+' passed Tests of 4 !    '));
         browser.close();
     });
 });

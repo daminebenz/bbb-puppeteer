@@ -35,10 +35,10 @@ externalVideos.init = puppeteer.launch({
                 await page.evaluate(()=> document.querySelector('[class="button--Z2dosza md--Q7ug4 default--Z19H5du startBtn--ZifpQ9"]').click());
                 await page.waitFor(5000);
                 passed++;
-                console.log(colors.info('Open and start external Video => Passed '+passed+' of 2 !'))
+                console.log(colors.info('    Open and start external Video => Passed '+passed+' of 2 !    '))
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'There was an error while Opening and starting external Video !'))
+                console.log(colors.error({error},'    There was an error while Opening and starting external Video !    '))
             }
             
             try{
@@ -46,19 +46,19 @@ externalVideos.init = puppeteer.launch({
                 await page.evaluate(()=> document.querySelector('[class="icon--2q1XXw icon-bbb-plus"]').parentNode.click());
                 await page.evaluate(()=> document.querySelectorAll('[class="item--yl1AH"]')[9].click());
                 passed++;
-                console.log(colors.info('Stop external Video Sharing => Passed '+passed+' of 2 !'))
+                console.log(colors.info('    Stop external Video Sharing => Passed '+passed+' of 2 !    '))
 
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'There was an error while stopping external Video Sharing !'))
+                console.log(colors.error({error},'    There was an error while stopping external Video Sharing !    '))
             }
 
         } catch (error) {
-            console.log(colors.warn({error},'There was an error at the External Videos Test !'));
+            console.log(colors.warn({error},'    There was an error at the External Videos Test !    '));
         }
 
-        console.log(colors.error(failed+' failed Tests of 2 !'));
-        console.log(colors.info(passed+' passed Tests of 2 !'));
+        console.log(colors.error('   '+failed+' failed Tests of 2 !    '));
+        console.log(colors.info('   '+passed+' passed Tests of 2 !    '));
         browser.close();
     });
 });

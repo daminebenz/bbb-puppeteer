@@ -49,17 +49,17 @@ ViewerDrawing.init = puppeteer.launch({
                 process.exit();
                 await page.waitFor(5000);
                 passed++;
-                console.log(colors.info('Drawing as Viewer => Passed'+passed+' of 1 !'))
+                console.log(colors.info('    Drawing as Viewer => Passed'+passed+' of 1 !    '))
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'There was an error while trying to draw as a Viewer !'))
+                console.log(colors.error({error},'    There was an error while trying to draw as a Viewer !    '))
             }
 
         } catch (error) {
-            console.log(colors.warn({error},'There was an error at Viewer Drawing Test !'));
+            console.log(colors.warn({error},'    There was an error at Viewer Drawing Test !    '));
         }
-        console.log(colors.error(failed+' failed Test of 1 !'));
-        console.log(colors.info(passed+' passed Test of 1 !'));
+        console.log(colors.error('   '+failed+' failed Test of 1 !    '));
+        console.log(colors.info('   '+passed+' passed Test of 1 !    '));
         browser.close();
     });
 });

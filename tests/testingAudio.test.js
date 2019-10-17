@@ -25,11 +25,11 @@ testingAudio.init = puppeteer.launch({
                 await page.click('[class="jumbo--Z12Rgj4 buttonWrapper--x8uow audioBtn--1H6rCK"]');
                 await page.screenshot({path: 'images/3-microphone-connection.png'});
                 passed += 1;
-                console.log(colors.info('Connecting using Microphone  => Passed '+ passed +' of 7 !'));
+                console.log(colors.info('    Connecting using Microphone  => Passed '+ passed +' of 7 !    '));
                 
             } catch (error) {
                 failed+=1;
-                console.log(colors.error('Error while connecting using Microphone !',{error}));
+                console.log(colors.error({error},'    Error while connecting using Microphone !    '));
             }
 
             try {
@@ -39,11 +39,11 @@ testingAudio.init = puppeteer.launch({
                 await page.screenshot({path: 'images/2-echo-test-thumb-up.png'});
                 await page.waitFor(9000);
                 passed += 1;
-                console.log(colors.info('Echo test  => Passed '+ passed +' of 7 !'));
+                console.log(colors.info('    Echo test  => Passed '+ passed +' of 7 !    '));
                 
             } catch (error) {
                 failed+=1;
-                console.log(colors.error('Error while echo test !',{error}));
+                console.log(colors.error({error},'    Error while echo test !    '));
             }
 
             try {
@@ -53,11 +53,11 @@ testingAudio.init = puppeteer.launch({
                 await page.waitFor(9000);
                 await page.screenshot({path: 'images/Microphone-muted.png'});
                 passed += 1;
-                console.log(colors.info('Muting Microphone  => Passed '+ passed +' of 7 !'));
+                console.log(colors.info('    Muting Microphone  => Passed '+ passed +' of 7 !    '));
                 
             } catch (error) {
                 failed+=1;
-                console.log(colors.error('Error while muting Microphone !',{error}));
+                console.log(colors.error({error},'    Error while muting Microphone !    '));
             }
 
             try {
@@ -67,11 +67,11 @@ testingAudio.init = puppeteer.launch({
                 await page.waitFor(9000);
                 await page.screenshot({path: 'images/Microphone-unmuted.png'});                
                 passed += 1;
-                console.log(colors.info('Unmuting Microphone  => Passed '+ passed +' of 7 !'));
+                console.log(colors.info('    Unmuting Microphone  => Passed '+ passed +' of 7 !    '));
                 
             } catch (error) {
                 failed+=1;
-                console.log(colors.error('Error while unmuting Microphone !',{error}));
+                console.log(colors.error({error},'    Error while unmuting Microphone !    '));
             }
 
             try {
@@ -81,11 +81,11 @@ testingAudio.init = puppeteer.launch({
                 await page.waitFor(9000);
                 await page.screenshot({path:'images/Leaving-audio.png'});
                 passed += 1;
-                console.log(colors.info('Leaving Audio  => Passed '+ passed +' of 7 !'));
+                console.log(colors.info('    Leaving Audio  => Passed '+ passed +' of 7 !    '));
                 
             } catch (error) {
                 failed+=1;
-                console.log(colors.error('Error while leaving Audio !',{error}));
+                console.log(colors.error({error},'    Error while leaving Audio !    '));
             }
 
             try {
@@ -95,11 +95,11 @@ testingAudio.init = puppeteer.launch({
                 await page.waitFor(9000);
                 await page.screenshot({path: 'images/joining-audio-again.png'});
                 passed += 1;
-                console.log(colors.info('Rejoining audio  => Passed '+ passed +' of 7 !'));
+                console.log(colors.info('    Rejoining audio  => Passed '+ passed +' of 7 !    '));
                 
             } catch (error) {
                 failed+=1;
-                console.log(colors.error('Error while rejoining audio !',{error}));
+                console.log(colors.error({error},'    Error while rejoining audio !    '));
             }
 
             try {
@@ -109,20 +109,19 @@ testingAudio.init = puppeteer.launch({
                 await page.waitFor(9000);
                 await page.screenshot({path: 'images/Listen-only-mode.png'});    
                 passed += 1;
-                console.log(colors.info('Connecting with Listen Only Mode  => Passed '+ passed +' of 7 !'));
+                console.log(colors.info('    Connecting with Listen Only Mode  => Passed '+ passed +' of 7 !    '));
                 
             } catch (error) {
                 failed+=1;
-                console.log(colors.error('Error while connecting with Listen Only Mode !',{error}));
+                console.log(colors.error({error},'    Error while connecting with Listen Only Mode !    '));
             }
             await page.waitFor(3000);
-            // Test Results =>
-            console.log(colors.error(failed+' failed Tests of 7 !'));
-            console.log(colors.info(passed+' passed Tests of 7 !'));    
-            browser.close();
         }
         catch (error) {
-            console.log({error}, 'There was an error !');
+            console.log({error}, '    There was an error !    ');
         }
+        console.log(colors.error('   '+failed+' failed Tests of 7 !    '));
+        console.log(colors.info('   '+passed+' passed Tests of 7 !    '));    
+        browser.close();
     })})
 module.exports= testingAudio;

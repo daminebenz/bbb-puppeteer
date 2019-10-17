@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# Script Name: test-01.sh
+# Script Name: test-05.sh
 #
 # Author: Mohamed Amine Ben Salah
 # Date : 16/10/2019
 #
 # Description: The following script runs a BBB Test starting from tests/poll.test.js file
-#              and it logs all the Test Log into logs/test-01
+#              and it logs all the Test Log into logs/test-05
 #              
 #              This Test is doing the following:
 #               - Starting a Poll
@@ -20,31 +20,29 @@
 #               - Hiding Poll results from presentation
 #
 #              
-# Error Log: Any errors or output associated with the script can be found in logs/test-01
+# Error Log: Any errors or output associated with the script can be found in logs/test-05
 #
 
-
-
-# deleting log file content at the start of the test
-echo -n "" > logs/test-01
-
-# defining URL link
+# Defining URL link
 if [ -z "$1" ]
-then   
+then
 
         echo -e "Enter BBB Base Server URL:"
         read URL
         echo "Running your Test in : $URL"
 
         if [ -z "$URL" ]
-        then   
+        then
                 echo "URL required"
                 exit 1
         fi
 
-fi   
+fi
 
 echo "Executing..."
 
-# logging log into a log file
-node tests/poll.test.js $URL >> logs/test-01
+PASS=0
+FAIL=0 
+env PASS=$PASS FAIL=$FAIL node tests/poll.test.js $URL > logs/test-05 2> logs/test-05-error
+echo "Successful Tests => $passed of 9 !"
+echo "Failed Tests => $failed of 9 !"

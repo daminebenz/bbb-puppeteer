@@ -37,7 +37,7 @@ drawer.init = puppeteer.launch({
                 const steps = 5;
 
                 for (i = 0; i <= 20; i++) {
-                    console.log(`Picasso is drawing for the ${i+1} time`);
+                    console.log(`    Picasso is drawing for the ${i+1} time !    `);
                     await page.mouse.move(bounds.left + (i * drawingOffset), bounds.top + (i * drawingOffset), { steps });
                     await page.mouse.down();
                     await page.mouse.move(bounds.left + (i * drawingOffset), bounds.bottom - (i * drawingOffset)), { steps };
@@ -50,18 +50,18 @@ drawer.init = puppeteer.launch({
                 process.exit();
                 await page.waitFor(5000);
                 passed++;
-                console.log(colors.info('Drawing => Passed '+passed+' of 2 !'))
+                console.log(colors.info('    Drawing => Passed '+passed+' of 2 !    '))
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'There was an error while Drawing !'))
+                console.log(colors.error({error},'    There was an error while Drawing !    '))
             }
 
         } catch (error) {
-            console.log(colors.warn({error},'There was an error at Drawing Test !'));
+            console.log(colors.warn({error},'    There was an error at Drawing Test !    '));
         }
 
-        console.log(colors.error(failed+' failed Tests of 2 !'));
-        console.log(colors.info(passed+' passed Tests of 2 !'));
+        console.log(colors.error('   '+failed+' failed Tests of 2 !    '));
+        console.log(colors.info('   '+passed+' passed Tests of 2 !    '));
         browser.close();
     });
 });

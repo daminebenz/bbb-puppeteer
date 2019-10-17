@@ -89,10 +89,10 @@ drawer.init = puppeteer.launch({
                 }
                 await page.waitFor(3000);
                 passed++;
-                console.log(colors.info('Drawing in Violet color => Passed'+passed+' of 4 !'))
+                console.log(colors.info('    Drawing in Violet color => Passed'+passed+' of 4 !    '))
             } catch(error){
                 failed++
-                console.log(colors.error({error},'There was an error at drawing in Violet color !'))
+                console.log(colors.error({error},'    There was an error at drawing in Violet color !    '))
             }
             try {
                 // Enabling Multi-User Whiteboard
@@ -103,18 +103,18 @@ drawer.init = puppeteer.launch({
                 )
                 
                 passed++;
-                console.log(colors.info('Enabling Multi-User Whiteboard => Passed '+passed+' of 4 !'))
+                console.log(colors.info('    Enabling Multi-User Whiteboard => Passed '+passed+' of 4 !    '))
                 /* WIP */
             } catch (error){
                 failed++;
-                console.log(colors.error({error},'There was an error while enabling Multi-User Whiteboard !'))
+                console.log(colors.error({error},'    There was an error while enabling Multi-User Whiteboard !    '))
             }
         } catch (error) {
-            console.log(colors.warn({error},'There was an error at clicking Undo button !'));
+            console.log(colors.warn({error},'    There was an error at clicking Undo button !    '));
         }
 
-        console.log(colors.error(failed+' failed Tests of 4 !'));
-        console.log(colors.info(passed+' passed Tests of 4 !'));
+        console.log(colors.error('   '+failed+' failed Tests of 4 !    '));
+        console.log(colors.info('   '+passed+' passed Tests of 4 !    '));
         browser.close();
     });
 });

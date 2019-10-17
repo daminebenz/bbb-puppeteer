@@ -32,11 +32,11 @@ sharedNotes.init = puppeteer.launch({
                 await page.waitFor(3000);
                 await page.screenshot({path: 'images/shared-notes-clicked.png'});
                 passed += 1;
-                console.log(colors.info('Opening Shared Notes  => Passed '+ passed +' of 13 !'));
+                console.log(colors.info('    Opening Shared Notes  => Passed '+ passed +' of 13 !    '));
                 
             } catch (error) {
                 failed+=1;
-                console.log(colors.error({error},'Error while opening Shared Notes !'));
+                console.log(colors.error({error},'    Error while opening Shared Notes !    '));
             }
 
             try{
@@ -45,11 +45,11 @@ sharedNotes.init = puppeteer.launch({
                     delay: 100
                 });
                 passed+=1;
-                console.log(colors.info('Writing in Shared Notes  => Passed '+passed+' of 13 !'));
+                console.log(colors.info('    Writing in Shared Notes  => Passed '+passed+' of 13 !    '));
                 
             } catch (error) {
                 failed+=1;
-                console.log(colors.error({error},'Error while trying to write in Shared Notes !'))
+                console.log(colors.error({error},'    Error while trying to write in Shared Notes !    '))
             }
 
             try {
@@ -64,10 +64,10 @@ sharedNotes.init = puppeteer.launch({
                     delay: 100
                 });
                 passed += 1;
-                console.log(colors.info('Selecting all written shared notes  => Passed '+ passed +' of 13 !'));
+                console.log(colors.info('    Selecting all written shared notes  => Passed '+ passed +' of 13 !    '));
             } catch (error) {
                 failed+=1;
-                console.log(colors.error({error},'Error while selecting all written shared notes !'));
+                console.log(colors.error({error},'    Error while selecting all written shared notes !    '));
             }
 
             try {
@@ -83,10 +83,10 @@ sharedNotes.init = puppeteer.launch({
                 });
 
                 passed += 1;
-                console.log(colors.info('Formatting Shared Notes in Text Bold  => Passed '+ passed +' of 13 !'));
+                console.log(colors.info('    Formatting Shared Notes in Text Bold  => Passed '+ passed +' of 13 !    '));
             } catch (error) {
                 failed+=1;
-                console.log(colors.error({error},'Error while formatting Shared Notes in Text Bold !'));
+                console.log(colors.error({error},'    Error while formatting Shared Notes in Text Bold !    '));
             }
             
             try {
@@ -95,10 +95,10 @@ sharedNotes.init = puppeteer.launch({
                 await page.click('[aria-label="Hide note"][class="button--Z2dosza md--Q7ug4 default--Z19H5du hideBtn--2kqDJM"]');
                 await page.waitFor(3000);
                 passed += 1;
-                console.log(colors.info('Hiding Shared Notes  => Passed '+ passed +' of 13 !'));
+                console.log(colors.info('    Hiding Shared Notes  => Passed '+ passed +' of 13 !    '));
             } catch (error) {
                 failed+=1;
-                console.log(colors.error({error},'Error while hiding Shared Notes !'));
+                console.log(colors.error({error},'    Error while hiding Shared Notes !    '));
             }
 
             try {
@@ -107,10 +107,10 @@ sharedNotes.init = puppeteer.launch({
                 await page.click('[class="noteLink--1Xz6Lp"]');
                 await page.waitFor(3000);
                 passed+=1;
-                console.log(colors.info('Reopening Shared Notes  => Passed '+ passed +' of 13 !'));
+                console.log(colors.info('    Reopening Shared Notes  => Passed '+ passed +' of 13 !    '));
             } catch(error){
                 failed+=1;
-                console.log(colors.error({error},'Error while reopening Shared Notes !'));
+                console.log(colors.error({error},'    Error while reopening Shared Notes !    '));
             }
 
             try {
@@ -125,10 +125,10 @@ sharedNotes.init = puppeteer.launch({
                     delay: 100
                 });
                 passed+=1;
-                console.log(colors.info('Selecting all written shared notes  => Passed '+ passed +' of 13 !'));
+                console.log(colors.info('    Selecting all written shared notes  => Passed '+ passed +' of 13 !    '));
             } catch (error){
                 failed+=1;
-                console.log(colors.error({error},'Error while selecting all written shared notes !'));
+                console.log(colors.error({error},'    Error while selecting all written shared notes !    '));
             }
 
             try {
@@ -137,10 +137,10 @@ sharedNotes.init = puppeteer.launch({
                     delay: 100
                 });
                 passed+=1;
-                console.log(colors.info('Deleting all written shared notes  => Passed '+ passed +' of 13 !'));
+                console.log(colors.info('    Deleting all written shared notes  => Passed '+ passed +' of 13 !    '));
             } catch (error) {
                 failed+=1;
-                console.log(colors.error({error},'Error while deleting all written shared notes !'));
+                console.log(colors.error({error},'    Error while deleting all written shared notes !    '));
             }
 
             try {
@@ -149,10 +149,10 @@ sharedNotes.init = puppeteer.launch({
                 await page.click('[aria-label="Hide note"][class="button--Z2dosza md--Q7ug4 default--Z19H5du hideBtn--2kqDJM"]');
                 await page.waitFor(3000);
                 passed+=1;
-                console.log(colors.info('Hiding Shared Notes  => Passed '+ passed +' of 13 !'));
+                console.log(colors.info('    Hiding Shared Notes  => Passed '+ passed +' of 13 !    '));
             } catch (error) {
                 failed+=1;
-                console.log(colors.error({error},'Error while hiding Shared Notes !'));
+                console.log(colors.error({error},'    Error while hiding Shared Notes !    '));
             }
             
             try {
@@ -162,10 +162,10 @@ sharedNotes.init = puppeteer.launch({
                 await page.waitFor(3000);
                 await page.screenshot({path: 'images/shared-notes-clicked.png'});
                 passed+=1;
-                console.log(colors.info('Reopening Shared Notes  => Passed '+ passed +' of 13 !'));
+                console.log(colors.info('    Reopening Shared Notes  => Passed '+ passed +' of 13 !    '));
             } catch(error){
                 failed+=1;
-                console.log(colors.error({error},'Error while reopening Shared Notes !'));
+                console.log(colors.error({error},'    Error while reopening Shared Notes !    '));
             }
 
             try {
@@ -174,11 +174,11 @@ sharedNotes.init = puppeteer.launch({
                     delay: 100
                 });
                 passed+=1;
-                console.log(colors.info('Writing in Shared Notes  => Passed '+passed+' of 13 !'));
+                console.log(colors.info('    Writing in Shared Notes  => Passed '+passed+' of 13 !    '));
                 
             } catch (error) {
                 failed+=1;
-                console.log(colors.error({error},'Error while trying to write in Shared Notes !'))
+                console.log(colors.error({error},'    Error while trying to write in Shared Notes !    '))
             }
             
             try {
@@ -187,10 +187,10 @@ sharedNotes.init = puppeteer.launch({
                 await page.click('[aria-label="Hide note"][class="button--Z2dosza md--Q7ug4 default--Z19H5du hideBtn--2kqDJM"]');
                 await page.waitFor(3000);
                 passed+=1;
-                console.log(colors.info('Hiding Shared Notes  => Passed '+ passed +' of 13 !'));
+                console.log(colors.info('    Hiding Shared Notes  => Passed '+ passed +' of 13 !    '));
             } catch (error) {
                 failed+=1;
-                console.log(colors.error({error},'Error while hiding Shared Notes !'));
+                console.log(colors.error({error},'    Error while hiding Shared Notes !    '));
             }
 
             try {            
@@ -208,19 +208,19 @@ sharedNotes.init = puppeteer.launch({
                 await page.waitFor('a[id="#exportpdfa"]');
                 await page.click('a[id="#exportpdfa"]');
                 passed += 1;
-                console.log(colors.info('Exporting as PDF => Passed '+ passed +' of 13 !'));
+                console.log(colors.info('    Exporting as PDF => Passed '+ passed +' of 13 !    '));
             }
             catch (error){
                 failed+=1;
-                console.log(colors.error({error},'Error while Exporting Shared Notes as PDF !'))
+                console.log(colors.error({error},'    Error while Exporting Shared Notes as PDF !    '))
             }
             
         }
         catch (error) {
-            console.log({error}, 'there was an error at Shared Notes !');
+            console.log({error}, '    There was an error at Shared Notes !    ');
         }
-        console.log(colors.error(failed+' failed Tests of 13 !'));
-        console.log(colors.info(passed+' passed Tests of 13 !'));
+        console.log(colors.error('   '+failed+' failed Tests of 13 !    '));
+        console.log(colors.info('   '+passed+' passed Tests of 13 !    '));
         browser.close();
     });
 });

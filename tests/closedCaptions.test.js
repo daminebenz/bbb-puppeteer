@@ -31,10 +31,10 @@ closedCaptions.init = puppeteer.launch({
                 await page.evaluate(()=>document.querySelectorAll('[class="icon--2q1XXw icon-bbb-settings"]')[0].click());
                 await page.waitFor(3000);
                 passed++;
-                console.log(colors.info('Opening Closed Captions Menu => Passed '+passed+' of 5 !'))
+                console.log(colors.info('    Opening Closed Captions Menu => Passed '+passed+' of 5 !    '))
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'There was an error while '))
+                console.log(colors.error({error},'    There was an error while opening the Closed Captions Menu !    '))
             }
 
             try{
@@ -44,10 +44,10 @@ closedCaptions.init = puppeteer.launch({
                 await page.click('[class="button--Z2dosza md--Q7ug4 default--Z19H5du startBtn--21jNH1"]');
                 await page.waitFor(3000);
                 passed++;
-                console.log(colors.info('Starting Closed Captions => Passed '+passed+' of 5 !'))
+                console.log(colors.info('    Starting Closed Captions => Passed '+passed+' of 5 !    '))
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'There was an error while starting Closed Captions !'))
+                console.log(colors.error({error},'    There was an error while starting Closed Captions !    '))
             }
 
             try{
@@ -55,10 +55,10 @@ closedCaptions.init = puppeteer.launch({
                 await page.keyboard.type('This is a Closed Caption Text !',{delay: 100})
                 await page.waitFor(3000);
                 passed++;
-                console.log(colors.info('Writing in Closed Captions => Passed '+passed+' of 5 !'))
+                console.log(colors.info('    Writing in Closed Captions => Passed '+passed+' of 5 !    '))
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'There was an error while writing in Closed Captions !'))
+                console.log(colors.error({error},'    There was an error while writing in Closed Captions !    '))
             }
 
             try{
@@ -70,10 +70,10 @@ closedCaptions.init = puppeteer.launch({
                 await page.click('[data-l10n-id="pad.importExport.exportpdf"]');
                 await page.waitFor(3000);
                 passed++;
-                console.log(colors.info('Exporting Closed Captions as PDF => Passed '+passed+' of 5 !'))
+                console.log(colors.info('    Exporting Closed Captions as PDF => Passed '+passed+' of 5 !    '))
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'There was an error while export Closed Captions as PDF !'))
+                console.log(colors.error({error},'    There was an error while export Closed Captions as PDF !    '))
             }
 
             try{
@@ -82,17 +82,17 @@ closedCaptions.init = puppeteer.launch({
                 await page.click('[class="button--Z2dosza md--Q7ug4 default--Z19H5du hideBtn--Zyj8Gc"]');
                 await page.waitFor(3000);
                 passed++;
-                console.log(colors.info('Hiding Closed Captions => Passed '+passed+' of 5 !'))
+                console.log(colors.info('    Hiding Closed Captions => Passed '+passed+' of 5 !    '))
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'There was an error while Hiding Closed Captions !'))
+                console.log(colors.error({error},'    There was an error while Hiding Closed Captions !    '))
             }
 
         } catch (error) {
-            console.log(colors.warn({error},'There was an error at the Locks test !'));
+            console.log(colors.warn({error},'    There was an error at the Locks test !    '));
         }
-        console.log(colors.error(failed+' failed Tests of 5 !'));
-        console.log(colors.info(passed+' passed Tests of 5 !'));
+        console.log(colors.error('   '+failed+' failed Tests of 5 !    '));
+        console.log(colors.info('   '+passed+' passed Tests of 5 !    '));
         page.waitFor(50000);
     });
 });

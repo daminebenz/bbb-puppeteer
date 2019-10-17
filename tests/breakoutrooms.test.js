@@ -47,7 +47,7 @@ breakoutrooms.init = puppeteer.launch({
             await page.click('[aria-label="Join room 1"]');
 
             await page.waitFor(30000);
-            await page.waitFor('[aria-label="End all breakout rooms"]',console.log('BreakOutRoom1 will close in 3 seconds'));
+            await page.waitFor('[aria-label="End all breakout rooms"]');
             await page.waitFor(3000);
             await page.click('[aria-label="End all breakout rooms"]');
             await page.bringToFront();
@@ -56,12 +56,17 @@ breakoutrooms.init = puppeteer.launch({
             await page.waitFor('[aria-describedby^="modalDismissDescription"]');
             await page.click('[aria-describedby^="modalDismissDescription"]');
             await page.waitFor(3000);
+            passed++;
+            console.log(colors.info({error},'    BreakoutRooms Test => Passed '+passed+' of 1 !    '))
         }   
         catch(error){
-            console.log({error}, 'there was an error !')
+            failed++;
+            console.log(colors.error({error}, '    There was an error !    '))
         }
         /* WIP */
         await page.waitFor(50000);
+        console.log(colors.error('   '+failed+' failed Test of 1 !    '));
+        console.log(colors.info('   '+passed+' passed Test of 1 !    '));
         // browser.close();
     });
 })

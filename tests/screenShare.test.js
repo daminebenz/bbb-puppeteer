@@ -32,10 +32,10 @@ screenShare.init = puppeteer.launch({
                 });
                 await page.waitFor(10000);
                 passed++;
-                console.log(colors.info('Starting Screen Sharing => Passed '+passed+' of 4 !'));
+                console.log(colors.info('    Starting Screen Sharing => Passed '+passed+' of 4 !    '));
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'There was an error while starting Screen Sharing !'));
+                console.log(colors.error({error},'    There was an error while starting Screen Sharing !    '));
             }
 
             try {
@@ -44,10 +44,10 @@ screenShare.init = puppeteer.launch({
                 await page.click('[aria-label="Make Screen share fullscreen"]');
                 await page.waitFor(5000);
                 passed++;
-                console.log(colors.info('Make Screen Share in Full Screen => Passed '+passed+' of 4 !'));
+                console.log(colors.info('    Make Screen Share in Full Screen => Passed '+passed+' of 4 !    '));
             } catch (error){
                 failed++;
-                console.log(colors.error({error},'There was an error while Making the Screen Share in Full Screen !'));
+                console.log(colors.error({error},'    There was an error while Making the Screen Share in Full Screen !    '));
             }
 
             try {
@@ -55,10 +55,10 @@ screenShare.init = puppeteer.launch({
                 await page.keyboard.press('Escape');
                 await page.waitFor(5000);
                 passed++;
-                console.log(colors.info('Leave Screen Share Full Screen => Passed '+passed+' of 4 !'));
+                console.log(colors.info('    Leave Screen Share Full Screen => Passed '+passed+' of 4 !    '));
             } catch (error){
                 failed++;
-                console.log(colors.error({error},'There was an error while leaving the Screen Share Full Screen !'));
+                console.log(colors.error({error},'    There was an error while leaving the Screen Share Full Screen !    '));
             }
 
             try {
@@ -70,17 +70,17 @@ screenShare.init = puppeteer.launch({
                 });
                 await page.waitFor(5000);
                 passed++;
-                console.log(colors.info('Stopping Screen Sharing => Passed '+passed+' of 4 !'))
+                console.log(colors.info('    Stopping Screen Sharing => Passed '+passed+' of 4 !    '))
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'There was an error while stopping Screen Sharing !'))
+                console.log(colors.error({error},'    There was an error while stopping Screen Sharing !    '))
             }
         } catch (error) {
-            console.log(colors.warn({error},'There was an error at Screen Sharing Test !'));
+            console.log(colors.warn({error},'    There was an error at Screen Sharing Test !    '));
         }
 
-        console.log(colors.error(failed+' failed Tests of 4 !'));
-        console.log(colors.info(passed+' passed Tests of 4 !'));
+        console.log(colors.error('   '+failed+' failed Tests of 4 !    '));
+        console.log(colors.info('   '+passed+' passed Tests of 4 !    '));
         browser.close();
     });
 });

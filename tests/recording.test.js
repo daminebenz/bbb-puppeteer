@@ -34,10 +34,10 @@ recording.init = puppeteer.launch({
                 await page.click('[class="button--Z2dosza md--Q7ug4 primary--1IbqAO button--Z28qGla"]');
                 await page.waitFor(5000);
                 passed++;
-                console.log(colors.info('Start recording the Meeting => Passed '+passed+' of 2 !'))
+                console.log(colors.info('    Start recording the Meeting => Passed '+passed+' of 2 !    '))
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'There was an error while starting recording the Meeting !'))
+                console.log(colors.error({error},'    There was an error while starting recording the Meeting !    '))
             }
 
             try{
@@ -48,18 +48,18 @@ recording.init = puppeteer.launch({
                 await page.waitFor('[class="button--Z2dosza md--Q7ug4 primary--1IbqAO button--Z28qGla"]');
                 await page.click('[class="button--Z2dosza md--Q7ug4 primary--1IbqAO button--Z28qGla"]');
                 passed++;
-                console.log(colors.info('Pause recording the Meeting => Passed '+passed+' of 2 !'))
+                console.log(colors.info('    Pause recording the Meeting => Passed '+passed+' of 2 !    '))
             } catch(error){
                 failed++;
-                console.log(colors.error({error},'There was an error while pausing recording the Meeting !'))
+                console.log(colors.error({error},'    There was an error while pausing recording the Meeting !    '))
             }
 
         } catch (error) {
-            console.log(colors.warn({error},'There was an error at the Locks test !'));
+            console.log(colors.warn({error},'    There was an error at the Locks test !    '));
         }
 
-        console.log(colors.error(failed+' failed Tests of 2 !'));
-        console.log(colors.info(passed+' passed Tests of 2 !'));
+        console.log(colors.error('   '+failed+' failed Tests of 2 !    '));
+        console.log(colors.info('   '+passed+' passed Tests of 2 !    '));
         page.close();
     });
 });
