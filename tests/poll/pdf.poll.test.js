@@ -1,12 +1,14 @@
-const puppeteer = require('puppeteer');
-var colors = require('colors/safe');
-const URL = process.argv[2];
+// File name: Poll Creation from PDF file
+// Test Description:
+//      1) Upload a PDF to the Presentation
+//      2) Starting a Poll from Options available in the PDF file
+//      3) Publish Poll Result
+//
 
-colors.setTheme({
-    info: 'green',
-    error: 'red',
-    warn: 'yellow'
-});
+const puppeteer = require('puppeteer');
+const URL = process.argv[2];
+var path = require('path');     
+const pdf = path.join(__dirname,'../../files/customPoll.pdf');
 
 let poll = {}
 poll.init = puppeteer.launch({
@@ -30,7 +32,8 @@ poll.init = puppeteer.launch({
             await page.click('[aria-labelledby="dropdown-item-label-24"][aria-describedby="dropdown-item-desc-25"]');
             await page.waitFor(3000);
             const fileInput = await page.$('input[type=file]');
-            await fileInput.uploadFile('../files/customPoll.pdf');
+            
+            await fileInput.uploadFile(pdf);
             await page.evaluate(()=>{
                 document.querySelector('[class="button--Z2dosza md--Q7ug4 primary--1IbqAO confirm--1BlGTz"]')
                 .click()
@@ -50,7 +53,7 @@ poll.init = puppeteer.launch({
             await page.click('[aria-label="Clear all annotations"]');
             process.exit(0);
         } catch (error){
-            console.log(colors.error({error}))
+            console.log({error})
             process.exit(1);
         }
     browser.close();

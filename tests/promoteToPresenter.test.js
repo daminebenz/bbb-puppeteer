@@ -1,12 +1,6 @@
 const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 
-colors.setTheme({
-    info: 'green',
-    error: 'red',
-    warn: 'yellow'
-});
-
 let promoteToPresenter = {}
 promoteToPresenter.init = puppeteer.launch({
     headless: true,
@@ -30,14 +24,12 @@ promoteToPresenter.init = puppeteer.launch({
         .querySelector('[data-test="setPresenter"]')
             .click()
         );
-        passed++;
-        console.log(colors.info('    Promoting Messenger2 to Presenter => Passed '+passed+' of 1 !    '))
+        process.exit[0]
     }
     catch (error) {
-        console.log(colors.error({error}, '    There was an error locating Messenger2 !    '))
+        console.log({error})
+        process.exit[1]
     }
-    console.log(colors.error('   '+failed+' failed Tests of 4 !    '));
-    console.log(colors.info('   '+passed+' passed Tests of 4 !    '));
     browser.close();
 });
 })

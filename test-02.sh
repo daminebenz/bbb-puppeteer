@@ -33,14 +33,14 @@ run(){
     fi
 
     echo "Executing..."
-    node $file $URL &> logs/test-05-error echo $?
+    node $file $URL &> logs/test-02-error echo $?
         if [ $? -eq 0 ]
                 then
                 echo "The Test was succesfully ran !"
                 exit 0
                 else
                 echo "There was an error while running your Test !" >&2
-                echo "The ERROR log is written to logs/test-05-error !"
+                echo "The ERROR log is written to logs/test-02-error !"
                 exit 1
         fi
 }
@@ -49,22 +49,17 @@ while true
 do
 echo "Choose one of the Poll Tests to run ?"
 
-select option in 'Normal Poll' 'Custom Poll' 'PDF Poll' 'No, I do not want to run any Test !' 
+select option in 'Create Breakoutrooms' 'Join Breakoutrooms' 'No, I do not want to run any Test !' 
 do
 
 case $option in
-'Normal Poll')
-file=tests/poll/poll.poll.test.js
+'Create Breakoutrooms')
+file=tests/breakout/create.breakout.test.js
 run
 ;;
 
-'Custom Poll')
-file=tests/poll/custom.poll.test.js
-run
-;;
-
-'PDF Poll')
-file=tests/poll/pdf.poll.test.js
+'Join Breakoutrooms')
+file=tests/breakout/join.breakout.test.js
 run
 ;;
 

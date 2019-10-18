@@ -8,8 +8,6 @@ sendPrivateMessage.init = puppeteer.launch({
             '--window-size=800,600']
     }).then(async browser => {
         browser.newPage().then(async page => {
-        let passed = 0;
-        let failed = 0;
         try {
             await page.goto(`${URL}/demo/demoHTML5.jsp?username=Messenger2&isModerator=true&action=create`);
             
@@ -38,15 +36,12 @@ sendPrivateMessage.init = puppeteer.launch({
                 .click());
 
             await page.waitFor(35000);
-            passed++;
-            console.log(colors.info('    Locating Messenger1 and Sending him a Private Message => Passed '+passed+' of 1 !    '))
+            process.exit[0]
         }
         catch (error) {
-            failed++;
-            console.log(colors.error({error}, '    There was an Error locating Messenger1 !    '))
+            console.log({error})
+            process.exit[1]
         }
-        console.log(colors.error('   '+failed+' failed Test of 1 !    '));
-        console.log(colors.info('   '+passed+' passed Test of 1 !    '));
         browser.close();
     });
 

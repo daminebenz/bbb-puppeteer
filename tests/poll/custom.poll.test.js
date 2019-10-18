@@ -1,12 +1,12 @@
-const puppeteer = require('puppeteer');
-var colors = require('colors/safe');
-const URL = process.argv[2];
+// File name: Custom Poll Creation
+// Test Description:
+//      1) Create a Custom Poll
+//      2) Typing Custom Poll options
+//      3) Publish Poll Result
+//
 
-colors.setTheme({
-    info: 'green',
-    error: 'red',
-    warn: 'yellow'
-});
+const puppeteer = require('puppeteer');
+const URL = process.argv[2];
 
 let poll = {}
 poll.init = puppeteer.launch({
@@ -52,7 +52,7 @@ poll.init = puppeteer.launch({
             await page.click('[aria-label="Clear all annotations"]');
             process.exit(0);
         } catch (error){
-            console.log(colors.error({error}))
+            console.log({error})
             process.exit(1);
         }
     browser.close();

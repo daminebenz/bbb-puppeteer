@@ -1,12 +1,11 @@
-const puppeteer = require('puppeteer');
-var colors = require('colors/safe');
-const URL = process.argv[2];
+// File name: Normal Poll Creation
+// Test Description:
+//      1) Starting a normal Poll
+//      2) Publishing Poll Result
+//
 
-colors.setTheme({
-    info: 'green',
-    error: 'red',
-    warn: 'yellow'
-});
+const puppeteer = require('puppeteer');
+const URL = process.argv[2];
 
 let poll = {}
 poll.init = puppeteer.launch({
@@ -40,10 +39,10 @@ poll.init = puppeteer.launch({
             // Hiding Poll results from presentation
             await page.waitFor('[aria-label="Clear all annotations"]');
             await page.click('[aria-label="Clear all annotations"]');
-            process.exit(0);
+            process.exit[0];
         } catch (error){
-            console.log(colors.error({error}))
-            process.exit(1);
+            console.log({error})
+            process.exit[1];
         }
     browser.close();
     })

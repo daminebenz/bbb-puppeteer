@@ -1,27 +1,31 @@
+// File name: BreakoutRoom Creation
+// Test Description:
+//      1) Create Breakoutrooms
+//      2) Join Breakout room 1
+//      3) End Breakoutrooms
+//
+
 const puppeteer = require('puppeteer');
 const URL = process.argv[2]
-
-colors.setTheme({
-    info: 'green',
-    error: 'red',
-    warn: 'yellow'
-});
 
 let breakoutrooms = {}
 breakoutrooms.init = puppeteer.launch({
     headless: true,
     args: [ '--use-fake-ui-for-media-stream',
             '--window-size=800,600']
-}).then(async browser => {
+    }).then(async browser => {
     browser.newPage().then(async page => {
-        let passed = 0;
-        let failed = 0;
         await page.goto(`${URL}/demo/demoHTML5.jsp?username=breakoutroomUser&isModerator=true&action=create`);
         await page.waitFor(3000);
         await page.waitFor('[aria-describedby^="modalDismissDescription"]');
         await page.click('[aria-describedby^="modalDismissDescription"]');
         await page.waitFor(3000);
-
+        for(let i = 1; i < 3; i++){
+            await page.goto(`${URL}/demo/demoHTML5.jsp?username=Bot-${i}&action=create&isModerator=false`);
+            await page.waitFor('[aria-describedby^="modalDismissDescription"]');
+            await page.click('[aria-describedby^="modalDismissDescription"]');
+            await page.waitFor(3000);
+        }
         try {
             await page.evaluate( () => 
             document.querySelectorAll('[aria-label="Manage users"]')[0]
@@ -36,7 +40,7 @@ breakoutrooms.init = puppeteer.launch({
             await page.waitFor('[aria-label="Randomly assign"]');
             await page.click('[aria-label="Randomly assign"]');
 
-            await page.waitFor(400);
+            await page.waitFor(500);
             await page.waitFor('[data-test="modalConfirmButton"]');
             await page.click('[data-test="modalConfirmButton"]');
 
@@ -46,7 +50,9 @@ breakoutrooms.init = puppeteer.launch({
             await page.waitFor('[aria-label="Join room 1"]');
             await page.click('[aria-label="Join room 1"]');
 
+            // End breakoutrooms after 33 seconds
             await page.waitFor(30000);
+
             await page.waitFor('[aria-label="End all breakout rooms"]');
             await page.waitFor(3000);
             await page.click('[aria-label="End all breakout rooms"]');
@@ -56,18 +62,14 @@ breakoutrooms.init = puppeteer.launch({
             await page.waitFor('[aria-describedby^="modalDismissDescription"]');
             await page.click('[aria-describedby^="modalDismissDescription"]');
             await page.waitFor(3000);
-            passed++;
-            console.log(colors.info({error},'    BreakoutRooms Test => Passed '+passed+' of 1 !    '))
+            process.exit(0);
         }   
         catch(error){
-            failed++;
-            console.log(colors.error({error}, '    There was an error !    '))
+            console.log({error})
+            process.exit(1);
         }
-        /* WIP */
         await page.waitFor(50000);
-        console.log(colors.error('   '+failed+' failed Test of 1 !    '));
-        console.log(colors.info('   '+passed+' passed Test of 1 !    '));
-        // browser.close();
+        browser.close();
     });
 })
 module.exports = breakoutrooms;

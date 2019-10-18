@@ -1,11 +1,11 @@
+// File name: Joining existing BreakoutRooms
+// Test Description:
+//      1) Opening BreakoutRooms Menu
+//      2) Joining Breakout room 1
+//
+
 const puppeteer = require('puppeteer');
 const URL = process.argv[2]
-
-colors.setTheme({
-    info: 'green',
-    error: 'red',
-    warn: 'yellow'
-});
 
 let breakoutRoomTester = {}
 breakoutRoomTester.init = puppeteer.launch({
@@ -14,8 +14,6 @@ breakoutRoomTester.init = puppeteer.launch({
             '--window-size=800,600']
 }).then(async browser => {
     browser.newPage().then(async page => {
-        let passed = 0;
-        let failed = 0;
         try {
             await page.waitFor(10000);
             await page.goto(`${URL}/demo/demoHTML5.jsp?username=breakoutRoomTester&isModerator=true&action=create`);
@@ -33,16 +31,13 @@ breakoutRoomTester.init = puppeteer.launch({
             await page.waitFor('[aria-describedby^="modalDismissDescription"]');
             await page.click('[aria-describedby^="modalDismissDescription"]');
             await page.waitFor(3000);
-            passed++;
-            console.log(colors.info('    Joining existing Breakoutrooms => Passed '+passed+' of 1 !'))
+            process.exit(0);
         }
         catch(error){
-            failed++;
-            console.log(colors.error({error}, '    There was an error !    '))
+            console.log({error})
+            process.exit(1);
         }
         await page.waitFor(50000);
-        console.log(colors.error('   '+failed+' failed Test of 1 !'));
-        console.log(colors.info('   '+passed+' passed Test of 1 !'));
         browser.close();
     });
 })

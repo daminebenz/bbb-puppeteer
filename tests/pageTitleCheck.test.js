@@ -1,12 +1,6 @@
 const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 
-colors.setTheme({
-    info: 'green',
-    error: 'red',
-    warn: 'yellow'
-});
-
 let pageTitleCheck = {}
 pageTitleCheck.init = puppeteer.launch({
     headless: true,
@@ -14,27 +8,21 @@ pageTitleCheck.init = puppeteer.launch({
             '--window-size=800,600']
 }).then(async browser => {
     browser.newPage().then(async page => {
-        let passed=0;
-        let failed=0;
-        try {        
-            // checking if the meeting name is the same as from the API Mate configuration
-            await page.goto(`${URL}/demo/demoHTML5.jsp?username=Checker&isModerator=true&action=create`);
-            await page.waitFor(3000);
-            const Title = await page.waitForSelector('title').innerHTML;
-            
-            const expectedMeetingName = 'BigBlueButton - Demo Meeting';
-            
-            if (Title = expectedMeetingName) {console.log('    The Page Title check has passed !    ')}
-            else {
-                console.log('    The Page Title check has failed !    ',Title)
-            }
-            await page.waitFor(35000);
+        // checking if the meeting name is the same as from the API Mate configuration
+        await page.goto(`${URL}/demo/demoHTML5.jsp?username=Checker&isModerator=true&action=create`);
+        await page.waitFor(3000);
+        const title = await page.waitForSelector('title').innerHTML;
+        const expectedMeetingName = 'BigBlueButton - Demo Meeting';
+        
+        if (title === expectedMeetingName) {
+            process.exit[0]
         }
-        catch(error){
-            console.log({error}, '    There was an error !    ')
+        else {
+            console.log('There was an error, The title you are checking is different from what the page Title is !');
+            process.exit[1]
         }
-        console.log(colors.error('   '+failed+' failed Tests of 4 !    '));
-        console.log(colors.info('   '+passed+' passed Tests of 4 !    '));
+        await page.waitFor(35000);
+
         browser.close();
     });
     
