@@ -5,44 +5,73 @@
 # Author: Mohamed Amine Ben Salah
 # Date : 16/10/2019
 #
-# Description: The following script runs a BBB Test starting from tests/poll.test.js file
+# Description: The following script runs a BBB Test starting from 3 different files (tests/poll/**.poll.test.js)
 #              and it logs all the Test Log into logs/test-05
 #              
-#              This Test is doing the following:
-#               - Starting a Poll
-#               - Publishing Poll results
-#               - Starting a new Poll
-#               - Writing custom Poll options
-#               - Publishing Poll results
-#               - Hiding Poll results from presentation
-#               - Starting Poll from Uploaded File
-#               - Publishing Poll results
-#               - Hiding Poll results from presentation
+#              This script is to chose from the following tests:
+#               - Running a normal Poll
+#               - Running a customized Poll
+#               - Running a Poll with options from a PDF file
 #
 #              
 # Error Log: Any errors or output associated with the script can be found in logs/test-05
 #
 
-# Defining URL link
-if [ -z "$1" ]
-then
+run(){
+    # Defining URL link
+    if [ -z "$1" ]
+    then
+            echo -e "Enter BBB Base Server URL:"
+            read URL
+            echo "Running your Test in : $URL"
 
-        echo -e "Enter BBB Base Server URL:"
-        read URL
-        echo "Running your Test in : $URL"
+            if [ -z "$URL" ]
+            then
+                    echo "URL required"
+                    exit 1
+            fi
+    fi
 
-        if [ -z "$URL" ]
-        then
-                echo "URL required"
+    echo "Executing..."
+    node $file $URL &> logs/test-05-error echo $?
+        if [ $? -eq 0 ]
+                then
+                echo "The Test was succesfully ran !"
+                exit 0
+                else
+                echo "There was an error while running your Test !" >&2
                 exit 1
         fi
+}
 
-fi
+while true
+do
+echo "Choose one of the Poll Tests to run ?"
 
-echo "Executing..."
+select option in 'Normal Poll' 'Custom Poll' 'PDF Poll' 'No, I do not want to run any Test !' 
+do
 
-PASS=0
-FAIL=0 
-env PASS=$PASS FAIL=$FAIL node tests/poll.test.js $URL > logs/test-05 2> logs/test-05-error
-echo "Successful Tests => $passed of 9 !"
-echo "Failed Tests => $failed of 9 !"
+case $option in
+'Normal Poll')
+file=tests/poll/poll.poll.test.js
+run
+;;
+
+'Custom Poll')
+file=tests/poll/custom.poll.test.js
+run
+;;
+
+'PDF Poll')
+file=tests/poll/pdf.poll.test.js
+run
+;;
+
+'No, I do not want to run any Test !')
+echo "Remember ! You can run the Tests anytime !" 
+exit
+;;
+esac
+done
+
+done
