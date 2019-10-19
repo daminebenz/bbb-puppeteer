@@ -1,3 +1,9 @@
+// File name: Public Chat
+// Test Description:
+//      1) Writing Public Chat Message
+//      2) Sending Message to Public Chat
+//
+
 const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 
@@ -15,17 +21,16 @@ sendPublicMessage.init = puppeteer.launch({
             await page.click('[aria-describedby^="modalDismissDescription"]');
             await page.waitFor(3000);
 
+            // Writing Public Chat Message
             await page.keyboard.type( "message sent", {
                 delay: 100
             });
 
+            // Sending Message to Public Chat
             await page.keyboard.press('Enter', {
                 delay: 100
             });
-        
-            await page.waitFor(3000);
-            await page.screenshot({path: 'images/4-text-message-sent.png'});
-            
+                    
             await page.waitFor(35000)
             process.exit[0]
         }

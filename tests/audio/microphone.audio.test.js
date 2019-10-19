@@ -1,3 +1,12 @@
+// File name: Microphone Connection
+// Test Description:
+//      1) Connecting using Microphone
+//      2) Echo test
+//      3) Muting Microphone
+//      4) Unmuting Microphone
+//      5) Leaving Audio
+//
+
 const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 
@@ -10,6 +19,7 @@ testingAudio.init = puppeteer.launch({
         browser.newPage().then(async page => {
         try {
             await page.goto(`${URL}/demo/demoHTML5.jsp?username=aaaa&isModerator=true&action=create`);
+
             // Connecting using Microphone
             await page.waitFor('[class="jumbo--Z12Rgj4 buttonWrapper--x8uow audioBtn--1H6rCK"]');
             await page.click('[class="jumbo--Z12Rgj4 buttonWrapper--x8uow audioBtn--1H6rCK"]');
@@ -38,19 +48,6 @@ testingAudio.init = puppeteer.launch({
             await page.click('button[aria-label="Leave audio"][class="lg--Q7ufB buttonWrapper--x8uow button--295UAi"]');
             await page.waitFor(9000);
             await page.screenshot({path:'images/Leaving-audio.png'});
-
-            // Rejoining audio
-            await page.waitFor('button[aria-label="Join audio"][class="lg--Q7ufB buttonWrapper--x8uow button--295UAi btn--Z12eHso"]');
-            await page.click('button[aria-label="Join audio"][class="lg--Q7ufB buttonWrapper--x8uow button--295UAi btn--Z12eHso"]');
-            await page.waitFor(9000);
-            await page.screenshot({path: 'images/joining-audio-again.png'});
-
-            // Connecting with Listen Only Mode
-            await page.waitFor('button[aria-label="Listen only"][class="jumbo--Z12Rgj4 buttonWrapper--x8uow audioBtn--1H6rCK"]');
-            await page.click('button[aria-label="Listen only"][class="jumbo--Z12Rgj4 buttonWrapper--x8uow audioBtn--1H6rCK"]');
-            await page.waitFor(9000);
-            await page.screenshot({path: 'images/Listen-only-mode.png'});    
-            await page.waitFor(3000);
             process.exit[0]
         }
         catch (error) {

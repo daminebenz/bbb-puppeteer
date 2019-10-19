@@ -1,3 +1,10 @@
+// File name: Full Screen Webcam
+// Test Description:
+//      1) Enabling webcam
+//      2) Enabling full screen Webcam
+//      3) Leaving Webcam Full Screen
+//
+
 const puppeteer = require('puppeteer');
 const URL = process.argv[2];
 
@@ -17,7 +24,7 @@ webcams.init = puppeteer.launch({
             await page.click('[aria-describedby^="modalDismissDescription"]');
             await page.waitFor(3000);
 
-            // Enabling webcams
+            // Enabling webcam
             await page.waitFor(9000);
             await page.waitFor('[class="lg--Q7ufB buttonWrapper--x8uow button--qv0Xy btn--29prju"]');
             await page.click('[class="lg--Q7ufB buttonWrapper--x8uow button--qv0Xy btn--29prju"]');
@@ -28,17 +35,13 @@ webcams.init = puppeteer.launch({
             await page.click('[class="button--Z2dosza md--Q7ug4 primary--1IbqAO"]');
             await page.waitFor(9000);
 
-            // Enabling full screen Webcams
+            // Enabling full screen Webcam
             await page.evaluate(()=> document.querySelectorAll('[data-test="presentationFullscreenButton"]')[1].click());
             await page.waitFor(9000);
 
             // Leaving Webcam Full Screen
             await page.waitFor(9000);
             await page.evaluate(()=> document.querySelectorAll('[data-test="presentationFullscreenButton"]')[1].click());
-
-            // Disabling Webcam
-            await page.waitFor('[class="lg--Q7ufB buttonWrapper--x8uow button--qv0Xy"]');
-            await page.click('[class="lg--Q7ufB buttonWrapper--x8uow button--qv0Xy"]')
             process.exit[0]
         }
         catch (error) {

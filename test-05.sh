@@ -8,7 +8,7 @@
 # Description: The following script runs a BBB Test starting from 3 different files (tests/poll/**.poll.test.js)
 #              and it logs all the Test Log into logs/test-05-error
 #              
-#              This script is to chose from the following tests:
+#              This script is to choose from the following tests:
 #               - Running a normal Poll
 #               - Running a customized Poll
 #               - Running a Poll with options from a PDF file
@@ -47,7 +47,7 @@ run(){
 
 while true
 do
-echo "Choose one of the Poll Tests to run ?"
+echo "Choose a test to run ?"
 
 select option in 'Normal Poll' 'Custom Poll' 'PDF Poll' 'No, I do not want to run any Test !' 
 do

@@ -1,0 +1,15 @@
+{ error: Error: Evaluation failed: TypeError: Cannot read property 'click' of undefined
+    at __puppeteer_evaluation_script__:1:81
+    at ExecutionContext._evaluateInternal (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\ExecutionContext.js:122:13)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+  -- ASYNC --
+    at ExecutionContext.<anonymous> (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\helper.js:111:15)
+    at DOMWorld.evaluate (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\DOMWorld.js:112:20)
+    at <anonymous>
+  -- ASYNC --
+    at Frame.<anonymous> (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\helper.js:111:15)
+    at Page.evaluate (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\Page.js:833:43)
+    at Page.<anonymous> (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\helper.js:112:23)
+    at browser.newPage.then (C:\Users\damin\Desktop\bbb-puppeteer\tests\webcam\fullscreen.webcam.test.js:39:24)
+    at <anonymous> }

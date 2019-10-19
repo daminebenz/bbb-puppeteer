@@ -1,5 +1,13 @@
+// File name: Moderator Drawing
+// Test Description:
+//      1) Drawing
+//      2) Clear all annotations
+//      3) Drawing in Violet color
+//      4) Enabling Multi-User Whiteboard
+//
+
 const puppeteer = require('puppeteer');
-const ViewerDrawing = require('./ViewerDrawing.test');
+const ViewerDrawing = require('./ViewerDrawing.whiteboard.test');
 const URL = process.argv[2]
 
 let drawer = {}

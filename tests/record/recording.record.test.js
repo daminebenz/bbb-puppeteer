@@ -1,3 +1,9 @@
+// File name: Record Meeting
+// Test Description:
+//      1) Start recording the Meeting
+//      2) Pause recording the Meeting
+//
+
 const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 

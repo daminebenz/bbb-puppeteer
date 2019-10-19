@@ -1,3 +1,8 @@
+// File name: Check Page Title
+// Test Description:
+//      1) Checking Page Title if conforms the API Mate Meeting Title
+//
+
 const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 
@@ -8,7 +13,7 @@ pageTitleCheck.init = puppeteer.launch({
             '--window-size=800,600']
 }).then(async browser => {
     browser.newPage().then(async page => {
-        // checking if the meeting name is the same as from the API Mate configuration
+        // Checking if the meeting name is the same as from the API Mate configuration
         await page.goto(`${URL}/demo/demoHTML5.jsp?username=Checker&isModerator=true&action=create`);
         await page.waitFor(3000);
         const title = await page.waitForSelector('title').innerHTML;

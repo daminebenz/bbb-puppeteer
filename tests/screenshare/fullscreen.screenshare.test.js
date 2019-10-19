@@ -1,3 +1,10 @@
+// File name: Full Screen Screen
+// Test Description:
+//      1) Starting Screen Sharing
+//      2) Make Screen Share Full Screen
+//      3) Leave Screen Share Full Screen
+//
+
 const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 
@@ -32,13 +39,6 @@ screenShare.init = puppeteer.launch({
             await page.keyboard.press('Escape');
             await page.waitFor(5000);
 
-            // Stopping Screen Sharing
-            await page.waitForSelector('[aria-label="Stop sharing your screen"]');
-            await page.click('[aria-label="Stop sharing your screen"]');
-            page.on('dialog', async dialog => {
-                await dialog.accept();
-            });
-            await page.waitFor(5000);
             process.exit[0]
         } catch (error) {
             console.log({error});
@@ -47,4 +47,4 @@ screenShare.init = puppeteer.launch({
         browser.close();
     });
 });
-module.exports = screenShare;
+module.exports = fullScreenShare;
