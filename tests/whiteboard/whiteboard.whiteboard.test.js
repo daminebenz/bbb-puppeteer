@@ -58,14 +58,10 @@ drawer.init = puppeteer.launch({
             await page.waitFor('rect[fill="#8800ff"]');
             await page.click('rect[fill="#8800ff"]');
             await page.waitFor(3000);
-            const whiteboard = await page.$('div[role=presentation]');                
-            await page.waitFor(3000);
-            const bounds = await page.evaluate((whiteboard) => {
+            await page.evaluate((whiteboard) => {
                 const { top, left, bottom, right } = whiteboard.getBoundingClientRect();
                 return { top, left, bottom, right };
               }, whiteboard);
-            const drawingOffset = 15;
-            const steps = 5;
             for (i = 0; i <= 20; i++) {
                 await page.mouse.move(bounds.left + (i * drawingOffset), bounds.top + (i * drawingOffset), { steps });
                 await page.mouse.down();
@@ -80,12 +76,13 @@ drawer.init = puppeteer.launch({
             await page.waitFor(3000).then(
                 await ViewerDrawing
             )
+            browser.close();
+            process.exit();
             process.exit[0]
         } catch (error) {
             console.log({error});
             process.exit[1]
         }
-        browser.close();
     });
 });
 module.exports = drawer;

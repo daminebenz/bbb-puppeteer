@@ -45,7 +45,7 @@ poll.init = puppeteer.launch({
 
             // Publishing Poll results
             await page.waitFor(3000);
-            await page.evaluate(()=>document.querySelectorAll('[class="button--Z2dosza md--Q7ug4 primary--1IbqAO btn--dDLST"]')[0].click());
+            await page.evaluate(()=>document.querySelector('span[class="itemLabel--Z12glHA"]').click());
             await page.waitFor(3000);
 
             // Hiding Poll results from presentation

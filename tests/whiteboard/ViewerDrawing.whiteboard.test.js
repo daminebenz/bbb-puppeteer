@@ -43,14 +43,13 @@ ViewerDrawing.init = puppeteer.launch({
             }
             await page.close();
             await page.waitFor(5000);
+            browser.close();
             process.exit[0];
 
         } catch (error) {
             console.log({error});
             process.exit[1];
-
         }
     })
-    browser.close();
 });
 module.exports = ViewerDrawing;
