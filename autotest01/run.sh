@@ -20,6 +20,6 @@ if [ $? -eq 0 ]
         exit 0
         else
         echo "There was an error while running your Test !" >&2
-        echo "The ERROR log is written to logs/test-01-error !"
+        echo "The ERROR log is written to autotest01/test-01-error !"
         exit 1
 fi
