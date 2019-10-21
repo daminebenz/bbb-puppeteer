@@ -9,7 +9,7 @@ const multiViewers = require('./multiViewers.bots.test');
 
 let promoteToPresenter = {}
 promoteToPresenter.init = puppeteer.launch({
-    headless: true,
+    headless: false,
     args: [ '--use-fake-ui-for-media-stream',
             '--window-size=800,600']
     }).then(async browser => {

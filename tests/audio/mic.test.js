@@ -9,7 +9,7 @@ testingMic.init = puppeteer.launch({
     }).then(async browser => {
         browser.newPage().then(async page => {
         try {
-            await page.goto(`${URL}/demo/demoHTML5.jsp?username=MicrophoneTest&isModerator=false&action=create`);
+            await page.goto(`${URL}/demo/demoHTML5.jsp?username=Puppeteer1&isModerator=false&action=create`);
 
             // Connecting using Microphone
             await page.waitForSelector('[class="jumbo--Z12Rgj4 buttonWrapper--x8uow audioBtn--1H6rCK"]');

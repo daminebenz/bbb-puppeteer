@@ -7,8 +7,8 @@
 const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 
-let breakoutRoomTester = {}
-breakoutRoomTester.init = puppeteer.launch({
+let joinBreakout = {}
+joinBreakout.init = puppeteer.launch({
     headless: false,
     args: [ '--use-fake-ui-for-media-stream',
             '--window-size=800,600']
@@ -16,7 +16,7 @@ breakoutRoomTester.init = puppeteer.launch({
     browser.newPage().then(async page => {
         try {
             await page.waitFor(10000);
-            await page.goto(`${URL}/demo/demoHTML5.jsp?username=breakoutRoomTester&isModerator=true&action=create`);
+            await page.goto(`${URL}/demo/demoHTML5.jsp?username=Puppeteer2&isModerator=true&action=create`);
             await page.waitFor(3000);
             await page.waitFor('[aria-describedby^="modalDismissDescription"]');
             await page.click('[aria-describedby^="modalDismissDescription"]');
@@ -41,4 +41,4 @@ breakoutRoomTester.init = puppeteer.launch({
         browser.close();
     });
 })
-module.exports = breakoutRoomTester;
+module.exports = joinBreakout;

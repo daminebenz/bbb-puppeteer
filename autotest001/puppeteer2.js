@@ -12,9 +12,9 @@ Puppeteer2.init = puppeteer.launch({
         try { 
             await page.waitFor('[aria-describedby^="modalDismissDescription"]');
             await page.click('[aria-describedby^="modalDismissDescription"]');
-        
-            await page.evaluate(()=>document.querySelector('[aria-label^="Puppeteer1"]'));
             await page.waitFor(30000);
+
+            await page.evaluate(()=>document.querySelector('[aria-label^="Puppeteer1"]'));
             process.exit[0];
         }
         catch (error) {

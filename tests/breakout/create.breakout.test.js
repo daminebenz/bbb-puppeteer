@@ -1,31 +1,18 @@
-// File name: BreakoutRoom Creation
-// Test Description:
-//      1) Create Breakoutrooms
-//      2) Join Breakout room 1
-//      3) End Breakoutrooms
-//
-
 const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 
-let breakoutrooms = {}
-breakoutrooms.init = puppeteer.launch({
-    headless: true,
+let createBreakout = {}
+createBreakout.init = puppeteer.launch({
+    headless: false,
     args: [ '--use-fake-ui-for-media-stream',
             '--window-size=800,600']
     }).then(async browser => {
     browser.newPage().then(async page => {
-        await page.goto(`${URL}/demo/demoHTML5.jsp?username=breakoutroomUser&isModerator=true&action=create`);
+        await page.goto(`${URL}/demo/demoHTML5.jsp?username=Puppeteer1&isModerator=true&action=create`);
         await page.waitFor(3000);
         await page.waitFor('[aria-describedby^="modalDismissDescription"]');
         await page.click('[aria-describedby^="modalDismissDescription"]');
         await page.waitFor(3000);
-        for(let i = 1; i < 3; i++){
-            await page.goto(`${URL}/demo/demoHTML5.jsp?username=Bot-${i}&action=create&isModerator=false`);
-            await page.waitFor('[aria-describedby^="modalDismissDescription"]');
-            await page.click('[aria-describedby^="modalDismissDescription"]');
-            await page.waitFor(3000);
-        }
         try {
             await page.evaluate( () => 
             document.querySelectorAll('[aria-label="Manage users"]')[0]
@@ -72,4 +59,4 @@ breakoutrooms.init = puppeteer.launch({
         browser.close();
     });
 })
-module.exports = breakoutrooms;
+module.exports = createBreakout;
