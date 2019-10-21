@@ -14,7 +14,6 @@ Puppeteer2.init = puppeteer.launch({
             await page.click('[aria-describedby^="modalDismissDescription"]');
         
             await page.evaluate(()=>document.querySelector('[aria-label^="Puppeteer1"]'));
-            console.log('Puppeteer1 was found !')
             await page.waitFor(30000);
             process.exit[0];
         }
