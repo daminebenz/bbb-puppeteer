@@ -1,11 +1,5 @@
 const puppeteer = require('puppeteer');
 const URL = process.argv[2]
-const metricsFile = process.argv[3]
-var obj = {
-    table: []
- };
-
-var fs = require('fs');
 
 async function puppeteer1() {
     const browser = await puppeteer.launch({
