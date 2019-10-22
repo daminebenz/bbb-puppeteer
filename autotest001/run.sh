@@ -29,9 +29,10 @@ done
 newFolder="${date}_${n}"
 mkdir -p autotest001/$newFolder
 
-metricsFile=autotest001/$newFolder/metrics.json
+metricsLocation=autotest001/$newFolder/
+touch $metricsLocation/metrics.json
 
-node autotest001/app.js "$URL" echo $? &> $metricsFile 2> autotest001/$newFolder/errors.log &
+node autotest001/app.js "$URL" "$metricsLocation" echo $? &>  autotest001/$newFolder/log.out 2> autotest001/$newFolder/errors.log &
 
 pids+=($!)
 wait "${pids[@]}"

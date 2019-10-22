@@ -1,5 +1,10 @@
 const puppeteer = require('puppeteer');
 const URL = process.argv[2]
+const metricsLocation = process.argv[3]
+var path = require('path');   
+
+const metricsJSON = path.join(__dirname,`../${metricsLocation}/metrics.json`)
+var fs = require("fs");
 
 async function puppeteer1() {
     const browser = await puppeteer.launch({
@@ -11,22 +16,30 @@ async function puppeteer1() {
         ]
     });
     const page = await browser.newPage();
-
     try{
         await page.goto(`${URL}/demo/demoHTML5.jsp?username=Puppeteer1&action=create&isModerator=true`);
         await page.waitFor('[aria-describedby^="modalDismissDescription"]');
         await page.click('[aria-describedby^="modalDismissDescription"]');
         await page.waitFor(30000);
         await page.evaluate(()=>document.querySelector('[aria-label^="Puppeteer2"]'));
-
-        console.log('\n==== performance.toJSON() ====\n');
-        console.log(
-          await page.evaluate(() => JSON.stringify(performance.toJSON(), null, '  '))
-        );
-      
-        console.log('\n==== page.metrics() ====\n');
         const perf = await page.metrics();
-        console.log(JSON.stringify(perf, null, '  '));
+
+        const performances = await page.evaluate(() => performance.toJSON())
+
+        const metric = perf;
+
+        const data = {
+            'Puppeteer1 Metric': metric,
+            'Puppeteer1 Performance': performances
+        }
+
+        fs.writeFile(metricsJSON, JSON.stringify(data), (err) => {
+            if (err) {
+                console.error(err);
+                return;
+            };
+            console.log("puppeteer1 log file has been created !");
+        });
         process.exit[0];
     }
     catch(error){
@@ -54,15 +67,25 @@ async function puppeteer2() {
         await page.waitFor(30000);
 
         await page.evaluate(()=>document.querySelector('[aria-label^="Puppeteer1"]'));
-      
-        console.log('\n==== performance.toJSON() ====\n');
-        console.log(
-          await page.evaluate(() => JSON.stringify(performance.toJSON(), null, '  '))
-        );
-      
-        console.log('\n==== page.metrics() ====\n');
         const perf = await page.metrics();
-        console.log(JSON.stringify(perf, null, '  '));
+
+        const performances = await page.evaluate(() => performance.toJSON())
+
+        const metric = perf;
+
+        const data = {
+            'Puppeteer2 Metric': metric,
+            'Puppeteer2 Performance': performances
+        }
+
+        fs.writeFile(metricsJSON, JSON.stringify(data), (err) => {
+            if (err) {
+                console.error(err);
+                return;
+            };
+            console.log("puppeteer2 log file has been created !");
+        });
+
         process.exit[0];
     }
     catch (error) {
