@@ -1,6 +1,7 @@
 #!/bin/bash -ex
 
 pids=()
+
 URL="$1"
 
 if [ -z "$URL" ] ; then
@@ -17,7 +18,21 @@ echo "Starting with URL: $URL"
 
 echo "Executing..."
 
-node autotest001/app.js "$URL" &> autotest001/errors.log echo $? &
+date=$(date +"%d-%m-%Y")
+n=1
+
+# Increment $N as long as a directory with that name exists
+while [[ -d "autotest001/${date}_${n}" ]] ; do
+    n=$(($n+1))
+done
+
+newFolder="${date}_${n}"
+mkdir -p autotest001/$newFolder
+
+metricsFile=autotest001/$newFolder/metrics.json
+
+node autotest001/app.js "$URL" echo $? &> $metricsFile 2> autotest001/$newFolder/errors.log &
+
 pids+=($!)
 wait "${pids[@]}"
 
@@ -27,6 +42,6 @@ if [ $? -eq 0 ]
     exit 0
     else
     echo "There was an error while running your Test !" >&2
-    echo "The ERROR log is written to autotest001/test-01-error !"
+    echo "The ERROR log is written to autotest001/$newFolder/errors.log !"
     exit 1
 fi
