@@ -3,9 +3,8 @@ const URL = process.argv[2]
 const metricsLocation = process.argv[3]
 var path = require('path');   
 const metrics = []
-const metricsTable = [metrics]
 
-const metricsJSON = path.join(__dirname,`../${metricsLocation}/metrics.json`)
+const metricsJSON = path.join(__dirname,`../${metricsLocation}/metrics2.json`)
 var fs = require("fs");
 
 async function puppeteer2() {
@@ -22,7 +21,7 @@ async function puppeteer2() {
     try { 
         await page.waitFor('[aria-describedby^="modalDismissDescription"]');
         await page.click('[aria-describedby^="modalDismissDescription"]');
-        await page.waitFor(3000);
+        await page.waitFor(10000);
 
         await page.evaluate(()=>document.querySelector('[aria-label^="Puppeteer1"]'));
         const perf = await page.metrics();
@@ -38,9 +37,8 @@ async function puppeteer2() {
         };
 
         metrics.push(metric, performances)
-        metricsTable.push(metrics)
 
-        fs.appendFileSync(metricsJSON, JSON.stringify(metricsTable, null, 4), 'utf-8', (err) => {
+        fs.appendFileSync(metricsJSON, JSON.stringify(metrics, null, 4), 'utf-8', (err) => {
             if (err) {
                 console.error(err);
                 return;

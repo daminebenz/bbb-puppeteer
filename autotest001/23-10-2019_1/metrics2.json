@@ -1,0 +1,53 @@
+[
+    {
+        "name": "Puppeteer2 Metrics",
+        "data": {
+            "Timestamp": 20812.537089,
+            "Documents": 3,
+            "Frames": 2,
+            "JSEventListeners": 820,
+            "Nodes": 5922,
+            "LayoutCount": 40,
+            "RecalcStyleCount": 111,
+            "LayoutDuration": 0.167217,
+            "RecalcStyleDuration": 0.129284,
+            "ScriptDuration": 1.43404,
+            "TaskDuration": 2.491224,
+            "JSHeapUsedSize": 33547344,
+            "JSHeapTotalSize": 63635456
+        }
+    },
+    {
+        "name": "Puppeteer2 Performance",
+        "data": {
+            "timeOrigin": 1571854958164.2258,
+            "timing": {
+                "navigationStart": 1571854958164,
+                "unloadEventStart": 1571854958206,
+                "unloadEventEnd": 1571854958206,
+                "redirectStart": 1571854958166,
+                "redirectEnd": 1571854958182,
+                "fetchStart": 1571854958182,
+                "domainLookupStart": 1571854958182,
+                "domainLookupEnd": 1571854958182,
+                "connectStart": 1571854958182,
+                "connectEnd": 1571854958182,
+                "secureConnectionStart": 0,
+                "requestStart": 1571854958183,
+                "responseStart": 1571854958197,
+                "responseEnd": 1571854958200,
+                "domLoading": 1571854958214,
+                "domInteractive": 1571854959626,
+                "domContentLoadedEventStart": 1571854959626,
+                "domContentLoadedEventEnd": 1571854959666,
+                "domComplete": 1571854959678,
+                "loadEventStart": 1571854959678,
+                "loadEventEnd": 1571854959678
+            },
+            "navigation": {
+                "type": 0,
+                "redirectCount": 1
+            }
+        }
+    }
+]

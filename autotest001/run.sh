@@ -28,7 +28,8 @@ newFolder="${date}_${n}"
 mkdir -p autotest001/$newFolder
 
 metricsLocation=autotest001/$newFolder
-touch $metricsLocation/metrics.json
+touch $metricsLocation/metrics1.json
+touch $metricsLocation/metrics2.json
 
 puppeteer01_out=autotest001/$newFolder/puppeteer01.out
 touch $puppeteer01_out
