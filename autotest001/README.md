@@ -10,7 +10,7 @@ This script generates its errors log in the `errors.log` file and the Metrics in
 
 ## Running
 
-To run, execute `./autotest001.sh *URL*`
+To run, execute `./autotest001/run.sh *URL*`
 
 ~~~bash
 ./autotest001.sh https://bbb-website.com

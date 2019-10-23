@@ -1,6 +1,4 @@
-#!/bin/bash -ex
-
-pids=()
+#!/bin/bash
 
 URL="$1"
 
@@ -29,20 +27,26 @@ done
 newFolder="${date}_${n}"
 mkdir -p autotest001/$newFolder
 
-metricsLocation=autotest001/$newFolder/
+metricsLocation=autotest001/$newFolder
 touch $metricsLocation/metrics.json
 
-node autotest001/app.js "$URL" "$metricsLocation" echo $? &>  autotest001/$newFolder/log.out 2> autotest001/$newFolder/errors.log &
+puppeteer01_out=autotest001/$newFolder/puppeteer01.out
+touch $puppeteer01_out
+puppeteer02_out=autotest001/$newFolder/puppeteer02.out
+touch $puppeteer02_out
 
+pids=()
+node autotest001/puppeteer01.js "$URL" "$metricsLocation" > $puppeteer01_out &
+pids+=($!)
+node autotest001/puppeteer02.js "$URL" "$metricsLocation" > $puppeteer02_out &
 pids+=($!)
 wait "${pids[@]}"
 
 if [ $? -eq 0 ]
     then
-    echo "The Test was succesfully ran !"
+    echo "The Test was ran successfully !"
     exit 0
     else
     echo "There was an error while running your Test !" >&2
-    echo "The ERROR log is written to autotest001/$newFolder/errors.log !"
     exit 1
 fi
