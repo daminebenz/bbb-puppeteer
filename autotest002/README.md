@@ -1,8 +1,10 @@
-# autotest001
+# autotest002
 
 ## About
 
-This script runs 2 puppeteer instances and gets the Metrics and the performance stats and Memory Usage.
+This script runs 2 puppeteer instances and gets the Metrics and the Performance stats.
+
+This script is about Audio and Microphone testing while connecting to a Meeting conference.
 
 This script generates execution folder with the name `Date_ExecutionNum` (example: `01-01-2019_1`) inside autotest001 folder.
 
@@ -10,22 +12,28 @@ This script generates the log files `puppeteer01.out` and `puppeteer02.out` and 
 
 ## Running
 
-To run, execute `./autotest001/run.sh *URL*`
+To run, execute `./autotest002/run.sh *URL*`
 
 or also running: 
 
 ```
-cd autotest001
+cd autotest002
 ./run.sh
 ```
 
 ~~~bash
-./autotest001/run.sh https://bbb-website.com
+./autotest002/run.sh https://bbb-website.com
 ~~~
 
 The default script will launch the clients it needs on the server you describe in the URL.
 
-## 
+## Screenshots
+
+The outputs of `puppeteer01.js` and `puppeteer02.js` will be displayed as in the picture below:
+![outputs](../images/screenshot.png "outputs")
+
+The metrics will show something like this:
+![metrics](../images/metrics.png "metrics")
 
 ## ToDo
 

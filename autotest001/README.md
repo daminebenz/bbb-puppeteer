@@ -2,7 +2,9 @@
 
 ## About
 
-This script runs 2 puppeteer instances and gets the Metrics and the performance stats and Memory Usage.
+This script runs 2 puppeteer instances and gets the Metrics and the performance stats.
+
+This script is about 2 Puppeteers connecting to a Meeting and checking for the avaibility of each others in the Userslist.
 
 This script generates execution folder with the name `Date_ExecutionNum` (example: `01-01-2019_1`) inside autotest001 folder.
 
