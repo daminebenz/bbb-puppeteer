@@ -1,10 +1,10 @@
 const puppeteer = require('puppeteer');
 const URL = process.argv[2]
-const metricsLocation = process.argv[3]
+const basePath = process.argv[3]
 var path = require('path');   
 const metrics = []
 
-const metricsJSON = path.join(__dirname,`../${metricsLocation}/metrics2.json`)
+const metricsJSON = path.join(__dirname,`./${basePath}/metrics2.json`)
 var fs = require("fs");
 
 async function puppeteer2() {
@@ -21,7 +21,7 @@ async function puppeteer2() {
     try { 
         await page.waitFor('[aria-describedby^="modalDismissDescription"]');
         await page.click('[aria-describedby^="modalDismissDescription"]');
-        await page.waitFor(10000);
+        await page.waitFor(3000);
 
         await page.evaluate(()=>document.querySelector('[aria-label^="Puppeteer1"]'));
         const perf = await page.metrics();
