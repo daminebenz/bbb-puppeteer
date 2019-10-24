@@ -1,12 +1,10 @@
-# autotest001
+# autotest003
 
 ## About
 
-This script is about 2 Puppeteers connecting to a Meeting and checking for the avaibility of each others in the Userslist.
+This script runs 2 puppeteer instances and gets the Metrics and the Performance stats.
 
-## Details
-
-This script runs 2 puppeteer instances and gets the Metrics and the performance stats.
+This script is about BreakoutRooms testing while creating and connecting multiple Bots to a Breakoutroom of a Meeting.
 
 This script generates execution folder with the name `Date_ExecutionNum` (example: `01-01-2019_1`) inside autotest001 folder.
 
@@ -14,17 +12,17 @@ This script generates the log files `puppeteer01.out` and `puppeteer02.out` and 
 
 ## Running
 
-To run, execute `./autotest001/run.sh *URL*`
+To run, execute `./autotest003/run.sh *URL*`
 
 or also running: 
 
 ```
-cd autotest001
+cd autotest003
 ./run.sh
 ```
 
 ~~~bash
-./autotest001/run.sh https://bbb-website.com
+./autotest002/run.sh https://bbb-website.com
 ~~~
 
 The default script will launch the clients it needs on the server you describe in the URL.
@@ -36,3 +34,8 @@ The outputs of `puppeteer01.js` and `puppeteer02.js` will be displayed as in the
 
 The metrics will show something like this:
 ![metrics](../images/metrics.png "metrics")
+
+## ToDo
+
+- [ ] Add URL when running the command to be able to point on the Server you want to test.
+- [ ] Check the generated Metrics in the `metrics1.json` and `metrics2.json` file.

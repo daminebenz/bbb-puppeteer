@@ -3,7 +3,6 @@
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 pids=()
-
 URL="$1"
 
 if [ -z "$URL" ] ; then
@@ -28,27 +27,16 @@ while [[ -d "${date}_${n}" ]] ; do
     n=$(($n+1))
 done
 
-basePath=${date}_${n}/data
+mkdir -p ${date}_${n}
 
-mkdir -p $basePath
+basePath=${date}_${n}
 
-node puppeteer01.js "$URL" "$basePath" &> $basePath/puppeteer01.out &
+node puppeteer01.js "$URL" "$basePath" > $basePath/puppeteer01.out &
 pids+=($!)
-node puppeteer02.js "$URL" "$basePath" &> $basePath/puppeteer02.out &
+node puppeteer02.js "$URL" "$basePath" > $basePath/puppeteer02.out &
 pids+=($!)
-
-function killprocs()
-{
-    echo killing ${pids[@]}
-    rm -rf ${date}_${n}
-    kill ${pids[@]}
-}
-
-trap killprocs EXIT 
-
 wait "${pids[@]}"
-
-trap - EXIT
+# trap " kill ${pids[@]} " EXIT
 
 if [ $? -eq 0 ]
     then
