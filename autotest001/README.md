@@ -28,10 +28,10 @@ The default script will launch the clients it needs on the server you describe i
 ## Screenshots
 
 The outputs of `puppeteer01.js` and `puppeteer02.js` will be displayed as in the picture below:
-![outputs](images/screenshot.png "outputs")
+![outputs](../images/screenshot.png "outputs")
 
 The metrics will show something like this:
-![metrics](images/metrics.png "metrics")
+![metrics](../images/metrics.png "metrics")
 
 ## ToDo
 
