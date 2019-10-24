@@ -21,7 +21,7 @@ async function puppeteer1() {
     try{
         await page.waitFor('[aria-describedby^="modalDismissDescription"]');
         await page.click('[aria-describedby^="modalDismissDescription"]');
-        await page.waitFor(3000);
+        await page.waitFor(30000);
 
         await page.evaluate(()=>document.querySelector('[aria-label^="Puppeteer2"]'));
         const perf = await page.metrics();

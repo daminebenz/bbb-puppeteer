@@ -20,11 +20,11 @@ Puppeteer2.init = puppeteer.launch({
             await page.waitFor('i[class="icon--2q1XXw icon-bbb-listen"]');
             await page.click('i[class="icon--2q1XXw icon-bbb-listen"]');
             await page.waitFor(9000);
-            process.exit[0]
+            process.exit(0)
         }
         catch (error) {
             console.log({error});
-            process.exit[1]
+            process.exit(1)
         }
         browser.close();
     })})

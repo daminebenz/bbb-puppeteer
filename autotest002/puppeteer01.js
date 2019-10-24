@@ -4,10 +4,10 @@ const basePath = process.argv[3]
 var path = require('path');   
 const metrics = []
 
-var metricsJSON = path.join(__dirname,`./${basePath}/metrics2.json`)
+var metricsJSON = path.join(__dirname,`./${basePath}/metrics1.json`)
 var fs = require("fs");
 
-async function puppeteer2() {
+async function puppeteer1() {
     const browser = await puppeteer.launch({
         headless: false,
         args: [ '--use-fake-ui-for-media-stream',
@@ -17,13 +17,19 @@ async function puppeteer2() {
         ]
     });
     const page = await browser.newPage();
-    await page.goto(`${URL}/demo/demoHTML5.jsp?username=Puppeteer2&isModerator=true&action=create`);
-    try { 
-        await page.waitFor('[aria-describedby^="modalDismissDescription"]');
-        await page.click('[aria-describedby^="modalDismissDescription"]');
-        await page.waitFor(30000);
+    try {
+        await page.goto(`${URL}/demo/demoHTML5.jsp?username=Puppeteer1&isModerator=false&action=create`);
 
-        await page.evaluate(()=>document.querySelector('[aria-label^="Puppeteer1"]'));
+        // Joining audio
+        await page.waitFor('i[class="icon--2q1XXw icon-bbb-listen"]');
+        await page.click('i[class="icon--2q1XXw icon-bbb-listen"]');
+        await page.waitFor(9000);
+
+        // Leaving Audio
+        await page.waitFor('i[class="icon--2q1XXw icon-bbb-listen"]');
+        await page.click('i[class="icon--2q1XXw icon-bbb-listen"]');
+        await page.waitFor(9000);
+
         const perf = await page.metrics();
 
         const performances ={
@@ -46,12 +52,13 @@ async function puppeteer2() {
             console.log("puppeteer2 log file has been created !");
         });
 
-        process.exit(0);
+        process.exit(0)
     }
     catch (error) {
-        console.log({error})
+        console.log({error});
         process.exit(1)
     }
+    browser.close();
     browser.close()
 }
-puppeteer2()
+puppeteer1()
