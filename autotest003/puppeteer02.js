@@ -43,22 +43,13 @@ async function puppeteer2() {
         await page.waitFor('button[aria-label="Leave audio"][class="lg--Q7ufB buttonWrapper--x8uow button--295UAi"]');
         await page.click('button[aria-label="Leave audio"][class="lg--Q7ufB buttonWrapper--x8uow button--295UAi"]');
         await page.waitFor(9000);
+        const metric = await page.metrics();
+        const performance = await page.evaluate(() => performance.toJSON())
 
-        const perf = await page.metrics();
-
-        const performances ={
-            'name': 'Puppeteer2 Performance',
-            'data': await page.evaluate(() => performance.toJSON())
-        } 
-
-        const metric = {
-            'name': 'Puppeteer2 Metrics',
-            'data': perf
-        };
-
-        metrics.push(metric, performances)
-
-        fs.writeFileSync(metricsJSON, JSON.stringify(metrics, null, 4), 'utf-8', (err) => {
+        metrics['metricObj'] = metric;
+        metrics['performanceObj'] = performance;
+        
+        fs.appendFileSync(metricsJSON, JSON.stringify(metrics, null, 4), 'utf-8', (err) => {
             if (err) {
                 console.error(err);
                 return;

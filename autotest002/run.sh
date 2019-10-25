@@ -40,7 +40,7 @@ pids+=($!)
 function killprocs()
 {
     echo killing ${pids[@]}
-    rm -rf ${date}_${n}
+    rm -rf $basePath
     kill ${pids[@]}
 }
 

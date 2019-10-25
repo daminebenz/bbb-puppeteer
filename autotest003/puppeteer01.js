@@ -49,7 +49,7 @@ async function puppeteer1() {
                 console.error(err);
                 return;
             };
-            console.log("puppeteer2 log file has been created !");
+            console.log("puppeteer1 log file has been created !");
         });
 
         process.exit(0)
