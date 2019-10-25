@@ -37,7 +37,6 @@ async function puppeteer1() {
             };
             console.log("puppeteer1 log file has been created !");
         });
-
         process.exit(0);
     }
     catch(error){

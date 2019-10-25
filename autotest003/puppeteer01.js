@@ -19,8 +19,17 @@ async function puppeteer1() {
     });
     const page = await browser.newPage();
     await page.goto(`${URL}/demo/demoHTML5.jsp?username=Puppeteer1&isModerator=true&action=create`);
-    await page.waitForSelector('[aria-describedby^="modalDismissDescription"]');
-    await page.click('[aria-describedby^="modalDismissDescription"]');
+
+    await page.waitFor(3000);
+
+    // Connecting using Microphone
+    await page.waitForSelector('[class="jumbo--Z12Rgj4 buttonWrapper--x8uow audioBtn--1H6rCK"]');
+    await page.click('[class="jumbo--Z12Rgj4 buttonWrapper--x8uow audioBtn--1H6rCK"]');
+
+    // Echo test
+    await page.waitForSelector('[aria-label="Echo is audible"][class="jumbo--Z12Rgj4 buttonWrapper--x8uow button--1JElwW"]');
+    await page.click('[aria-label="Echo is audible"][class="jumbo--Z12Rgj4 buttonWrapper--x8uow button--1JElwW"]');
+    await page.waitFor(3000);
     try {
         await page.evaluate( () => 
         document.querySelectorAll('[aria-label="Manage users"]')[0]
@@ -28,7 +37,7 @@ async function puppeteer1() {
         );
 
         await page.waitFor(3000);
-        await page.waitFor('[class="itemIcon--Z207zn1 icon-bbb-rooms"]');
+        await page.waitForSelector('[class="itemIcon--Z207zn1 icon-bbb-rooms"]');
         await page.click('[class="itemIcon--Z207zn1 icon-bbb-rooms"]');
         await page.waitFor(3000);
 
@@ -62,10 +71,14 @@ async function puppeteer1() {
 
         await page.waitForSelector('[aria-label="Breakout Rooms"]');
         await page.click('[aria-label="Breakout Rooms"]');
+        await page.waitFor(10000);
 
-        await page.waitForSelector('[aria-label="Join room 1"]');
-        await page.click('[aria-label="Join room 1"]');
+        await page.waitForSelector('[aria-label="Join audio"]');
+        await page.click('[aria-label="Join audio"]');
+        await page.waitFor(10000);
 
+        await page.waitForSelector('[aria-label="Return audio"]');
+        await page.click('[aria-label="Return audio"]');
         await page.waitFor(20000)
 
         await page.bringToFront();

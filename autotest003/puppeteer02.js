@@ -20,17 +20,17 @@ async function puppeteer2() {
     try {
         await page.goto(`${URL}/demo/demoHTML5.jsp?username=Puppeteer2&isModerator=true&action=create`);
         await page.waitFor(3000);
-        await page.waitFor('[aria-describedby^="modalDismissDescription"]');
+        await page.waitForSelector('[aria-describedby^="modalDismissDescription"]');
         await page.click('[aria-describedby^="modalDismissDescription"]');
-        await page.waitFor(20000);
+        await page.waitFor(3000);
 
         // joining available breakoutrooms sessions
         await page.waitForSelector('[aria-label="Breakout Rooms"]');
         await page.click('[aria-label="Breakout Rooms"]')
-        await page.waitFor('[aria-label="Join room 1"]');
+        await page.waitForSelector('[aria-label="Join room 1"]');
         await page.click('[aria-label="Join room 1"]');
 
-        await page.waitFor(10000);
+        await page.waitFor(12000);
 
         const metric = await page.metrics();
         const performance = await page.evaluate(() => performance.toJSON())
