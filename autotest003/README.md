@@ -2,13 +2,16 @@
 
 ## About
 
+This script is about BreakoutRooms testing while creating and connecting multiple Bots to a Breakoutrooms of a Meeting.
+
+
+## Details
+
 This script runs 2 puppeteer instances and gets the Metrics and the Performance stats.
 
-This script is about BreakoutRooms testing while creating and connecting multiple Bots to a Breakoutroom of a Meeting.
+This script generates execution folder with the name `Date_ExecutionNum` (example: `data/01-01-2019_1`) inside autotest001 folder.
 
-This script generates execution folder with the name `Date_ExecutionNum` (example: `01-01-2019_1`) inside autotest001 folder.
-
-This script generates the log files `puppeteer01.out` and `puppeteer02.out` and the Metrics in `metrics1.json` and `metrics2.json` file.
+This script generates the log files `data/puppeteer01.out` and `data/puppeteer02.out` and the Metrics in `data/metrics1.json` and `data/metrics2.json` file.
 
 ## Running
 

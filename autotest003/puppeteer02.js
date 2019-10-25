@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 const basePath = process.argv[3]
 var path = require('path');   
-const metrics = []
+const metrics = {}
 
 var metricsJSON = path.join(__dirname,`./${basePath}/metrics2.json`)
 var fs = require("fs");
@@ -11,38 +11,28 @@ async function puppeteer2() {
     const browser = await puppeteer.launch({
         headless: false,
         args: [ '--use-fake-ui-for-media-stream',
-                '--window-size=800,600',
+                '--window-size=1024,768',
                 '--unlimited-storage', 
                 '--full-memory-crash-report'
         ]
     });
     const page = await browser.newPage();
     try {
-        await page.goto(`${URL}/demo/demoHTML5.jsp?username=Puppeteer2&isModerator=false&action=create`);
+        await page.waitFor(30000);
+        await page.goto(`${URL}/demo/demoHTML5.jsp?username=Puppeteer2&isModerator=true&action=create`);
+        await page.waitFor(3000);
+        await page.waitFor('[aria-describedby^="modalDismissDescription"]');
+        await page.click('[aria-describedby^="modalDismissDescription"]');
+        await page.waitFor(3000);
 
-        // Connecting using Microphone
-        await page.waitForSelector('[class="jumbo--Z12Rgj4 buttonWrapper--x8uow audioBtn--1H6rCK"]');
-        await page.click('[class="jumbo--Z12Rgj4 buttonWrapper--x8uow audioBtn--1H6rCK"]');
+        // joining available breakoutrooms sessions
+        await page.waitForSelector('[aria-label="Breakout Rooms"]');
+        await page.click('[aria-label="Breakout Rooms"]')
+        await page.waitFor('[aria-label="Join room 1"]');
+        await page.click('[aria-label="Join room 1"]');
 
-        // Echo test
-        await page.waitFor('[aria-label="Echo is audible"][class="jumbo--Z12Rgj4 buttonWrapper--x8uow button--1JElwW"]');
-        await page.click('[aria-label="Echo is audible"][class="jumbo--Z12Rgj4 buttonWrapper--x8uow button--1JElwW"]');
-        await page.waitFor(9000);
+        await page.waitFor(10000);
 
-        // Muting Microphone
-        await page.waitFor('button[aria-label="Mute"][class="lg--Q7ufB buttonWrapper--x8uow button--295UAi glow--Z1CgAvh"]');
-        await page.click('button[aria-label="Mute"][class="lg--Q7ufB buttonWrapper--x8uow button--295UAi glow--Z1CgAvh"]');
-        await page.waitFor(9000);
-
-        // Unmuting Microphone
-        await page.waitFor('button[aria-label="Unmute"]');
-        await page.click('button[aria-label="Unmute"]');
-        await page.waitFor(9000);
-
-        // Leaving Audio
-        await page.waitFor('button[aria-label="Leave audio"][class="lg--Q7ufB buttonWrapper--x8uow button--295UAi"]');
-        await page.click('button[aria-label="Leave audio"][class="lg--Q7ufB buttonWrapper--x8uow button--295UAi"]');
-        await page.waitFor(9000);
         const metric = await page.metrics();
         const performance = await page.evaluate(() => performance.toJSON())
 
@@ -56,7 +46,6 @@ async function puppeteer2() {
             };
             console.log("puppeteer2 log file has been created !");
         });
-
         process.exit(0);
     }
     catch (error) {

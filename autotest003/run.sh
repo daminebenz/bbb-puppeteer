@@ -3,6 +3,7 @@
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 pids=()
+
 URL="$1"
 
 if [ -z "$URL" ] ; then
@@ -23,20 +24,36 @@ date=$(date +"%d-%m-%Y")
 n=1
 
 # Increment $N as long as a directory with that name exists
-while [[ -d "${date}_${n}" ]] ; do
+while [[ -d "data/${date}_${n}" ]] ; do
     n=$(($n+1))
 done
 
-mkdir -p ${date}_${n}
+basePath=data/${date}_${n}
 
-basePath=${date}_${n}
+mkdir -p $basePath
 
-node puppeteer01.js "$URL" "$basePath" > $basePath/puppeteer01.out &
+
+node puppeteer01.js "$URL" "$basePath" &> $basePath/puppeteer01.out &
 pids+=($!)
-node puppeteer02.js "$URL" "$basePath" > $basePath/puppeteer02.out &
+node puppeteer02.js "$URL" "$basePath" &> $basePath/puppeteer02.out &
 pids+=($!)
+for i in {1..5}; do
+  node bots.js "$URL" &> $basePath/bots.out &
+  pids+=($!)
+done
+
+function killprocs()
+{
+    echo killing ${pids[@]}
+    rm -rf $basePath
+    kill ${pids[@]}
+}
+
+trap killprocs EXIT 
+
 wait "${pids[@]}"
-# trap " kill ${pids[@]} " EXIT
+
+trap - EXIT
 
 if [ $? -eq 0 ]
     then
@@ -46,3 +63,4 @@ if [ $? -eq 0 ]
     echo "There was an error while running your Test !" >&2
     exit 1
 fi
+
