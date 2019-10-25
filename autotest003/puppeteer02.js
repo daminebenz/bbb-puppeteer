@@ -18,12 +18,11 @@ async function puppeteer2() {
     });
     const page = await browser.newPage();
     try {
-        await page.waitFor(30000);
         await page.goto(`${URL}/demo/demoHTML5.jsp?username=Puppeteer2&isModerator=true&action=create`);
         await page.waitFor(3000);
         await page.waitFor('[aria-describedby^="modalDismissDescription"]');
         await page.click('[aria-describedby^="modalDismissDescription"]');
-        await page.waitFor(3000);
+        await page.waitFor(20000);
 
         // joining available breakoutrooms sessions
         await page.waitForSelector('[aria-label="Breakout Rooms"]');

@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 const URL = process.argv[2]
 const basePath = process.argv[3]
 var path = require('path');   
@@ -10,6 +10,7 @@ var fs = require("fs");
 async function puppeteer1() {
     const browser = await puppeteer.launch({
         headless: false,
+        executablePath: '/usr/bin/google-chrome',
         args: [ '--use-fake-ui-for-media-stream',
                 '--window-size=1024,768',
                 '--unlimited-storage', 
@@ -64,6 +65,10 @@ async function puppeteer1() {
 
         await page.waitForSelector('[aria-label="Join room 1"]');
         await page.click('[aria-label="Join room 1"]');
+
+        await page.waitFor(20000)
+
+        await page.bringToFront();
 
         await page.waitForSelector('[class="button--Z2dosza lg--Q7ufB primary--1IbqAO endButton--ozfo8"]');
         await page.waitFor(3000);
