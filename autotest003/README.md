@@ -37,8 +37,3 @@ The outputs of `puppeteer01.js` and `puppeteer02.js` will be displayed as in the
 
 The metrics will show something like this:
 ![metrics](../images/metrics.png "metrics")
-
-## ToDo
-
-- [ ] Add URL when running the command to be able to point on the Server you want to test.
-- [ ] Check the generated Metrics in the `metrics1.json` and `metrics2.json` file.
