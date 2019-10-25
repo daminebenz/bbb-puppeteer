@@ -1,51 +1,47 @@
 {
     "metricObj": {
-        "metric": {
-            "Timestamp": 120495.338501,
-            "Documents": 1,
-            "Frames": 1,
-            "JSEventListeners": 213,
-            "Nodes": 786,
-            "LayoutCount": 47,
-            "RecalcStyleCount": 101,
-            "LayoutDuration": 0.161182,
-            "RecalcStyleDuration": 0.120105,
-            "ScriptDuration": 1.020122,
-            "TaskDuration": 1.837318,
-            "JSHeapUsedSize": 20845224,
-            "JSHeapTotalSize": 61386752
-        }
+        "Timestamp": 1915.391098,
+        "Documents": 1,
+        "Frames": 1,
+        "JSEventListeners": 212,
+        "Nodes": 786,
+        "LayoutCount": 46,
+        "RecalcStyleCount": 98,
+        "LayoutDuration": 0.13931,
+        "RecalcStyleDuration": 0.133127,
+        "ScriptDuration": 1.214914,
+        "TaskDuration": 2.072402,
+        "JSHeapUsedSize": 28583560,
+        "JSHeapTotalSize": 60600320
     },
     "performanceObj": {
-        "performance": {
-            "timeOrigin": 1572004398134.6218,
-            "timing": {
-                "navigationStart": 1572004398134,
-                "unloadEventStart": 1572004398493,
-                "unloadEventEnd": 1572004398493,
-                "redirectStart": 1572004398144,
-                "redirectEnd": 1572004398317,
-                "fetchStart": 1572004398317,
-                "domainLookupStart": 1572004398317,
-                "domainLookupEnd": 1572004398317,
-                "connectStart": 1572004398317,
-                "connectEnd": 1572004398317,
-                "secureConnectionStart": 0,
-                "requestStart": 1572004398318,
-                "responseStart": 1572004398488,
-                "responseEnd": 1572004398490,
-                "domLoading": 1572004398496,
-                "domInteractive": 1572004404127,
-                "domContentLoadedEventStart": 1572004404127,
-                "domContentLoadedEventEnd": 1572004404157,
-                "domComplete": 1572004404652,
-                "loadEventStart": 1572004404652,
-                "loadEventEnd": 1572004404652
-            },
-            "navigation": {
-                "type": 0,
-                "redirectCount": 1
-            }
+        "timeOrigin": 1572007973014.657,
+        "timing": {
+            "navigationStart": 1572007973014,
+            "unloadEventStart": 1572007973376,
+            "unloadEventEnd": 1572007973376,
+            "redirectStart": 1572007973018,
+            "redirectEnd": 1572007973193,
+            "fetchStart": 1572007973193,
+            "domainLookupStart": 1572007973193,
+            "domainLookupEnd": 1572007973193,
+            "connectStart": 1572007973193,
+            "connectEnd": 1572007973193,
+            "secureConnectionStart": 0,
+            "requestStart": 1572007973197,
+            "responseStart": 1572007973358,
+            "responseEnd": 1572007973362,
+            "domLoading": 1572007973387,
+            "domInteractive": 1572007978368,
+            "domContentLoadedEventStart": 1572007978368,
+            "domContentLoadedEventEnd": 1572007978395,
+            "domComplete": 1572007978718,
+            "loadEventStart": 1572007978718,
+            "loadEventEnd": 1572007978718
+        },
+        "navigation": {
+            "type": 0,
+            "redirectCount": 1
         }
     }
 }

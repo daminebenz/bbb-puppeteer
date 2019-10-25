@@ -21,21 +21,14 @@ async function puppeteer2() {
     try { 
         await page.waitFor('[aria-describedby^="modalDismissDescription"]');
         await page.click('[aria-describedby^="modalDismissDescription"]');
-        await page.waitFor(3000);
+        await page.waitFor(30000);
 
         await page.evaluate(()=>document.querySelector('[aria-label^="Puppeteer1"]'));
         const metric = await page.metrics();
         const performance = await page.evaluate(() => performance.toJSON())
-        const performanceObj ={
-            performance 
-        } 
 
-        const metricObj = {
-            metric
-        };
-
-        metrics['metricObj'] = metricObj;
-        metrics['performanceObj'] = performanceObj;
+        metrics['metricObj'] = metric;
+        metrics['performanceObj'] = performance;
         
         fs.appendFileSync(metricsJSON, JSON.stringify(metrics, null, 4), 'utf-8', (err) => {
             if (err) {

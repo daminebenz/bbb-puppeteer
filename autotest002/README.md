@@ -2,27 +2,29 @@
 
 ## About
 
-This script runs 2 puppeteer instances and gets the Metrics and the Performance stats.
-
 This script is about Audio and Microphone testing while connecting to a Meeting conference.
 
-This script generates execution folder with the name `Date_ExecutionNum` (example: `01-01-2019_1`) inside autotest001 folder.
+## Details
 
-This script generates the log files `puppeteer01.out` and `puppeteer02.out` and the Metrics in `metrics1.json` and `metrics2.json` file.
+This script runs 2 puppeteer instances and gets the Metrics and the performance stats.
+
+This script generates execution folder with the name `data/Date_ExecutionNum` (example: `data/01-01-2019_1`) inside autotest001 folder.
+
+This script generates the log files `data/puppeteer01.out` and `data/puppeteer02.out` and the Metrics in `data/metrics1.json` and `data/metrics2.json` file.
 
 ## Running
 
-To run, execute `./autotest002/run.sh *URL*`
+To run, execute `./autotest001/run.sh *URL*`
 
 or also running: 
 
 ```
-cd autotest002
+cd autotest001
 ./run.sh
 ```
 
 ~~~bash
-./autotest002/run.sh https://bbb-website.com
+./autotest001/run.sh https://bbb-website.com
 ~~~
 
 The default script will launch the clients it needs on the server you describe in the URL.
@@ -34,8 +36,3 @@ The outputs of `puppeteer01.js` and `puppeteer02.js` will be displayed as in the
 
 The metrics will show something like this:
 ![metrics](../images/metrics.png "metrics")
-
-## ToDo
-
-- [ ] Add URL when running the command to be able to point on the Server you want to test.
-- [ ] Check the generated Metrics in the `metrics1.json` and `metrics2.json` file.

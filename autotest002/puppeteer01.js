@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 const basePath = process.argv[3]
 var path = require('path');   
-const metrics = []
+const metrics = {}
 
 var metricsJSON = path.join(__dirname,`./${basePath}/metrics1.json`)
 var fs = require("fs");
@@ -29,29 +29,19 @@ async function puppeteer1() {
         await page.waitFor('i[class="icon--2q1XXw icon-bbb-listen"]');
         await page.click('i[class="icon--2q1XXw icon-bbb-listen"]');
         await page.waitFor(9000);
+        const metric = await page.metrics();
+        const performance = await page.evaluate(() => performance.toJSON())
 
-        const perf = await page.metrics();
-
-        const performances ={
-            'name': 'Puppeteer2 Performance',
-            'data': await page.evaluate(() => performance.toJSON())
-        } 
-
-        const metric = {
-            'name': 'Puppeteer2 Metrics',
-            'data': perf
-        };
-
-        metrics.push(metric, performances)
-
+        metrics['metricObj'] = metric;
+        metrics['performanceObj'] = performance;
+        
         fs.appendFileSync(metricsJSON, JSON.stringify(metrics, null, 4), 'utf-8', (err) => {
             if (err) {
                 console.error(err);
                 return;
             };
-            console.log("puppeteer2 log file has been created !");
+            console.log("puppeteer1 log file has been created !");
         });
-
         process.exit(0)
     }
     catch (error) {
