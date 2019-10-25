@@ -24,11 +24,11 @@ date=$(date +"%d-%m-%Y")
 n=1
 
 # Increment $N as long as a directory with that name exists
-while [[ -d "${date}_${n}" ]] ; do
+while [[ -d "data/${date}_${n}" ]] ; do
     n=$(($n+1))
 done
 
-basePath=${date}_${n}/data
+basePath=data/${date}_${n}
 
 mkdir -p $basePath
 
