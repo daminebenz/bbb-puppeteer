@@ -24,6 +24,8 @@ cd autotest001
 ```
 
 ~~~bash
+example:
+
 ./autotest001/run.sh https://bbb-website.com
 ~~~
 
