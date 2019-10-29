@@ -56,9 +56,7 @@ async function puppeteer1() {
         await page.keyboard.up('Control', {
             delay: 100
         });
-        await page.keyboard.press('Enter', {
-            delay: 100
-        });
+
         const metric = await page.metrics();
         const performance = await page.evaluate(() => performance.toJSON())
 

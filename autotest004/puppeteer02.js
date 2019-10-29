@@ -7,9 +7,9 @@ const metrics = {}
 var metricsJSON = path.join(__dirname,`./${basePath}/metrics2.json`)
 var fs = require("fs");
 
-async function puppeteer1() {
+async function puppeteer2() {
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         executablePath: '/usr/bin/google-chrome',
         args: [ '--use-fake-ui-for-media-stream',
                 '--window-size=1024,768',
@@ -29,14 +29,21 @@ async function puppeteer1() {
         await page.waitFor('[class="noteLink--1Xz6Lp"]');
         await page.click('[class="noteLink--1Xz6Lp"]');
         await page.waitFor(10000);
-        await page._client.send('Page.setDownloadBehavior', {behavior: 'allow', downloadPath: `./${basePath}`});
+        const downloadFolder = path.resolve(__dirname,`./${basePath}`);
+        await page._client.send('Page.setDownloadBehavior', {behavior: 'allow', downloadPath: downloadFolder});
+
         // Exporting Shared Notes
-        await page.evaluate (() =>{
-            let iframeDocument = document.querySelectorAll('iframe')[0].contentWindow.document
-                iframeDocument.querySelectorAll('button[aria-label="Import/Export from/to different file formats"]')[0].click()
-                iframeDocument.querySelector('[id="exportpdfa"]').click()
-            }
-        );
+        // await page.evaluate (async () =>{
+        //     let iframeDocument = await document.querySelectorAll('iframe')[0].contentWindow.document
+        //         await iframeDocument.querySelectorAll('button[aria-label="Import/Export from/to different file formats"]')[0].click()
+        //         await iframeDocument.querySelector('[id="exportpdfa"]').click()
+        //     }
+        // );
+
+        const etherpadIframe = await page.$('[title="etherpad"]');
+        const etherpad = await etherpadIframe.contentFrame();
+        await etherpad.click('[data-key="import_export"]');
+        await etherpad.click('[id="exportpdfa"]');
 
         const metric = await page.metrics();
         const performance = await page.evaluate(() => performance.toJSON())
@@ -57,6 +64,5 @@ async function puppeteer1() {
         console.log({error})
         process.exit(1);
     }
-    browser.close()
 }
-puppeteer1();
+puppeteer2();
