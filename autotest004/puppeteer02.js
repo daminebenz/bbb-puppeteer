@@ -10,11 +10,13 @@ var fs = require("fs");
 async function puppeteer2() {
     const browser = await puppeteer.launch({
         headless: false,
+        slowMo: 600,
         executablePath: '/usr/bin/google-chrome',
         args: [ '--use-fake-ui-for-media-stream',
                 '--window-size=1024,768',
                 '--unlimited-storage', 
-                '--full-memory-crash-report'
+                '--full-memory-crash-report',
+                '--disable-dev-shm-usage'
         ]
     });
     const page = await browser.newPage();
@@ -29,21 +31,23 @@ async function puppeteer2() {
         await page.waitFor('[class="noteLink--1Xz6Lp"]');
         await page.click('[class="noteLink--1Xz6Lp"]');
         await page.waitFor(10000);
-        const downloadFolder = path.resolve(__dirname,`./${basePath}`);
-        await page._client.send('Page.setDownloadBehavior', {behavior: 'allow', downloadPath: downloadFolder});
-
+        await page._client.send('Page.setDownloadBehavior', {behavior: 'allow', downloadPath: '/home/imdt/puppeteer/autotest004/data'});
         // Exporting Shared Notes
-        // await page.evaluate (async () =>{
-        //     let iframeDocument = await document.querySelectorAll('iframe')[0].contentWindow.document
-        //         await iframeDocument.querySelectorAll('button[aria-label="Import/Export from/to different file formats"]')[0].click()
-        //         await iframeDocument.querySelector('[id="exportpdfa"]').click()
-        //     }
-        // );
+        // await page.keyboard.down('ControlLeft');
+        await page.evaluate (async () =>{
+            let iframeDocument = await document.querySelectorAll('iframe')[0].contentWindow.document
+                await iframeDocument.querySelectorAll('button[aria-label="Import/Export from/to different file formats"]')[0].click()
+                await iframeDocument.querySelector('[aria-label="PDF"]').click()
+            }
+        );
 
-        const etherpadIframe = await page.$('[title="etherpad"]');
-        const etherpad = await etherpadIframe.contentFrame();
-        await etherpad.click('[data-key="import_export"]');
-        await etherpad.click('[id="exportpdfa"]');
+        // const hrefs = await page.evaluate(
+        //     () => Array.from(document.body.querySelectorAll('[aria-label="PDF"]'), ({ href }) => href)
+        // );
+        // for (const href of hrefs) {
+        //     const pdfLink = await browser.newPage()
+        //     await pdfLink.goto(href)
+        // }
 
         const metric = await page.metrics();
         const performance = await page.evaluate(() => performance.toJSON())
@@ -56,7 +60,7 @@ async function puppeteer2() {
                 console.error(err);
                 return;
             };
-            console.log("puppeteer1 log file has been created !");
+            console.log("puppeteer2 log file has been created !");
         });
         process.exit(0);
     }   
