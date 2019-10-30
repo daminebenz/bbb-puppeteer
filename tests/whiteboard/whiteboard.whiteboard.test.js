@@ -73,11 +73,7 @@ drawer.init = puppeteer.launch({
             // Enabling Multi-User Whiteboard
             await page.waitFor('[aria-label="Turn multi-user whiteboard on"]');
             await page.click('[aria-label="Turn multi-user whiteboard on"]');
-            await page.waitFor(3000).then(
-                await ViewerDrawing
-            )
-            browser.close();
-            process.exit();
+            await page.waitFor(3000)
             process.exit[0]
         } catch (error) {
             console.log({error});
