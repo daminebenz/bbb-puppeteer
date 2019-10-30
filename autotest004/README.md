@@ -42,4 +42,4 @@ The outputs of `puppeteer01.js` will be displayed as in the picture below:
 <img align="left" src="../images/screenshot.png">
 
 The metrics will show something like this:
-<img align="left" src="../images/screenshot.png">
+<img align="left" src="../images/metrics.png">
