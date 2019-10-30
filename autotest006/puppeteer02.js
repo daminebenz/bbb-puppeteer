@@ -4,39 +4,39 @@ const basePath = process.argv[3]
 var path = require('path');   
 const metrics = {}
 
-var metricsJSON = path.join(__dirname,`./${basePath}/metrics1.json`)
+var metricsJSON = path.join(__dirname,`./${basePath}/metrics2.json`)
 var fs = require("fs");
 
-async function puppeteer1() {
+async function puppeteer2() {
     const browser = await puppeteer.launch({
         headless: false,
         executablePath: '/usr/bin/google-chrome',
         args: [ '--use-fake-ui-for-media-stream',
                 '--unlimited-storage', 
                 '--full-memory-crash-report',
-                '--window-size=1024,785'
+                '--window-size=800,600'
         ]
     });
+
     const page = await browser.newPage();
     await page.setViewport({
         width: 1024,
         height: 785
     })
     try{
-        await page.goto(`${URL}/demo/demoHTML5.jsp?username=Puppeteer1&isModerator=true&action=create`, { waitUntil : ['load', 'domcontentloaded']});
-        await page.waitFor(3000);
+        await page.goto(`${URL}/demo/demoHTML5.jsp?username=Puppeteer2&isModerator=false&action=create`, { waitUntil : ['load', 'domcontentloaded']});
+            
         await page.waitFor('[aria-describedby^="modalDismissDescription"]');
         await page.click('[aria-describedby^="modalDismissDescription"]');
         await page.waitFor(3000);
 
-        await page.waitFor('[class="icon--2q1XXw icon-bbb-whiteboard"]');
-        await page.click('[class="icon--2q1XXw icon-bbb-whiteboard"]')        
-        await page.waitFor(3000)
-
-        await page.waitFor('[aria-label="Tools"]');
-        await page.click('[aria-label="Tools"]');
-        await page.waitFor('[aria-label="Pencil"]');        
-        await page.click('[aria-label="Pencil"]');
+        // Drawing in Violet color
+        await page.waitFor('[aria-label="Colors"]');
+        await page.click('[aria-label="Colors"]');
+        await page.waitFor(3000);
+        await page.waitFor('rect[fill="#8800ff"]');
+        await page.click('rect[fill="#8800ff"]');
+        await page.waitFor(3000);
 
         const whiteboard = await page.$('div[role=presentation]');                
         await page.waitFor(3000);
@@ -54,33 +54,8 @@ async function puppeteer1() {
             await page.mouse.move(bounds.right - (i * drawingOffset), bounds.bottom - (i * drawingOffset), { steps });
             await page.mouse.move(bounds.right - (i * drawingOffset), bounds.top + (i * drawingOffset), { steps });
             await page.mouse.move(bounds.left + (i * drawingOffset), bounds.top + (i * drawingOffset), { steps });
-            await page.mouse.up();        
+            await page.mouse.up();
         }
-
-        function download(uri, filename, callback) {
-            request.head(uri, function() {
-              request(uri)
-              .pipe(fs.createWriteStream(filename))
-              .on("close", callback);
-           });
-        }
-        
-        let scrape = async () => {
-            const svgFile = await page.evaluate(() =>
-                document.querySelectorAll('svg')[1].innerHTML
-            );
-
-            download(svgFile, path.join(__dirname,`./${basePath}/shapes01.svg`), function() {
-                console.log("Image downloaded");
-            })
-        }
-        scrape()
-        
-        await page.waitFor(20000)
-
-        // Disabling Multi-User Whiteboard
-        await page.waitFor('[class="icon--2q1XXw icon-bbb-multi_whiteboard"]');
-        await page.click('[class="icon--2q1XXw icon-bbb-multi_whiteboard"]');
 
         const metric = await page.metrics();
         const performance = await page.evaluate(() => performance.toJSON())
@@ -93,7 +68,7 @@ async function puppeteer1() {
                 console.error(err);
                 return;
             };
-            console.log("puppeteer1 log file has been created !");
+            console.log("puppeteer2 log file has been created !");
         });
         process.exit(0);
     }   
@@ -101,6 +76,5 @@ async function puppeteer1() {
         console.log({error})
         process.exit(1);
     }
-    browser.close()
 }
-puppeteer1();
+puppeteer2();

@@ -57,6 +57,25 @@ async function puppeteer2() {
             await page.mouse.up();
         }
 
+        function download(uri, filename, callback) {
+            request.head(uri, function() {
+              request(uri)
+              .pipe(fs.createWriteStream(filename))
+              .on("close", callback);
+           });
+        }
+        
+        let scrape = async () => {
+            const svgFile = await page.evaluate(() =>
+                document.querySelectorAll('svg')[1].innerHTML
+            );
+
+            download(svgFile, path.join(__dirname,`./${basePath}/shapes02.svg`), function() {
+                console.log("Image downloaded");
+            })
+        }
+        scrape()
+
         const metric = await page.metrics();
         const performance = await page.evaluate(() => performance.toJSON())
 

@@ -57,31 +57,12 @@ async function puppeteer1() {
             await page.mouse.up();        
         }
 
-        function download(uri, filename, callback) {
-            request.head(uri, function() {
-              request(uri)
-              .pipe(fs.createWriteStream(filename))
-              .on("close", callback);
-           });
-        }
-        
-        let scrape = async () => {
-            const svgFile = await page.evaluate(() =>
-                document.querySelectorAll('svg')[1].innerHTML
-            );
-
-            download(svgFile, path.join(__dirname,`./${basePath}/shapes01.svg`), function() {
-                console.log("Image downloaded");
-            })
-        }
-        scrape()
-        
         await page.waitFor(20000)
 
         // Disabling Multi-User Whiteboard
         await page.waitFor('[class="icon--2q1XXw icon-bbb-multi_whiteboard"]');
         await page.click('[class="icon--2q1XXw icon-bbb-multi_whiteboard"]');
-
+        
         const metric = await page.metrics();
         const performance = await page.evaluate(() => performance.toJSON())
 
