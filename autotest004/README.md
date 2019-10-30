@@ -31,10 +31,17 @@ example:
 
 The default script will launch the clients it needs on the server you describe in the URL.
 
+## More informations
+
+The downloaded PDF file will be found in your default download folder.
+example: `~/Downloads/`
+
 ## Screenshots
 
 The outputs of `puppeteer01.js` will be displayed as in the picture below:
-![outputs](../images/screenshot.png "outputs")
+<img align="left" src="../images/screenshot.png">
 
 The metrics will show something like this:
-![metrics](../images/metrics.png "metrics")
+<p align="center">
+  <img src="../images/metrics.png">
+</p>
