@@ -78,7 +78,8 @@ async function puppeteer2() {
             return document.querySelectorAll('[class="svgContainer--Z1z3wO0"]')[0].innerHTML
         })
         fs.appendFileSync(`../autotest005/${basePath}/shapes02.svg`, svg, 'utf-8');
-
+        
+        await page.waitFor(3000)
         process.exit(0);
     }   
     catch(error){

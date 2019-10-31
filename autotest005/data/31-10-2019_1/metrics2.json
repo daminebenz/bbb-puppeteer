@@ -1,0 +1,47 @@
+{
+    "metricObj": {
+        "Timestamp": 18189.430338,
+        "Documents": 2,
+        "Frames": 2,
+        "JSEventListeners": 380,
+        "Nodes": 5423,
+        "LayoutCount": 420,
+        "RecalcStyleCount": 602,
+        "LayoutDuration": 0.238906,
+        "RecalcStyleDuration": 0.406902,
+        "ScriptDuration": 3.055004,
+        "TaskDuration": 5.391906,
+        "JSHeapUsedSize": 20237704,
+        "JSHeapTotalSize": 33861632
+    },
+    "performanceObj": {
+        "timeOrigin": 1572543106990.7969,
+        "timing": {
+            "navigationStart": 1572543106990,
+            "unloadEventStart": 1572543107391,
+            "unloadEventEnd": 1572543107391,
+            "redirectStart": 1572543106999,
+            "redirectEnd": 1572543107176,
+            "fetchStart": 1572543107176,
+            "domainLookupStart": 1572543107176,
+            "domainLookupEnd": 1572543107176,
+            "connectStart": 1572543107176,
+            "connectEnd": 1572543107176,
+            "secureConnectionStart": 0,
+            "requestStart": 1572543107180,
+            "responseStart": 1572543107381,
+            "responseEnd": 1572543107383,
+            "domLoading": 1572543107402,
+            "domInteractive": 1572543109854,
+            "domContentLoadedEventStart": 1572543109854,
+            "domContentLoadedEventEnd": 1572543109881,
+            "domComplete": 1572543110068,
+            "loadEventStart": 1572543110068,
+            "loadEventEnd": 1572543110068
+        },
+        "navigation": {
+            "type": 0,
+            "redirectCount": 1
+        }
+    }
+}

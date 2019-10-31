@@ -87,6 +87,7 @@ async function puppeteer1() {
         })
         fs.appendFileSync(`../autotest005/${basePath}/shapes01.svg`, svg, 'utf-8');
 
+        await page.waitFor(3000)
         process.exit(0);
     }   
     catch(error){
