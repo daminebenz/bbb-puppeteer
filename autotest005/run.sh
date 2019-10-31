@@ -36,6 +36,8 @@ node puppeteer01.js "$URL" "$basePath" &> $basePath/puppeteer01.out &
 pids+=($!)
 node puppeteer02.js "$URL" "$basePath" &> $basePath/puppeteer02.out &
 pids+=($!)
+node contentCheck.js "$basePath" &> $basePath/contentCheck.out &
+pids+=($!)
 
 function killprocs()
 {
