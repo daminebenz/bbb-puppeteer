@@ -1,22 +1,22 @@
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 const basePath = process.argv[3]
 var path = require('path');   
 const metrics = {}
+var fs = require("fs");
 
 var metricsJSON = path.join(__dirname,`./${basePath}/metrics1.json`)
-var fs = require("fs");
 
 async function puppeteer1() {
     const browser = await puppeteer.launch({
         headless: false,
-        executablePath: '/usr/bin/google-chrome',
         args: [ '--use-fake-ui-for-media-stream',
                 '--unlimited-storage', 
                 '--full-memory-crash-report',
                 '--window-size=1024,785'
         ]
     });
+
     const page = await browser.newPage();
     await page.setViewport({
         width: 1024,
@@ -57,30 +57,11 @@ async function puppeteer1() {
             await page.mouse.up();        
         }
 
-        function download(uri, filename, callback) {
-            request.head(uri, function() {
-              request(uri)
-              .pipe(fs.createWriteStream(filename))
-              .on("close", callback);
-           });
-        }
-        
-        let scrape = async () => {
-            const svgFile = await page.evaluate(() =>
-                document.querySelectorAll('svg')[1].innerHTML
-            );
-
-            download(svgFile, path.join(__dirname,`./${basePath}/shapes01.svg`), function() {
-                console.log("Image downloaded");
-            })
-        }
-        scrape()
-        
-        await page.waitFor(20000)
-
         // Disabling Multi-User Whiteboard
         await page.waitFor('[class="icon--2q1XXw icon-bbb-multi_whiteboard"]');
         await page.click('[class="icon--2q1XXw icon-bbb-multi_whiteboard"]');
+
+        await page.waitFor(3000)
 
         const metric = await page.metrics();
         const performance = await page.evaluate(() => performance.toJSON())
@@ -95,6 +76,17 @@ async function puppeteer1() {
             };
             console.log("puppeteer1 log file has been created !");
         });
+        await page.goto(`${URL}/demo/demoHTML5.jsp?username=Puppeteer1&isModerator=false&action=create`, { waitUntil : ['load', 'domcontentloaded']});
+            
+        await page.waitFor('[aria-describedby^="modalDismissDescription"]');
+        await page.click('[aria-describedby^="modalDismissDescription"]');
+        await page.waitFor(3000);
+
+        let svg = await page.evaluate(()=>{
+            return document.querySelectorAll('[class="svgContainer--Z1z3wO0"]')[0].innerHTML
+        })
+        fs.appendFileSync(`../autotest005/${basePath}/shapes01.svg`, svg, 'utf-8');
+
         process.exit(0);
     }   
     catch(error){
