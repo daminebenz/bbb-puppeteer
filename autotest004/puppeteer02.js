@@ -32,22 +32,14 @@ async function puppeteer2() {
         await page.click('[class="noteLink--1Xz6Lp"]');
         await page.waitFor(10000);
         await page._client.send('Page.setDownloadBehavior', {behavior: 'allow', downloadPath: '/home/imdt/puppeteer/autotest004/data'});
+        
         // Exporting Shared Notes
-        // await page.keyboard.down('ControlLeft');
         await page.evaluate (async () =>{
             let iframeDocument = await document.querySelectorAll('iframe')[0].contentWindow.document
                 await iframeDocument.querySelectorAll('button[aria-label="Import/Export from/to different file formats"]')[0].click()
                 await iframeDocument.querySelector('[aria-label="PDF"]').click()
             }
         );
-
-        // const hrefs = await page.evaluate(
-        //     () => Array.from(document.body.querySelectorAll('[aria-label="PDF"]'), ({ href }) => href)
-        // );
-        // for (const href of hrefs) {
-        //     const pdfLink = await browser.newPage()
-        //     await pdfLink.goto(href)
-        // }
 
         const metric = await page.metrics();
         const performance = await page.evaluate(() => performance.toJSON())
