@@ -1,20 +1,26 @@
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 const basePath = process.argv[3]
 var path = require('path');   
 const metrics = {}
+const conf = require('./conf')
 
+const config = conf.config
 var metricsJSON = path.join(__dirname,`./${basePath}/metrics2.json`)
 var fs = require("fs");
 
 async function puppeteer2() {
     const browser = await puppeteer.launch({
         headless: false,
-        executablePath: '/usr/bin/google-chrome',
-        args: [ '--use-fake-ui-for-media-stream',
-                '--unlimited-storage', 
-                '--full-memory-crash-report',
-                '--window-size=800,600'
+        args: [ 
+            '--disable-dev-shm-usage',
+            '--use-fake-ui-for-media-stream',
+            // '--use-fake-device-for-media-stream',
+            // '--use-file-for-fake-audio-capture=' + config.data.audio,
+            // '--use-file-for-fake-video-capture=' + config.data.video,
+            '--unlimited-storage', 
+            '--full-memory-crash-report',
+            '--window-size=1024,785'
         ]
     });
 
@@ -30,32 +36,20 @@ async function puppeteer2() {
         await page.click('[aria-describedby^="modalDismissDescription"]');
         await page.waitFor(3000);
 
-        // Drawing in Violet color
-        await page.waitFor('[aria-label="Colors"]');
-        await page.click('[aria-label="Colors"]');
-        await page.waitFor(3000);
-        await page.waitFor('rect[fill="#8800ff"]');
-        await page.click('rect[fill="#8800ff"]');
-        await page.waitFor(3000);
+        // Enabling webcam
+        await page.waitFor(9000);
+        await page.waitForSelector('[class="lg--Q7ufB buttonWrapper--x8uow button--qv0Xy btn--29prju"]');
+        await page.click('[class="lg--Q7ufB buttonWrapper--x8uow button--qv0Xy btn--29prju"]');
+        await page.waitFor(9000);
+        await page.waitFor('video[id="preview"]');
+        await page.waitFor(9000);
+        await page.waitFor('[aria-label="Start sharing"]');
+        await page.click('[aria-label="Start sharing"]');
+        await page.waitFor(9000);
 
-        const whiteboard = await page.$('div[role=presentation]');                
-        await page.waitFor(3000);
-        const bounds = await page.evaluate((whiteboard) => {
-            const { top, left, bottom, right } = whiteboard.getBoundingClientRect();
-            return { top, left, bottom, right };
-            }, whiteboard);
-        const drawingOffset = 15;
-        const steps = 5;
-
-        for (i = 0; i <= 15; i++) {
-            await page.mouse.move(bounds.left + (i * drawingOffset), bounds.top + (i * drawingOffset), { steps });
-            await page.mouse.down();
-            await page.mouse.move(bounds.left + (i * drawingOffset), bounds.bottom - (i * drawingOffset)), { steps };
-            await page.mouse.move(bounds.right - (i * drawingOffset), bounds.bottom - (i * drawingOffset), { steps });
-            await page.mouse.move(bounds.right - (i * drawingOffset), bounds.top + (i * drawingOffset), { steps });
-            await page.mouse.move(bounds.left + (i * drawingOffset), bounds.top + (i * drawingOffset), { steps });
-            await page.mouse.up();
-        }
+        // Disabling Webcam
+        await page.waitForSelector('[class="lg--Q7ufB buttonWrapper--x8uow button--qv0Xy"]');
+        await page.click('[class="lg--Q7ufB buttonWrapper--x8uow button--qv0Xy"]')
 
         const metric = await page.metrics();
         const performance = await page.evaluate(() => performance.toJSON())

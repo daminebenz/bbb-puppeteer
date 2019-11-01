@@ -1,14 +1,15 @@
 {
-  "name": "puppeteer",
+  "name": "bbb-puppeteer",
   "version": "1.0.0",
-  "description": "testing bbb functionalities using puppeteer",
+  "description": "Testing bbb functionalities using puppeteer in autotests.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./autotest001/run.sh"
   },
-  "keywords": [],
-  "author": "Mohamed Amine Ben Salah",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daminebenz/bbb-puppeteer.git"
+  },
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^3.5.3"
@@ -17,5 +18,16 @@
     "dotenv": "^8.1.0",
     "puppeteer": "^1.10.0",
     "puppeteer-core": "^1.20.0"
-  }
+  },
+  "keywords": [
+    "bigbluebutton",
+    "html5",
+    "puppeteer"
+  ],
+  "author": "Mohamed Amine Ben Salah <contact@damine.wtf>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daminebenz/bbb-puppeteer/issues"
+  },
+  "homepage": "https://github.com/daminebenz/bbb-puppeteer#readme"
 }

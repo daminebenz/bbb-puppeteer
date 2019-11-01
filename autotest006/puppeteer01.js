@@ -1,20 +1,26 @@
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 const basePath = process.argv[3]
 var path = require('path');   
 const metrics = {}
+const conf = require('./conf')
 
+const config = conf.config
 var metricsJSON = path.join(__dirname,`./${basePath}/metrics1.json`)
 var fs = require("fs");
 
 async function puppeteer1() {
     const browser = await puppeteer.launch({
         headless: false,
-        executablePath: '/usr/bin/google-chrome',
-        args: [ '--use-fake-ui-for-media-stream',
-                '--unlimited-storage', 
-                '--full-memory-crash-report',
-                '--window-size=1024,785'
+        args: [ 
+            '--disable-dev-shm-usage',
+            '--use-fake-ui-for-media-stream',
+            // '--use-fake-device-for-media-stream',
+            // '--use-file-for-fake-audio-capture=' + config.data.audio,
+            // '--use-file-for-fake-video-capture=' + config.data.video,
+            '--unlimited-storage', 
+            '--full-memory-crash-report',
+            '--window-size=1024,785'
         ]
     });
     const page = await browser.newPage();
@@ -29,40 +35,25 @@ async function puppeteer1() {
         await page.click('[aria-describedby^="modalDismissDescription"]');
         await page.waitFor(3000);
 
-        await page.waitFor('[class="icon--2q1XXw icon-bbb-whiteboard"]');
-        await page.click('[class="icon--2q1XXw icon-bbb-whiteboard"]')        
-        await page.waitFor(3000)
+        // Enabling webcam
+        await page.waitFor(9000);
+        await page.waitForSelector('[aria-label="Share webcam"]');
+        await page.click('[aria-label="Share webcam"]');
+        await page.waitFor(9000);
+        await page.waitFor('video[id="preview"]');
+        await page.waitFor(9000);
+        await page.waitFor('[aria-label="Start sharing"]');
+        await page.click('[aria-label="Start sharing"]');
+        await page.waitFor(9000);
 
-        await page.waitFor('[aria-label="Tools"]');
-        await page.click('[aria-label="Tools"]');
-        await page.waitFor('[aria-label="Pencil"]');        
-        await page.click('[aria-label="Pencil"]');
+        // Enabling full screen Webcam
+        await page.evaluate(()=> document.querySelectorAll('[data-test="presentationFullscreenButton"]')[1].click());
+        await page.waitFor(9000);
 
-        const whiteboard = await page.$('div[role=presentation]');                
-        await page.waitFor(3000);
-        const bounds = await page.evaluate((whiteboard) => {
-            const { top, left, bottom, right } = whiteboard.getBoundingClientRect();
-            return { top, left, bottom, right };
-            }, whiteboard);
-        const drawingOffset = 15;
-        const steps = 5;
+        // Leaving Webcam Full Screen
+        await page.waitFor(9000);
+        await page.evaluate(()=> document.querySelectorAll('[data-test="presentationFullscreenButton"]')[1].click());
 
-        for (i = 0; i <= 15; i++) {
-            await page.mouse.move(bounds.left + (i * drawingOffset), bounds.top + (i * drawingOffset), { steps });
-            await page.mouse.down();
-            await page.mouse.move(bounds.left + (i * drawingOffset), bounds.bottom - (i * drawingOffset)), { steps };
-            await page.mouse.move(bounds.right - (i * drawingOffset), bounds.bottom - (i * drawingOffset), { steps });
-            await page.mouse.move(bounds.right - (i * drawingOffset), bounds.top + (i * drawingOffset), { steps });
-            await page.mouse.move(bounds.left + (i * drawingOffset), bounds.top + (i * drawingOffset), { steps });
-            await page.mouse.up();        
-        }
-
-        await page.waitFor(20000)
-
-        // Disabling Multi-User Whiteboard
-        await page.waitFor('[class="icon--2q1XXw icon-bbb-multi_whiteboard"]');
-        await page.click('[class="icon--2q1XXw icon-bbb-multi_whiteboard"]');
-        
         const metric = await page.metrics();
         const performance = await page.evaluate(() => performance.toJSON())
 
