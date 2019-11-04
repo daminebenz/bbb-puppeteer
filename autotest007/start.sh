@@ -1,10 +1,11 @@
 #!/bin/bash
-
+BROWSERLESS="${BROWSERLESS:-209.133.209.137:3000}"
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 pids=()
 
 URL="$1"
+bot=10
 
 if [ -z "$URL" ] ; then
     echo -e "Enter BBB Base Server URL:"
@@ -31,23 +32,17 @@ done
 basePath=data/${date}_${n}
 
 mkdir -p $basePath
+while [ $bot -gt 0 ]; do
+    node puppeteer.js "$URL" "$basePath" "$bot" "$BROWSERLESS" &> $basePath/puppeteer.out &
+    pids+=($!)
+    bot=$(($bot-1))
+done
 
-node puppeteer01.js "$URL" "$basePath" &> $basePath/puppeteer01.out &
-pids+=($!)
-node puppeteer03.js "$URL" "$basePath" &> $basePath/puppeteer03.out &
-pids+=($!)
-node puppeteer04.js "$URL" "$basePath" &> $basePath/puppeteer04.out &
-pids+=($!)
-node puppeteer05.js "$URL" "$basePath" &> $basePath/puppeteer05.out &
-pids+=($!)
-node puppeteer06.js "$URL" "$basePath" &> $basePath/puppeteer06.out &
-pids+=($!)
-node puppeteer07.js "$URL" "$basePath" &> $basePath/puppeteer07.out &
-pids+=($!)
-node puppeteer08.js "$URL" "$basePath" &> $basePath/puppeteer08.out &
-pids+=($!)
-node puppeteer09.js "$URL" "$basePath" &> $basePath/puppeteer09.out &
-pids+=($!)
+k=0
+while [ $k -lt 10 ]; do
+    node puppeteer03.js "$URL" "$basePath" "$bot" "$BROWSERLESS" &> $basePath/puppeteer03.out &
+    sleep 60 &
+done
 
 function killprocs()
 {

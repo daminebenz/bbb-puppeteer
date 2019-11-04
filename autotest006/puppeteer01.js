@@ -11,7 +11,7 @@ var fs = require("fs");
 
 async function puppeteer1() {
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         args: [ 
             '--disable-dev-shm-usage',
             '--use-fake-ui-for-media-stream',

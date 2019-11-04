@@ -34,6 +34,8 @@ mkdir -p $basePath
 
 node puppeteer01.js "$URL" "$basePath" &> $basePath/puppeteer01.out &
 pids+=($!)
+node puppeteer02.js "$URL" "$basePath" &> $basePath/puppeteer02.out &
+pids+=($!)
 node puppeteer03.js "$URL" "$basePath" &> $basePath/puppeteer03.out &
 pids+=($!)
 node puppeteer04.js "$URL" "$basePath" &> $basePath/puppeteer04.out &
@@ -48,7 +50,16 @@ node puppeteer08.js "$URL" "$basePath" &> $basePath/puppeteer08.out &
 pids+=($!)
 node puppeteer09.js "$URL" "$basePath" &> $basePath/puppeteer09.out &
 pids+=($!)
-
+node puppeteer010.js "$URL" "$basePath" &> $basePath/puppeteer010.out &
+pids+=($!)
+node puppeteer011.js "$URL" "$basePath" &> $basePath/puppeteer011.out &
+pids+=($!)
+node puppeteer012.js "$URL" "$basePath" &> $basePath/puppeteer012.out &
+pids+=($!)
+node puppeteer013.js "$URL" "$basePath" &> $basePath/puppeteer013.out &
+pids+=($!)
+node puppeteer014.js "$URL" "$basePath" &> $basePath/puppeteer014.out &
+pids+=($!)
 function killprocs()
 {
     echo killing ${pids[@]}
