@@ -15,9 +15,8 @@ async function puppeteer1() {
         args: [ 
             '--disable-dev-shm-usage',
             '--use-fake-ui-for-media-stream',
-            // '--use-fake-device-for-media-stream',
-            // '--use-file-for-fake-audio-capture=' + config.data.audio,
-            // '--use-file-for-fake-video-capture=' + config.data.video,
+            '--use-fake-device-for-media-stream',
+            '--use-file-for-fake-video-capture=' + config.data.video,
             '--unlimited-storage', 
             '--full-memory-crash-report',
             '--window-size=1024,785'
@@ -29,6 +28,7 @@ async function puppeteer1() {
         height: 785
     })
     try{
+        
         await page.goto(`${URL}/demo/demoHTML5.jsp?username=Puppeteer1&isModerator=true&action=create`, { waitUntil : ['load', 'domcontentloaded']});
         await page.waitFor(3000);
         await page.waitFor('[aria-describedby^="modalDismissDescription"]');

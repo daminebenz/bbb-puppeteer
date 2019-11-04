@@ -15,9 +15,8 @@ async function puppeteer2() {
         args: [ 
             '--disable-dev-shm-usage',
             '--use-fake-ui-for-media-stream',
-            // '--use-fake-device-for-media-stream',
-            // '--use-file-for-fake-audio-capture=' + config.data.audio,
-            // '--use-file-for-fake-video-capture=' + config.data.video,
+            '--use-fake-device-for-media-stream',
+            '--use-file-for-fake-video-capture=' + config.data.video,
             '--unlimited-storage', 
             '--full-memory-crash-report',
             '--window-size=1024,785'

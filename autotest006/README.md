@@ -2,7 +2,7 @@
 
 ## About
 
-This script is about Drawing and Multi-Users Whiteboard testing, to check if Puppeteer01 and Puppeteer02 are able to draw in the Whiteboard at the same time and it collects the metrics of this process.
+This script is about Webcams testing and full screen Webcam.
 
 ## Details
 
@@ -10,7 +10,7 @@ This script runs 2 puppeteer instances and gets the Metrics and the Performance 
 
 This script generates execution folder with the name `Date_ExecutionNum` (example: `data/01-01-2019_1`) inside autotest006 folder.
 
-This script generates the log files `data/puppeteer01.out` and `data/puppeteer02.out` and the Metrics in `data/metrics1.json` and `data/metrics2.json` files.
+This script generates the log files `puppeteer01.out` and `puppeteer02.out` and the Metrics in `metrics1.json` and `metrics2.json` files.
 
 ## Running
 
