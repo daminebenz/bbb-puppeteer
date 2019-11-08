@@ -1,4 +1,4 @@
-{
+[{
     "msgsObj": 0,
     "dateObj": "2019-11-08T02:03:28.551Z",
     "itemsObj": 0,
@@ -497,4 +497,5 @@
             "redirectCount": 1
         }
     }
-},
+}
+]
