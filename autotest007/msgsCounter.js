@@ -7,26 +7,14 @@ const metrics = {}
 var metricsMsgs = path.join(__dirname,`./${basePath}/metricsMsgs.json`)
 var fs = require("fs");
 
-function convertDate(date) {
-    var yyyy = date.getFullYear().toString();
-    var mm = (date.getMonth()+1).toString();
-    var dd  = date.getDate().toString();
-    var mmChars = mm.split('');
-    var ddChars = dd.split('');
-    return (ddChars[1]?dd:"0"+ddChars[0]) + '-' + (mmChars[1]?mm:"0"+mmChars[0]) + '-' + yyyy;
-}
-
 async function msgsCounter() {
     /* -- Enable if you want to connect msgCounter from Browserless Server -- */
-    /* 
+    // const browser = await puppeteer.launch({
+    //     headless: true
+    // });
     const browser = await puppeteer.connect({
         browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
     });
-    */
-    const browser = await puppeteer.launch({
-        headless: true
-    });
-
     const page = await browser.newPage();
     try{
         page.setDefaultTimeout(120000);
@@ -39,13 +27,12 @@ async function msgsCounter() {
         await page.waitFor(3000)
 
         for(i=0;i<99999999999;i++){
-            await page.waitFor(60000)
             const chat = await page.evaluateHandle(()=> {
                 let x = require('/imports/api/group-chat-msg/index.js')
                 return x.GroupChatMsg.find({}).count()
             })
             var totalMsgs = await chat.jsonValue()
-            const date = convertDate(new Date())
+            const date = new Date()
             const metric = await page.metrics();
             const performance = await page.evaluate(() => performance.toJSON())
             const itemsNb = await page.evaluate(()=>
@@ -65,6 +52,7 @@ async function msgsCounter() {
                 };
                 console.log("MsgsCounter log file has been created !");
             });
+            await page.waitFor(60000)
         }
 
         process.exit(0);
@@ -73,6 +61,5 @@ async function msgsCounter() {
         console.log({error})
         process.exit(1);
     }
-    page.close()
 }
 msgsCounter();

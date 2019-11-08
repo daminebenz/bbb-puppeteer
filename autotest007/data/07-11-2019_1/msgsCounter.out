@@ -1,0 +1,11 @@
+{ error: Error: Protocol error (Runtime.callFunctionOn): Session closed. Most likely the page has been closed.
+    at CDPSession.send (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\Connection.js:180:29)
+    at ExecutionContext._evaluateInternal (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\ExecutionContext.js:107:44)
+    at ExecutionContext.evaluateHandle (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\ExecutionContext.js:57:17)
+    at ExecutionContext.<anonymous> (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\helper.js:112:23)
+    at Page.evaluateHandle (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\Page.js:328:20)
+    at <anonymous>
+  -- ASYNC --
+    at Page.<anonymous> (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\helper.js:111:15)
+    at msgsCounter (C:\Users\damin\Desktop\bbb-puppeteer\autotest007\msgsCounter.js:30:37)
+    at <anonymous> }

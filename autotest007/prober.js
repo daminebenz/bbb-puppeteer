@@ -7,24 +7,13 @@ const metrics = {}
 var metricsJSON = path.join(__dirname,`./${basePath}/metricsProber.json`)
 var fs = require("fs");
 
-function convertDate(date) {
-    var yyyy = date.getFullYear().toString();
-    var mm = (date.getMonth()+1).toString();
-    var dd  = date.getDate().toString();
-    var mmChars = mm.split('');
-    var ddChars = dd.split('');
-    return (ddChars[1]?dd:"0"+ddChars[0]) + '-' + (mmChars[1]?mm:"0"+mmChars[0]) + '-' + yyyy;
-}
-
 async function probe() {
     /* -- Enable if you want to connect Probe from Browserless Server -- */
-    /* 
+    // const browser = await puppeteer.launch({
+    //     headless: true
+    // });
     const browser = await puppeteer.connect({
         browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
-    });
-    */
-    const browser = await puppeteer.launch({
-        headless: true
     });
 
     const page = await browser.newPage();
@@ -35,7 +24,7 @@ async function probe() {
         await page.waitForSelector('[aria-describedby^="modalDismissDescription"]', {timeout: 0});
         await page.click('[aria-describedby^="modalDismissDescription"]');
         
-        const date = convertDate(new Date())
+        const date = new Date()
         const metric = await page.metrics();
         const performance = await page.evaluate(() => performance.toJSON())
         const itemsNb = await page.evaluate(()=>
@@ -60,6 +49,5 @@ async function probe() {
         console.log({error})
         process.exit(1);
     }
-    page.close()
 }
 probe();
