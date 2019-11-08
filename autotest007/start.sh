@@ -1,11 +1,14 @@
 #!/bin/bash
-BROWSERLESS="${BROWSERLESS:-209.133.209.137:3000}"
+BROWSERLESS="${BROWSERLESS:-34.95.196.119:3000}"
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 pids=()
 
 URL="$1"
-bot=10
+
+# variables number
+bot=4
+delay=60
 
 if [ -z "$URL" ] ; then
     echo -e "Enter BBB Base Server URL:"
@@ -22,8 +25,8 @@ echo "Starting with URL: $URL"
 echo "Executing..."
 
 date=$(date +"%d-%m-%Y")
-n=1
 
+n=1
 # Increment $N as long as a directory with that name exists
 while [[ -d "data/${date}_${n}" ]] ; do
     n=$(($n+1))
@@ -32,16 +35,20 @@ done
 basePath=data/${date}_${n}
 
 mkdir -p $basePath
+
 while [ $bot -gt 0 ]; do
-    node puppeteer.js "$URL" "$basePath" "$bot" "$BROWSERLESS" &> $basePath/puppeteer.out &
+    node bots.js "$URL" "$basePath" "$bot" "$BROWSERLESS" &> $basePath/bots.out &
     pids+=($!)
     bot=$(($bot-1))
 done
 
+node msgsCounter.js "$URL" "$basePath" "$BROWSERLESS" "$delay" &> $basePath/msgsCounter.out &
+
 k=0
 while [ $k -lt 10 ]; do
-    node puppeteer03.js "$URL" "$basePath" "$bot" "$BROWSERLESS" &> $basePath/puppeteer03.out &
-    sleep 60 &
+    node prober.js "$URL" "$basePath" "$BROWSERLESS" &> $basePath/prober.out &
+    sleep $delay
+    k=$(($k+1))
 done
 
 function killprocs()
