@@ -7,7 +7,7 @@ pids=()
 URL="$1"
 
 # variables number
-bot=15
+bot=3
 
 if [ -z "$URL" ] ; then
     echo -e "Enter BBB Base Server URL:"
@@ -44,7 +44,7 @@ done
 node msgsCounter.js "$URL" "$basePath" "$BROWSERLESS" &> $basePath/msgsCounter.out &
 
 k=0
-while [ $k -lt 86400 ]; do
+while [ $k -lt 60 ]; do
     node prober.js "$URL" "$basePath" "$BROWSERLESS" &> $basePath/prober.out &
     sleep 60
     k=$(($k+1))

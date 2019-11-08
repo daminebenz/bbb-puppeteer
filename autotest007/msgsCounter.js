@@ -45,7 +45,7 @@ async function msgsCounter() {
             metrics['metricObj'] = metric;
             metrics['performanceObj'] = performance;
             
-            fs.appendFileSync(metricsMsgs, JSON.stringify(metrics, null, 4)+',\n', (err) => {
+            fs.appendFileSync(metricsMsgs, JSON.stringify(metrics)+'\n', (err) => {
                 if (err) {
                     console.error(err);
                     return;
@@ -54,11 +54,10 @@ async function msgsCounter() {
             });
             await page.waitFor(60000)
         }
-
-        process.exit(0);
     }   
     catch(error){
-        console.log({error})
+        const time = new Date()
+        console.log({error}, ' at => ',time)
         process.exit(1);
     }
 }

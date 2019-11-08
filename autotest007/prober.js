@@ -43,7 +43,7 @@ async function probe() {
             };
             console.log("Prober log file has been created !");
         });
-        process.exit(0);
+        process.exit(0)
     }   
     catch(error){
         console.log({error})

@@ -30,10 +30,10 @@ async function bots() {
         }
 
         await page.waitFor(3000)
-        process.exit(0);
     }   
     catch(error){
-        console.log({error})
+        const time = new Date()
+        console.log({error}, ' at => ',time)
         process.exit(1);
     }
 }
