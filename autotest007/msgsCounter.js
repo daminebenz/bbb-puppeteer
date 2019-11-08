@@ -1,7 +1,6 @@
 const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 const basePath = process.argv[3]
-const delay = process.argv[5]
 var path = require('path');   
 const metrics = {} 
 
@@ -39,7 +38,8 @@ async function msgsCounter() {
         
         await page.waitFor(3000)
 
-        for(i=0;i<216000;i+delay){
+        for(i=0;i<99999999999;i++){
+            await page.waitFor(60000)
             const chat = await page.evaluateHandle(()=> {
                 let x = require('/imports/api/group-chat-msg/index.js')
                 return x.GroupChatMsg.find({}).count()

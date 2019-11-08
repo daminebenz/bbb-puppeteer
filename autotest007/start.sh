@@ -8,7 +8,6 @@ URL="$1"
 
 # variables number
 bot=4
-delay=60
 
 if [ -z "$URL" ] ; then
     echo -e "Enter BBB Base Server URL:"
@@ -42,12 +41,12 @@ while [ $bot -gt 0 ]; do
     bot=$(($bot-1))
 done
 
-node msgsCounter.js "$URL" "$basePath" "$BROWSERLESS" "$delay" &> $basePath/msgsCounter.out &
+node msgsCounter.js "$URL" "$basePath" "$BROWSERLESS" &> $basePath/msgsCounter.out &
 
 k=0
-while [ $k -lt 10 ]; do
+while [ $k -lt 86400 ]; do
     node prober.js "$URL" "$basePath" "$BROWSERLESS" &> $basePath/prober.out &
-    sleep $delay
+    sleep 60
     k=$(($k+1))
 done
 
