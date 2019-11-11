@@ -7,7 +7,7 @@ pids=()
 URL="$1"
 
 # variables number
-bot=3
+bot=15
 
 if [ -z "$URL" ] ; then
     echo -e "Enter BBB Base Server URL:"
