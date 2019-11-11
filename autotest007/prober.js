@@ -9,12 +9,12 @@ var fs = require("fs");
 
 async function probe() {
     /* -- Enable if you want to connect Probe from Browserless Server -- */
-    // const browser = await puppeteer.launch({
-    //     headless: true
-    // });
-    const browser = await puppeteer.connect({
-        browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
+    const browser = await puppeteer.launch({
+        headless: true
     });
+    // const browser = await puppeteer.connect({
+    //     browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
+    // });
 
     const page = await browser.newPage();
 
@@ -36,7 +36,7 @@ async function probe() {
         metrics['metricObj'] = metric;
         metrics['performanceObj'] = performance;
         
-        fs.appendFileSync(metricsJSON, JSON.stringify(metrics)+',\n', (err) => {
+        fs.appendFileSync(metricsJSON, JSON.stringify(metrics)+'\n', (err) => {
             if (err) {
                 console.error(err);
                 return;
