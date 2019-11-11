@@ -29,7 +29,7 @@ parsedProberMetrics.on('line', (line)=>{
 parsedMsgsMetrics.on('line', (line)=>{
     try {
         const {itemsObj,msgsObj,dateObj, metricObj:{Nodes, JSHeapUsedSize}} = JSON.parse(line)
-        let formattedLine = `{"dateObj": "${dateObj}",\n"itemsObj": ${itemsObj},\n"Nodes": ${Nodes},\n"JSHeapUsedSize": ${JSHeapUsedSize},\n"totalMessagesMiniMongo": ${msgsObj}}\n`;
+        let formattedLine = `{"dateObj": "${(dateObj)}",\n"itemsObj": ${itemsObj},\n"Nodes": ${Nodes},\n"JSHeapUsedSize": ${JSHeapUsedSize},\n"totalMessagesMiniMongo": ${msgsObj}}\n`;
         data = JSON.parse(formattedLine)
     }
     catch(error){
