@@ -8,24 +8,14 @@ var metricsMsgs = path.join(__dirname,`./${basePath}/metricsMsgs.json`)
 var fs = require("fs");
 
 async function msgsCounter() {
-<<<<<<< HEAD
-    /* -- Enable if you want to connect msgCounter from Browserless Server -- */
-    const browser = await puppeteer.launch({
-        headless: true
-    });
-    // const browser = await puppeteer.connect({
-    //     browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
-    // });
-=======
    /* -- Enable if you want to connect msgCounter from Browserless Server -- */
     const browser = await puppeteer.launch({
         headless: true,
-	args: ['--no-sandbox']
+	    args: ['--no-sandbox']
    });
    // const browser = await puppeteer.connect({
    //     browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
    // });
->>>>>>> 8bdaf1c663cb65bcdad8708eff5adc58a38601d3
     const page = await browser.newPage();
     try{
         page.setDefaultTimeout(120000);

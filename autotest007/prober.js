@@ -10,20 +10,12 @@ var fs = require("fs");
 async function probe() {
     /* -- Enable if you want to connect Probe from Browserless Server -- */
     const browser = await puppeteer.launch({
-<<<<<<< HEAD
-        headless: true
-    });
-    // const browser = await puppeteer.connect({
-    //     browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
-    // });
-=======
         headless: true,
-	args: ['--no-sandbox']
+	    args: ['--no-sandbox']
     });
     //const browser = await puppeteer.connect({
     //    browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
     //});
->>>>>>> 8bdaf1c663cb65bcdad8708eff5adc58a38601d3
 
     const page = await browser.newPage();
 
