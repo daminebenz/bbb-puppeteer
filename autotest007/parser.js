@@ -18,7 +18,7 @@ parsedProberMetrics.on('line', (line)=>{
     try {
         const {metricObj:{ScriptDuration}} = JSON.parse(line)
         let formattedLine = `{"secondsToInitiallyLoadMessages": ${ScriptDuration}}`;
-        fs.appendFileSync(proberJSON, JSON.stringify(formattedLine)+'\n', 'utf-8')
+        fs.appendFileSync(proberJSON, JSON.parse(formattedLine)+'\n', 'utf-8')
     }
     catch(error){
         const time = new Date()
@@ -30,7 +30,7 @@ parsedMsgsMetrics.on('line', (line)=>{
     try {
         const {itemsObj,msgsObj,dateObj, metricObj:{Nodes, JSHeapUsedSize}} = JSON.parse(line)
         let formattedLine = `{"dateObj": "${dateObj}","itemsObj": ${itemsObj},"Nodes": ${Nodes},"JSHeapUsedSize": ${JSHeapUsedSize},"totalMessagesMiniMongo": ${msgsObj}}`;
-        fs.appendFileSync(msgsJSON, JSON.stringify(formattedLine), 'utf-8')
+        fs.appendFileSync(msgsJSON, JSON.parse(formattedLine)+'\n', 'utf-8')
     }
     catch(error){
         const time = new Date()
