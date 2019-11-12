@@ -11,7 +11,7 @@ async function probe() {
     /* -- Enable if you want to connect Probe from Browserless Server -- */
     const browser = await puppeteer.launch({
         headless: true,
-	    args: ['--no-sandbox']
+	    // args: ['--no-sandbox']
     });
     //const browser = await puppeteer.connect({
     //    browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
