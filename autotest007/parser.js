@@ -4,8 +4,8 @@ var path = require('path');
 const basePath = process.argv[2]
 var metricsMsgs = path.join(__dirname,`./${basePath}/metricsMsgs.json`)
 var metricsProber = path.join(__dirname,`./${basePath}/metricsProber.json`)
-var proberJSON = path.join(__dirname,`./${basePath}/proberJSON.json`)
-var msgsJSON = path.join(__dirname,`./${basePath}/msgsJSON.json`)
+var proberTSV = path.join(__dirname,`./${basePath}/proberTSV.tsv`)
+var msgsTSV = path.join(__dirname,`./${basePath}/msgsTSV.tsv`)
 
 const parsedMsgsMetrics = readline.createInterface({
     input: fs.createReadStream(metricsMsgs),
@@ -17,8 +17,8 @@ const parsedProberMetrics = readline.createInterface({
 parsedProberMetrics.on('line', (line)=>{
     try {
         const {metricObj:{ScriptDuration}} = JSON.parse(line)
-        let formattedLine = `{"secondsToInitiallyLoadMessages": ${ScriptDuration}}`;
-        fs.appendFileSync(proberJSON, JSON.parse(formattedLine)+'\n', 'utf-8')
+        let formattedLine = `secondsToInitiallyLoadMessages\t${ScriptDuration}\t`;
+        fs.appendFileSync(proberTSV, formattedLine+'\n', 'utf-8')
     }
     catch(error){
         const time = new Date()
@@ -29,8 +29,8 @@ parsedProberMetrics.on('line', (line)=>{
 parsedMsgsMetrics.on('line', (line)=>{
     try {
         const {itemsObj,msgsObj,dateObj, metricObj:{Nodes, JSHeapUsedSize}} = JSON.parse(line)
-        let formattedLine = `{"dateObj": "${dateObj}","itemsObj": ${itemsObj},"Nodes": ${Nodes},"JSHeapUsedSize": ${JSHeapUsedSize},"totalMessagesMiniMongo": ${msgsObj}}`;
-        fs.appendFileSync(msgsJSON, JSON.parse(formattedLine)+'\n', 'utf-8')
+        let formattedLine = `dateObj\t${dateObj}\titemsObj\t${itemsObj}\tNodes\t${Nodes}\tJSHeapUsedSize\t${JSHeapUsedSize}\ttotalMessagesMiniMongo\t${msgsObj}\t`;
+        fs.appendFileSync(msgsTSV, formattedLine+'\n', 'utf-8')
     }
     catch(error){
         const time = new Date()
