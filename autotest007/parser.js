@@ -21,8 +21,8 @@ fs.writeFileSync(msgsTSV, 'dateObj\titemsObj\tNodes\tJSHeapUsedSize\ttotalMessag
 
 parsedProberMetrics.on('line', (line)=>{
     try {
-        const {metricObj:{ScriptDuration}} = JSON.parse(line)
-        let formattedLine = `${ScriptDuration.toFixed(2).toString().replace(".", ",")}\t`;
+        const {durationObj} = JSON.parse(line)
+        let formattedLine = `${durationObj.toFixed(2).toString().replace(".", ",")}\t`;
         fs.appendFileSync(proberTSV, formattedLine+'\n', 'utf-8')
     }
     catch(error){

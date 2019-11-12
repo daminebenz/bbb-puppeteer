@@ -28,6 +28,14 @@ async function msgsCounter() {
         await page.waitFor(3000)
 
         for(i=0;i<99999999999;i++){
+            var x = new Date()
+            await page.evaluate(async ()=>{
+                let msg = document.querySelectorAll('[class="message--Z2n2nXu"]')
+                await msg.length
+            });
+            var y = new Date();
+            var z = y.getTime() - x.getTime();
+            var duration = z / 1000;
             const chat = await page.evaluateHandle(()=> {
                 let x = require('/imports/api/group-chat-msg/index.js')
                 return x.GroupChatMsg.find({}).count()
@@ -39,8 +47,8 @@ async function msgsCounter() {
             const itemsNb = await page.evaluate(()=>
                 document.querySelectorAll('[class="item--ZDfG6l"]').length
             )
-
-            metrics['msgsObj'] = totalMsgs;
+            metrics['durationObj'] = duration;
+            metrics['totalMsgsObj'] = totalMsgs;
             metrics['dateObj'] = date;
             metrics['itemsObj'] = itemsNb;
             metrics['metricObj'] = metric;
