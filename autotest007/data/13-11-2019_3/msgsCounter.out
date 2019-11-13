@@ -1,0 +1,14 @@
+Deprecation warning: value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are discouraged and will be removed in an upcoming major release. Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.
+Arguments: 
+[0] _isAMomentObject: true, _isUTC: false, _useUTC: false, _l: undefined, _i: [object Promise], _f: undefined, _strict: undefined, _locale: [object Object]
+Error
+    at Function.createFromInputFallback (/home/imdt/bbb-puppeteer/node_modules/moment/moment.js:320:98)
+    at configFromInput (/home/imdt/bbb-puppeteer/node_modules/moment/moment.js:2623:19)
+    at prepareConfig (/home/imdt/bbb-puppeteer/node_modules/moment/moment.js:2594:13)
+    at createFromConfig (/home/imdt/bbb-puppeteer/node_modules/moment/moment.js:2561:44)
+    at createLocalOrUTC (/home/imdt/bbb-puppeteer/node_modules/moment/moment.js:2648:16)
+    at createLocal (/home/imdt/bbb-puppeteer/node_modules/moment/moment.js:2652:16)
+    at hooks (/home/imdt/bbb-puppeteer/node_modules/moment/moment.js:12:29)
+    at msgsCounter (/home/imdt/bbb-puppeteer/autotest007/msgsCounter.js:44:36)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:189:7)

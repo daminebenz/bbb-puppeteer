@@ -32,7 +32,7 @@ async function probe() {
             document.querySelectorAll('[class="item--ZDfG6l"]').length
         )
 
-        metrics['dateObj'] = date;
+        metrics['dateObj'] = date.toLocaleString('pt-BR')
         metrics['itemsObj'] = itemsNb;
         metrics['metricObj'] = metric;
         metrics['performanceObj'] = performance;

@@ -1,6 +1,8 @@
 const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 const basePath = process.argv[3]
+const moment = require('moment');
+
 var path = require('path');   
 const metrics = {} 
 
@@ -8,7 +10,7 @@ var metricsMsgs = path.join(__dirname,`./${basePath}/metricsMsgs.json`)
 var fs = require("fs");
 
 async function msgsCounter() {
-   /* -- Enable if you want to connect msgCounter from Browserless Server -- */
+   /* -- Enable if you want to connect msgsCounter from Browserless Server -- */
     const browser = await puppeteer.launch({
         headless: true,
 	    // args: ['--no-sandbox']
@@ -27,29 +29,37 @@ async function msgsCounter() {
         
         await page.waitFor(3000)
 
-        for(i=0;i<99999999999;i++){
+        for (i=0;i<=99999999999;i++){
             var x = new Date()
-            await page.evaluate(async ()=>{
-                let msg = document.querySelectorAll('[class="message--Z2n2nXu"]')
-                await msg.length
+            let msgObj = await page.evaluateHandle(async ()=>{
+                let msg = await document.getElementsByClassName("message--Z2n2nXu")
+                return msg[msg.length - 1].innerText
             });
             var y = new Date();
-            var z = y.getTime() - x.getTime();
-            var duration = z / 1000;
             const chat = await page.evaluateHandle(()=> {
                 let x = require('/imports/api/group-chat-msg/index.js')
-                return x.GroupChatMsg.find({}).count()
+                let req = x.GroupChatMsg.findOne({},{sort:{timestamp: -1},fields: {timestamp: 1}})
+                return req.timestamp
             })
-            var totalMsgs = await chat.jsonValue()
+            var lastMsgMiniMongo = moment(chat.jsonValue()).format('DD-MM-YYYY hh:mm:ss');
+            var lastMsgDOM = await msgObj.jsonValue()
+
             const date = new Date()
+            const rightnow = moment(date).format('DD-MM-YYYY hh:mm:ss');
             const metric = await page.metrics();
             const performance = await page.evaluate(() => performance.toJSON())
             const itemsNb = await page.evaluate(()=>
                 document.querySelectorAll('[class="item--ZDfG6l"]').length
             )
-            metrics['durationObj'] = duration;
-            metrics['totalMsgsObj'] = totalMsgs;
-            metrics['dateObj'] = date;
+            var z = y.getTime() - x.getTime();
+            var domDuration = z / 1000;
+            
+            metrics['domDurationObj'] = domDuration;
+            metrics['lastMsgMiniMongoObj'] = moment(lastMsgMiniMongo).format('DD-MM-YYYY hh:mm:ss');
+            metrics['lastMsgDOMObj'] = lastMsgDOM;
+            metrics['dateObj'] = rightnow
+            var miniMongoDuration = rightnow - lastMsgMiniMongo;
+            metrics['miniMongoDurationObj'] = miniMongoDuration;
             metrics['itemsObj'] = itemsNb;
             metrics['metricObj'] = metric;
             metrics['performanceObj'] = performance;
@@ -62,7 +72,9 @@ async function msgsCounter() {
                 console.log("MsgsCounter log file has been created !");
             });
             await page.waitFor(60000)
+            i++;
         }
+        process.exit(0)
     }   
     catch(error){
         const time = new Date()

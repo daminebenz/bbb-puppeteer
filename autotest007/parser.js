@@ -37,7 +37,7 @@ parsedMsgsMetrics.on('line', (line)=>{
         let formattedDate = new Date(dateObj);
         const intervalBox = Math.floor(formattedDate.getSeconds() / 5)*5;
         formattedDate.setSeconds(intervalBox);
-        formattedDate = moment(formattedDate).format('DD-MM-YYYY HH:mm:ss');
+        formattedDate = moment(formattedDate).format('DD-MM-YYYY hh:mm:ss');
         if (!data[formattedDate]) {
         data[formattedDate] = {};
         }

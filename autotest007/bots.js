@@ -12,7 +12,6 @@ async function bots() {
     //    browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
     //});
 
-
     const page = await browser.newPage();
     try{
         page.setDefaultTimeout(120000);
@@ -21,8 +20,7 @@ async function bots() {
         await page.waitForSelector('[aria-describedby^="modalDismissDescription"]', { timeout: 0 });
         await page.click('[aria-describedby^="modalDismissDescription"]');
         await page.waitFor(3000)
-
-        for(i=1;i<=2000;i++){
+        for (i=0;i<=2000;i++){
             await page.keyboard.type(`Message ${i} from Bot-${bot} has been sent !`,{
                 delay: 100
             });
@@ -30,8 +28,8 @@ async function bots() {
                 delay: 100
             });
         }
-
         await page.waitFor(3000)
+        process.exit(0)
     }   
     catch(error){
         const time = new Date()
