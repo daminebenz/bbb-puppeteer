@@ -3,6 +3,7 @@ const URL = process.argv[2]
 const basePath = process.argv[3]
 var path = require('path');   
 const metrics = {}
+const moment = require('moment');
 
 var metricsJSON = path.join(__dirname,`./${basePath}/metricsProber.json`)
 var fs = require("fs");
@@ -32,7 +33,7 @@ async function probe() {
             document.querySelectorAll('[class="item--ZDfG6l"]').length
         )
 
-        metrics['dateObj'] = date.toLocaleString('pt-BR')
+        metrics['dateObj'] = moment(date).format('DD-MM-YYYY hh:mm:ss');
         metrics['itemsObj'] = itemsNb;
         metrics['metricObj'] = metric;
         metrics['performanceObj'] = performance;

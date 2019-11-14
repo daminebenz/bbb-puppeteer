@@ -41,26 +41,22 @@ async function msgsCounter() {
                 let req = x.GroupChatMsg.findOne({},{sort:{timestamp: -1},fields: {timestamp: 1}})
                 return req.timestamp
             })
-            var lastMsgMiniMongo = moment(chat.jsonValue()).format('DD-MM-YYYY hh:mm:ss');
+            var miniMongoTimestamp = await chat.jsonValue()
+            var initialLoadingTimeMiniMongo = miniMongoTimestamp.getTime() / 1000
             var lastMsgDOM = await msgObj.jsonValue()
 
             const date = new Date()
-            const rightnow = moment(date).format('DD-MM-YYYY hh:mm:ss');
+            const rightnow = date.getTime() / 1000;
             const metric = await page.metrics();
             const performance = await page.evaluate(() => performance.toJSON())
-            const itemsNb = await page.evaluate(()=>
-                document.querySelectorAll('[class="item--ZDfG6l"]').length
-            )
             var z = y.getTime() - x.getTime();
             var domDuration = z / 1000;
             
             metrics['domDurationObj'] = domDuration;
-            metrics['lastMsgMiniMongoObj'] = moment(lastMsgMiniMongo).format('DD-MM-YYYY hh:mm:ss');
+            metrics['miniMongoDurationObj'] = rightnow - initialLoadingTimeMiniMongo;
+            metrics['initialLoadingTimeMiniMongoObj'] = moment(initialLoadingTimeMiniMongo).format('DD-MM-YYYY hh:mm:ss');
             metrics['lastMsgDOMObj'] = lastMsgDOM;
             metrics['dateObj'] = rightnow
-            var miniMongoDuration = rightnow - lastMsgMiniMongo;
-            metrics['miniMongoDurationObj'] = miniMongoDuration;
-            metrics['itemsObj'] = itemsNb;
             metrics['metricObj'] = metric;
             metrics['performanceObj'] = performance;
             
