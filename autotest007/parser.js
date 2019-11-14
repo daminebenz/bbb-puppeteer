@@ -17,12 +17,12 @@ const parsedProberMetrics = readline.createInterface({
 });
 
 fs.writeFileSync(proberTSV, 'secondsToInitiallyLoadMessages\n','utf-8')
-fs.writeFileSync(msgsTSV, 'dateObj\titemsObj\tNodes\tJSHeapUsedSize\ttotalMessagesMiniMongo\n','utf-8')
+fs.writeFileSync(msgsTSV, 'dateObj\tdomDurationObj\tminiMongoDurationObj\ttotalMsgsObj\tNodes\tJSHeapUsedSize\n','utf-8')
 
 parsedProberMetrics.on('line', (line)=>{
     try {
-        const {durationObj} = JSON.parse(line)
-        let formattedLine = `${durationObj.toFixed(2).toString().replace(".", ",")}\t`;
+        const {domDurationObj} = JSON.parse(line)
+        let formattedLine = `${domDurationObj.toFixed(3).toString().replace(".", ",")}\t`;
         fs.appendFileSync(proberTSV, formattedLine+'\n', 'utf-8')
     }
     catch(error){
@@ -33,16 +33,16 @@ parsedProberMetrics.on('line', (line)=>{
 
 parsedMsgsMetrics.on('line', (line)=>{
     try {
-        const {itemsObj,msgsObj,dateObj, metricObj:{Nodes, JSHeapUsedSize}} = JSON.parse(line)
+        const {dateObj,domDurationObj,miniMongoDurationObj,totalMsgsObj, metricObj:{Nodes, JSHeapUsedSize}} = JSON.parse(line)
         let formattedDate = new Date(dateObj);
         const intervalBox = Math.floor(formattedDate.getSeconds() / 5)*5;
         formattedDate.setSeconds(intervalBox);
-        formattedDate = moment(formattedDate).format('DD-MM-YYYY hh:mm:ss');
+        formattedDate = moment(formattedDate).format('DD/MM/YYYY hh:mm:ss');
         if (!data[formattedDate]) {
         data[formattedDate] = {};
         }
 
-        let formattedLine = `${formattedDate}\t${itemsObj}\t${Nodes}\t${JSHeapUsedSize}\t${msgsObj}`;
+        let formattedLine = `${dateObj}\t${domDurationObj}\t${miniMongoDurationObj}\t${totalMsgsObj}\t${Nodes}\t${JSHeapUsedSize}`;
         fs.appendFileSync(msgsTSV, formattedLine+'\n', 'utf-8')
     }
     catch(error){
