@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 const URL = process.argv[2]
 const basePath = process.argv[3]
 const moment = require('moment');
@@ -14,13 +14,13 @@ function toTimestamp(strDate){
 
 async function msgsCounter() {
    /* -- Enable if you want to connect msgsCounter from Browserless Server -- */
-    const browser = await puppeteer.launch({
-        headless: true,
-	    // args: ['--no-sandbox']
+//     const browser = await puppeteer.launch({
+//         headless: true,
+// 	    // args: ['--no-sandbox']
+//    });
+   const browser = await puppeteer.connect({
+       browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
    });
-   // const browser = await puppeteer.connect({
-   //     browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
-   // });
     const page = await browser.newPage();
     try{
         page.setDefaultTimeout(120000);
@@ -41,13 +41,15 @@ async function msgsCounter() {
                 let x = await document.querySelectorAll('[class="message--Z2n2nXu"]').length
                 return x
             })
-            const date = new Date()
+            
             const chat = await page.evaluateHandle(()=> {
                 let x = require('/imports/api/group-chat-msg/index.js')
                 let req = x.GroupChatMsg.findOne({},{sort:{timestamp: -1},fields: {timestamp: 1}})
-                return req ? req.timestamp : 0
+                return req ? new Date() : 0
             })
+            const date = new Date()
             var miniMongoTimestamp = await chat.jsonValue()
+            var ximira = toTimestamp(new Date())
             var dateTimestamp = Math.floor(toTimestamp(date) * 1000)
 
             const metric = await page.metrics();
@@ -56,16 +58,16 @@ async function msgsCounter() {
             var domDuration = z / 1000;
 
             function diffTimestamp(dateTimestamp, miniMongoTimestamp) {
-                var difference = dateTimestamp - miniMongoTimestamp;
+                var difference = miniMongoTimestamp - dateTimestamp;
                 var diff = Math.floor(difference/1000);
                 return diff;
             }
-            var miniMongoDuration = diffTimestamp(dateTimestamp, miniMongoTimestamp)
+            var miniMongoDuration = diffTimestamp(dateTimestamp, ximira)
 
             metrics['dateObj'] = moment(date).format('DD/MM/YYYY hh:mm:ss');
             metrics['totalMsgsObj'] = totalMsgs;
             metrics['domDurationObj'] = domDuration;
-            metrics['miniMongoDurationObj'] = miniMongoDuration > 0 ? miniMongoDuration / 1000 : 0;
+            metrics['miniMongoDurationObj'] = miniMongoDuration / 1000
             metrics['metricObj'] = metric;
             metrics['performanceObj'] = performance;
             

@@ -1,17 +1,17 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 const URL = process.argv[2]
 const bot = process.argv[4]
 
 async function bots() {
     /* -- Enable if you want to connect Bots from Browserless Server -- */
-    const browser = await puppeteer.launch({
-        headless: true,
-	    args: ['--no-sandbox']
-    });
+    // const browser = await puppeteer.launch({
+    //     headless: true,
+	//     args: ['--no-sandbox']
+    // });
     
-    //const browser = await puppeteer.connect({
-    //    browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
-    //});
+    const browser = await puppeteer.connect({
+       browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
+    });
 
     const page = await browser.newPage();
     try{
