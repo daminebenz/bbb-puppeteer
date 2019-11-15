@@ -1,23 +1,26 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 const URL = process.argv[2]
 const basePath = process.argv[3]
 const moment = require('moment');
-
 var path = require('path');   
 const metrics = {} 
-
 var metricsMsgs = path.join(__dirname,`./${basePath}/metricsMsgs.json`)
 var fs = require("fs");
 
+function toTimestamp(strDate){
+    var datum = Date.parse(strDate);
+    return datum/1000;
+}
+
 async function msgsCounter() {
    /* -- Enable if you want to connect msgsCounter from Browserless Server -- */
-    const browser = await puppeteer.launch({
-        headless: true,
-	    // args: ['--no-sandbox']
+//     const browser = await puppeteer.launch({
+//         headless: true,
+// 	    // args: ['--no-sandbox']
+//    });
+   const browser = await puppeteer.connect({
+       browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
    });
-   // const browser = await puppeteer.connect({
-   //     browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
-   // });
     const page = await browser.newPage();
     try{
         page.setDefaultTimeout(120000);
@@ -25,28 +28,30 @@ async function msgsCounter() {
         await page.waitFor(5000)
         await page.waitForSelector('[aria-describedby^="modalDismissDescription"]', {timeout: 0});
         await page.click('[aria-describedby^="modalDismissDescription"]');
-        await page.waitFor(3000);
-        
-        await page.waitFor(3000)
+        await page.waitForSelector('[class="message--Z2n2nXu"]')
 
         for (i=0;i<=99999999999;i++){
             var x = new Date()
-            let msgObj = await page.evaluateHandle(async ()=>{
-                let msg = await document.getElementsByClassName("message--Z2n2nXu")
-                return msg[msg.length - 1].innerText
+            await page.evaluateHandle(async ()=>{
+                let msgs = await document.getElementsByClassName("message--Z2n2nXu")
+                return msgs ? msgs[msgs.length - 1].innerText : "none"
             });
-            var y = new Date();
+            var y = new Date()
+            let totalMsgs = await page.evaluate(async()=> {
+                let x = await document.querySelectorAll('[class="message--Z2n2nXu"]').length
+                return x
+            })
+            
             const chat = await page.evaluateHandle(()=> {
                 let x = require('/imports/api/group-chat-msg/index.js')
                 let req = x.GroupChatMsg.findOne({},{sort:{timestamp: -1},fields: {timestamp: 1}})
-                return req.timestamp
+                return req ? new Date() : 0
             })
-            var miniMongoTimestamp = chat.jsonValue()
-            var miniMongoLastMsgDate = new Date(miniMongoTimestamp)
-            var lastMsgDOM = await msgObj.jsonValue()
-
             const date = new Date()
-            const rightnow = moment(date).format('DD-MM-YYYY hh:mm:ss');
+            var miniMongoTimestamp = await chat.jsonValue()
+            var ximira = toTimestamp(new Date())
+            var dateTimestamp = Math.floor(toTimestamp(date) * 1000)
+
             const metric = await page.metrics();
             const performance = await page.evaluate(() => performance.toJSON())
             const itemsNb = await page.evaluate(()=>
@@ -54,14 +59,27 @@ async function msgsCounter() {
             )
             var z = y.getTime() - x.getTime();
             var domDuration = z / 1000;
-            
+
+            function diffTimestamp(dateTimestamp, miniMongoTimestamp) {
+                var difference = miniMongoTimestamp - dateTimestamp;
+                var diff = Math.floor(difference/1000);
+                return diff;
+            }
+            var miniMongoDuration = diffTimestamp(dateTimestamp, ximira)
+
+            metrics['dateObj'] = moment(date).format('DD/MM/YYYY hh:mm:ss');
+            metrics['totalMsgsObj'] = totalMsgs;
             metrics['domDurationObj'] = domDuration;
+<<<<<<< HEAD
             metrics['miniMongoLastMsgDateObj'] = moment(miniMongoLastMsgDate).format('DD-MM-YYYY hh:mm:ss');
             metrics['lastMsgDOMObj'] = lastMsgDOM;
             metrics['dateObj'] = rightnow;
             var miniMongoDuration = date.getTime() - miniMongoLastMsgDate.getTime();
             metrics['miniMongoDurationObj'] = miniMongoDuration / 1000;
             metrics['itemsObj'] = itemsNb;
+=======
+            metrics['miniMongoDurationObj'] = miniMongoDuration / 1000
+>>>>>>> bed99f670dfacdc61d1c3fb6edd86a0e4743d517
             metrics['metricObj'] = metric;
             metrics['performanceObj'] = performance;
             
@@ -70,7 +88,6 @@ async function msgsCounter() {
                     console.error(err);
                     return;
                 };
-                console.log("MsgsCounter log file has been created !");
             });
             await page.waitFor(60000)
             i++;
