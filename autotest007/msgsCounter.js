@@ -70,16 +70,7 @@ async function msgsCounter() {
             metrics['dateObj'] = moment(date).format('DD/MM/YYYY hh:mm:ss');
             metrics['totalMsgsObj'] = totalMsgs;
             metrics['domDurationObj'] = domDuration;
-<<<<<<< HEAD
-            metrics['miniMongoLastMsgDateObj'] = moment(miniMongoLastMsgDate).format('DD-MM-YYYY hh:mm:ss');
-            metrics['lastMsgDOMObj'] = lastMsgDOM;
-            metrics['dateObj'] = rightnow;
-            var miniMongoDuration = date.getTime() - miniMongoLastMsgDate.getTime();
-            metrics['miniMongoDurationObj'] = miniMongoDuration / 1000;
-            metrics['itemsObj'] = itemsNb;
-=======
             metrics['miniMongoDurationObj'] = miniMongoDuration / 1000
->>>>>>> bed99f670dfacdc61d1c3fb6edd86a0e4743d517
             metrics['metricObj'] = metric;
             metrics['performanceObj'] = performance;
             
