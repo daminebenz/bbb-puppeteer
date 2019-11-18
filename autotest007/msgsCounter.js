@@ -63,6 +63,12 @@ async function msgsCounter() {
                 return Date.parse(z)
             })
             const date = new Date()
+            const msgs = await page.evaluateHandle(async ()=> {
+                let x = require('/imports/api/group-chat-msg/index.js');
+                let y = x.GroupChatMsg.find({},{sort:{timestamp:-1}}).fetch();
+                return y
+            })
+            var miniMongoMsgsNb = await msgs.jsonValue()
             var miniMongoTimestamp = await chat.jsonValue()
             console.log(miniMongoTimestamp)
             var dateTimestamp = Math.floor(toTimestamp(date) * 1000)
@@ -81,6 +87,7 @@ async function msgsCounter() {
 
             metrics['dateObj'] = moment(date).format('DD/MM/YYYY hh:mm:ss');
             metrics['totalMsgsObj'] = totalMsgs;
+            metrics['totalMsgsMiniMongoObj'] = miniMongoMsgsNb;
             metrics['domDurationObj'] = domDuration;
             metrics['miniMongoDurationObj'] = miniMongoDuration / 1000;
             metrics['metricObj'] = metric;
