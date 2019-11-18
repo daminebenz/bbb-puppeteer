@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 const basePath = process.argv[3]
 const moment = require('moment');
@@ -11,16 +11,24 @@ function toTimestamp(strDate){
     var datum = Date.parse(strDate);
     return datum/1000;
 }
-
+function convert(str) {
+    var date = new Date(str),
+        mnth = ("0" + (date.getMonth()+1)).slice(-2),
+        day  = ("0" + date.getDate()).slice(-2);
+        hours  = ("0" + date.getHours()).slice(-2);
+        minutes = ("0" + date.getMinutes()).slice(-2);
+        seconds = ("0" + date.getSeconds()).slice(-2);
+    return [ day, mnth, date.getFullYear() ].join("/") + ' ' + [hours, minutes, seconds].join(":");
+}
 async function msgsCounter() {
    /* -- Enable if you want to connect msgsCounter from Browserless Server -- */
-//     const browser = await puppeteer.launch({
-//         headless: true,
-// 	    // args: ['--no-sandbox']
-//    });
-   const browser = await puppeteer.connect({
-       browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
+    const browser = await puppeteer.launch({
+        headless: true,
+	    // args: ['--no-sandbox']
    });
+//    const browser = await puppeteer.connect({
+//        browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
+//    });
     const page = await browser.newPage();
     try{
         page.setDefaultTimeout(120000);
@@ -41,16 +49,21 @@ async function msgsCounter() {
                 let x = await document.querySelectorAll('[class="message--Z2n2nXu"]').length
                 return x
             })
-
-            const chat = await page.evaluateHandle(()=> {
-                let x = require('/imports/api/group-chat-msg/index.js')
-                x.GroupChatMsg.findOne({},{sort:{timestamp: -1},fields: {timestamp: 1}})
-                var y = {}
-                return y[new Date()]
+            const chat = await page.evaluateHandle(async ()=> {
+                let x = require('/imports/api/group-chat-msg/index.js');
+                x.GroupChatMsg.findOne({},{sort:{timestamp: -1},fields: {timestamp: 1}});
+                var para = document.createElement('p');
+                var data = new Date();
+                var node = document.createTextNode(data);
+                para.appendChild(node);
+                let element = document.querySelectorAll('[class="message--Z2n2nXu"]');
+                var msg = element[element.length - 1];
+                var y = msg.appendChild(para);
+                let z = y.innerText
+                return Date.parse(z)
             })
             const date = new Date()
             var miniMongoTimestamp = await chat.jsonValue()
-            // var miniMongoTimestamp = await Math.floor(toTimestamp(chat.description) * 1000)
             console.log(miniMongoTimestamp)
             var dateTimestamp = Math.floor(toTimestamp(date) * 1000)
 

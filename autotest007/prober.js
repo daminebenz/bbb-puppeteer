@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 const URL = process.argv[2]
 const basePath = process.argv[3]
 var path = require('path');   
@@ -10,13 +10,13 @@ var fs = require("fs");
 
 async function probe() {
     /* -- Enable if you want to connect Probe from Browserless Server -- */
-    // const browser = await puppeteer.launch({
-    //     headless: true,
-	//     // args: ['--no-sandbox']
-    // });
-    const browser = await puppeteer.connect({
-       browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
+    const browser = await puppeteer.launch({
+        headless: true,
+	    // args: ['--no-sandbox']
     });
+    // const browser = await puppeteer.connect({
+    //    browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
+    // });
 
     const page = await browser.newPage();
 
