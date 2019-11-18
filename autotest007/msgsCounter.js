@@ -65,7 +65,7 @@ async function msgsCounter() {
             const date = new Date()
             const msgs = await page.evaluateHandle(async ()=> {
                 let x = require('/imports/api/group-chat-msg/index.js');
-                let y = x.GroupChatMsg.find({},{sort:{timestamp:-1}}).fetch();
+                let y = x.GroupChatMsg.find({},{sort:{timestamp:-1}}).count();
                 return y
             })
             var miniMongoMsgsNb = await msgs.jsonValue()
