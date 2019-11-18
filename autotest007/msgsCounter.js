@@ -41,36 +41,35 @@ async function msgsCounter() {
                 let x = await document.querySelectorAll('[class="message--Z2n2nXu"]').length
                 return x
             })
-            
+
             const chat = await page.evaluateHandle(()=> {
                 let x = require('/imports/api/group-chat-msg/index.js')
-                let req = x.GroupChatMsg.findOne({},{sort:{timestamp: -1},fields: {timestamp: 1}})
-                return req ? new Date() : 0
+                x.GroupChatMsg.findOne({},{sort:{timestamp: -1},fields: {timestamp: 1}})
+                var y = {}
+                return y[new Date()]
             })
             const date = new Date()
             var miniMongoTimestamp = await chat.jsonValue()
-            var ximira = toTimestamp(new Date())
+            // var miniMongoTimestamp = await Math.floor(toTimestamp(chat.description) * 1000)
+            console.log(miniMongoTimestamp)
             var dateTimestamp = Math.floor(toTimestamp(date) * 1000)
 
             const metric = await page.metrics();
             const performance = await page.evaluate(() => performance.toJSON())
-            const itemsNb = await page.evaluate(()=>
-                document.querySelectorAll('[class="item--ZDfG6l"]').length
-            )
             var z = y.getTime() - x.getTime();
             var domDuration = z / 1000;
 
             function diffTimestamp(dateTimestamp, miniMongoTimestamp) {
-                var difference = miniMongoTimestamp - dateTimestamp;
+                var difference = dateTimestamp - miniMongoTimestamp;
                 var diff = Math.floor(difference/1000);
                 return diff;
             }
-            var miniMongoDuration = diffTimestamp(dateTimestamp, ximira)
+            var miniMongoDuration = diffTimestamp(dateTimestamp, miniMongoTimestamp)
 
             metrics['dateObj'] = moment(date).format('DD/MM/YYYY hh:mm:ss');
             metrics['totalMsgsObj'] = totalMsgs;
             metrics['domDurationObj'] = domDuration;
-            metrics['miniMongoDurationObj'] = miniMongoDuration / 1000
+            metrics['miniMongoDurationObj'] = miniMongoDuration / 1000;
             metrics['metricObj'] = metric;
             metrics['performanceObj'] = performance;
             
