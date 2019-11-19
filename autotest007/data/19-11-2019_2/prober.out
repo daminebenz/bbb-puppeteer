@@ -1,0 +1,23 @@
+{ error: 
+   { Error: Protocol error (Runtime.callFunctionOn): Target closed.
+    at Promise (/root/bbb-puppeteer/node_modules/puppeteer/lib/Connection.js:183:56)
+    at new Promise (<anonymous>)
+    at CDPSession.send (/root/bbb-puppeteer/node_modules/puppeteer/lib/Connection.js:182:12)
+    at ExecutionContext._evaluateInternal (/root/bbb-puppeteer/node_modules/puppeteer/lib/ExecutionContext.js:107:44)
+    at ExecutionContext.evaluateHandle (/root/bbb-puppeteer/node_modules/puppeteer/lib/ExecutionContext.js:57:17)
+    at ExecutionContext.<anonymous> (/root/bbb-puppeteer/node_modules/puppeteer/lib/helper.js:112:23)
+    at WaitTask.rerun (/root/bbb-puppeteer/node_modules/puppeteer/lib/DOMWorld.js:570:65)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:189:7)
+  -- ASYNC --
+    at Frame.<anonymous> (/root/bbb-puppeteer/node_modules/puppeteer/lib/helper.js:111:15)
+    at Page.waitForSelector (/root/bbb-puppeteer/node_modules/puppeteer/lib/Page.js:1095:29)
+    at probe (/root/bbb-puppeteer/autotest007/prober.js:26:20)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:189:7)
+     message: 'Protocol error (Runtime.callFunctionOn): Target closed.' } }
+Page.click (/root/bbb-puppeteer/node_modules/puppeteer/lib/Page.js:1037:29)
+    at probe (/root/bbb-puppeteer/autotest007/prober.js:27:20)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:189:7)
+     message: 'Protocol error (Input.dispatchMouseEvent): Target closed.' } }
