@@ -11,15 +11,6 @@ function toTimestamp(strDate){
     var datum = Date.parse(strDate);
     return datum/1000;
 }
-function convert(str) {
-    var date = new Date(str),
-        mnth = ("0" + (date.getMonth()+1)).slice(-2),
-        day  = ("0" + date.getDate()).slice(-2);
-        hours  = ("0" + date.getHours()).slice(-2);
-        minutes = ("0" + date.getMinutes()).slice(-2);
-        seconds = ("0" + date.getSeconds()).slice(-2);
-    return [ day, mnth, date.getFullYear() ].join("/") + ' ' + [hours, minutes, seconds].join(":");
-}
 async function msgsCounter() {
    /* -- Enable if you want to connect msgsCounter from Browserless Server -- */
     const browser = await puppeteer.launch({
