@@ -4,6 +4,8 @@ Puppeteer scripts to test the BigBlueButton client.
 
 The goal is to easily test the functionalities of a BigBlueButton server under various circumstances, and based on the [Systematic BigBlueButton 2.2 Test Plan](https://docs.google.com/spreadsheets/d/1RUUKC30n5uMdnBeLgwkN4qvxWAJsKT6UWXMoGJOhleE).
 
+These autotests are described step by step in this [SpreadSheet](https://docs.google.com/spreadsheets/d/1dXeYkATC-6_83gy4XXhdHNZnEtPuNOn07U6w9mYBYrc/edit?usp=sharing) 
+
 # Setup
 
 ## Requirements

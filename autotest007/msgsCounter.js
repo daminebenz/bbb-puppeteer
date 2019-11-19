@@ -29,7 +29,7 @@ async function msgsCounter() {
         await page.click('[aria-describedby^="modalDismissDescription"]');
         await page.waitForSelector('[class="message--Z2n2nXu"]')
 
-        for (i=0;i<=99999999999;i++){
+        for (i=0;i<=60;i++){
             var x = new Date()
             await page.evaluateHandle(async ()=>{
                 let msgs = await document.getElementsByClassName("message--Z2n2nXu")
