@@ -7,7 +7,6 @@ const basePath = process.argv[2];
 
     try{
         shapes01 === shapes02
-        console.log("All good ! The same content was found in both of the files !")
         process.exit(0)
     } catch(error){
         console.log({error})
