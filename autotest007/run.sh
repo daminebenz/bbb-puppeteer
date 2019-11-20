@@ -33,7 +33,7 @@ basePath=data/${date}_${n}
 
 mkdir -p $basePath
 
-for ((i=0;i<99999999999;i+1)); do
+for ((i=0;i<3600;i+1)); do
 while [ $bot -gt 0 ]; do
     node bots.js "$URL" "$basePath" "$bot" $z &> $basePath/bots.out &
     pids+=($!)
