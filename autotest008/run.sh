@@ -4,9 +4,6 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 pids=()
 URL="$1"
 
-# variables number
-bot=10
-
 if [ -z "$URL" ] ; then
     echo -e "Enter BBB Base Server URL:"
    read URL
@@ -33,22 +30,8 @@ basePath=data/${date}_${n}
 
 mkdir -p $basePath
 
-for ((i=0;i<99999999999;i+1)); do
-while [ $bot -gt 0 ]; do
-    node bots.js "$URL" "$basePath" "$bot" $z &> $basePath/bots.out &
-    pids+=($!)
-    bot=$(($bot-1))
-done
-node msgsCounter.js "$URL" "$basePath" $z&> $basePath/msgsCounter.out &
+node puppeteer01.js "$URL" "$basePath" &> $basePath/puppeteer01.out &
 pids+=($!)
-k=0
-while [ $k -lt 60 ]; do
-    node prober.js "$URL" "$basePath" $z &> $basePath/prober.out &
-    pids+=($!)
-    sleep 60
-    k=$(($k+1))
-done
-done
 
 function killprocs()
 {

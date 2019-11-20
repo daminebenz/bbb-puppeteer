@@ -4,27 +4,23 @@ const basePath = process.argv[3]
 const moment = require('moment');
 var path = require('path');   
 const metrics = {} 
-var metricsMsgs = path.join(__dirname,`./${basePath}/metricsMsgs.json`)
+var metricsMsgs = path.join(__dirname,`./${basePath}/puppeteer02.json`)
 var fs = require("fs");
 
 function toTimestamp(strDate){
     var datum = Date.parse(strDate);
     return datum/1000;
 }
-async function msgsCounter() {
-   /* -- Enable if you want to connect msgsCounter from Browserless Server -- */
+async function puppeteer02() {
     const browser = await puppeteer.launch({
         headless: true,
 	    args: ['--no-sandbox']
    });
-//    const browser = await puppeteer.connect({
-//        browserWSEndpoint: `ws://209.133.209.137:3000/?token=joao`
-//    });
+
     const page = await browser.newPage();
     try{
         page.setDefaultTimeout(120000);
-        await page.goto(`${URL}/demo/demoHTML5.jsp?username=MsgsCounter&isModerator=false&action=create`);
-        await page.waitFor(5000)
+        await page.goto(`${URL}/demo/demoHTML5.jsp?username=Puppeteer02&isModerator=false&action=create`);
         await page.waitForSelector('[aria-describedby^="modalDismissDescription"]', {timeout: 0});
         await page.click('[aria-describedby^="modalDismissDescription"]');
         await page.waitForSelector('[class="message--Z2n2nXu"]')
@@ -36,10 +32,12 @@ async function msgsCounter() {
                 return msgs ? msgs[msgs.length - 1].innerText : "none"
             });
             var y = new Date()
+
             let totalMsgs = await page.evaluate(async()=> {
                 let x = await document.querySelectorAll('[class="message--Z2n2nXu"]').length
                 return x
-            })
+            });
+
             const chat = await page.evaluateHandle(async ()=> {
                 let x = require('/imports/api/group-chat-msg/index.js');
                 x.GroupChatMsg.findOne({},{sort:{timestamp: -1},fields: {timestamp: 1}});
@@ -53,15 +51,16 @@ async function msgsCounter() {
                 let z = y.innerText
                 return Date.parse(z)
             })
+
             const date = new Date()
             const msgs = await page.evaluateHandle(async ()=> {
                 let x = require('/imports/api/group-chat-msg/index.js');
                 let y = x.GroupChatMsg.find({},{sort:{timestamp:-1}}).count();
                 return y
-            })
+            });
+
             var miniMongoMsgsNb = await msgs.jsonValue()
             var miniMongoTimestamp = await chat.jsonValue()
-            console.log(miniMongoTimestamp)
             var dateTimestamp = Math.floor(toTimestamp(date) * 1000)
 
             const metric = await page.metrics();
@@ -81,8 +80,8 @@ async function msgsCounter() {
             metrics['totalMsgsMiniMongoObj'] = miniMongoMsgsNb;
             metrics['domDurationObj'] = domDuration;
             metrics['miniMongoDurationObj'] = miniMongoDuration / 1000;
-            metrics['metricObj'] = metric;
-            metrics['performanceObj'] = performance;
+            metrics['metricsObj'] = metric;
+            metrics['performancesObj'] = performance;
             
             fs.appendFileSync(metricsMsgs, JSON.stringify(metrics)+'\n', (err) => {
                 if (err) {
@@ -101,4 +100,4 @@ async function msgsCounter() {
         process.exit(1);
     }
 }
-msgsCounter();
+puppeteer02();

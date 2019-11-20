@@ -2,13 +2,22 @@
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 pids=()
-URL="$1"
 
-# variables number
-bot=10
+while getopts u:b:d: option
+do
+case "${option}"
+in
+u) URL=${OPTARG};;
+b) BOTS=${OPTARG};;
+d) DURATION_MINUTES=${OPTARG};;
+esac
+done
+
+echo BOTS: $BOTS;
+echo URL: $URL;
 
 if [ -z "$URL" ] ; then
-    echo -e "Enter BBB Base Server URL:"
+   echo -e "Enter BBB Base Server URL:"
    read URL
 fi;
 
@@ -33,21 +42,23 @@ basePath=data/${date}_${n}
 
 mkdir -p $basePath
 
-for ((i=0;i<3600;i+1)); do
-while [ $bot -gt 0 ]; do
-    node bots.js "$URL" "$basePath" "$bot" $z &> $basePath/bots.out &
+# for ((i=0;i<$DURATION_MINUTES;i+1)); do
+for i in {0..$DURATION_MINUTES}; do
+    bots=$BOTS
+    while [ "$bots" -gt 0 ]; do
+        node puppeteer01.js "$URL" "$basePath" $bots $DURATION_MINUTES &> $basePath/puppeteer01.out &
+        pids+=($!)
+        bots=$(($bots-1))
+    done
+    node puppeteer02.js "$URL" "$basePath" $DURATION_MINUTES &> $basePath/puppeteer02.out &
     pids+=($!)
-    bot=$(($bot-1))
-done
-node msgsCounter.js "$URL" "$basePath" $z&> $basePath/msgsCounter.out &
-pids+=($!)
-k=0
-while [ $k -lt 60 ]; do
-    node prober.js "$URL" "$basePath" $z &> $basePath/prober.out &
-    pids+=($!)
-    sleep 60
-    k=$(($k+1))
-done
+    k=0
+    while [ $k -lt $DURATION_MINUTES ]; do
+        node puppeteer03.js "$URL" "$basePath" $DURATION_MINUTES &> $basePath/puppeteer03.out &
+        pids+=($!)
+        sleep 60
+        k=$(($k+1))
+    done
 done
 
 function killprocs()
@@ -72,3 +83,4 @@ if [ $? -eq 0 ]
     exit 1
 fi
 
+node parser.js $basePath
