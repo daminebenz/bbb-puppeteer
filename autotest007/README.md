@@ -33,7 +33,8 @@ The default script will launch the clients it needs on the server you describe i
 
 ## Outputs
 
-The outputs of `msgsCounter.js` and `prober.js` will be displayed in `JSON` files.
+The outputs of `msgsCounter.js` and `prober.js` will be displayed in `JSON` files: 
+`metricsMsgs.json` and `metricsProber.json`.
 
 ## Parsing the results
 
