@@ -1,0 +1,74 @@
+#!/bin/bash
+cd "$( dirname "${BASH_SOURCE[0]}" )"
+
+pids=()
+URL="$1"
+
+# variables number
+bot=10
+
+if [ -z "$URL" ] ; then
+    echo -e "Enter BBB Base Server URL:"
+   read URL
+fi;
+
+if [ -z "$URL" ] ; then
+    echo "No URL provided";
+    exit 1; 
+fi;
+
+echo "Starting with URL: $URL"
+
+echo "Executing..."
+
+date=$(date +"%d-%m-%Y")
+
+n=1
+# Increment $N as long as a directory with that name exists
+while [[ -d "data/${date}_${n}" ]] ; do
+    n=$(($n+1))
+done
+
+basePath=data/${date}_${n}
+
+mkdir -p $basePath
+
+for ((i=0;i<99999999999;i+1)); do
+while [ $bot -gt 0 ]; do
+    node bots.js "$URL" "$basePath" "$bot" $z &> $basePath/bots.out &
+    pids+=($!)
+    bot=$(($bot-1))
+done
+node msgsCounter.js "$URL" "$basePath" $z&> $basePath/msgsCounter.out &
+pids+=($!)
+k=0
+while [ $k -lt 60 ]; do
+    node prober.js "$URL" "$basePath" $z &> $basePath/prober.out &
+    pids+=($!)
+    sleep 60
+    k=$(($k+1))
+done
+done
+
+function killprocs()
+{
+    echo killing ${pids[@]}
+    rm -rf $basePath
+    kill ${pids[@]}
+}
+
+trap killprocs EXIT 
+
+wait "${pids[@]}"
+
+trap - EXIT
+
+if [ $? -eq 0 ]
+    then
+    echo "The Test was ran successfully !"
+    exit 0
+    else
+    echo "There was an error while running your Test !" >&2
+    exit 1
+fi
+
