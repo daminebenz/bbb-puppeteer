@@ -9,31 +9,46 @@ case "${option}"
 in
 u) URL=${OPTARG};;
 b) BOTS=${OPTARG};;
-d) DURATION_MINUTES=${OPTARG};;
+d) TIMELIMIT_MINUTES=${OPTARG};;
 esac
 done
-
-echo BOTS: $BOTS;
-echo URL: $URL;
 
 if [ -z "$URL" ] ; then
    echo -e "Enter BBB Base Server URL:"
    read URL
 fi;
-
 if [ -z "$URL" ] ; then
     echo "No URL provided";
     exit 1; 
 fi;
 
-echo "Starting with URL: $URL"
+if [ -z "$BOTS" ] ; then
+    echo -e "Enter a number of BOTS:"
+    read BOTS
+fi;
+if ! [[ "$BOTS" =~ ^[0-9]+$ ]] ; then
+    echo "BOTS is not valid !"
+    exit 1; 
+fi
+
+if  [ -z "$TIMELIMIT_MINUTES" ] ; then
+    echo -e "Enter TIMELIMIT_MINUTES (Duration to run the Test in minutes):"
+    read TIMELIMIT_MINUTES;
+fi;
+if ! [[ "$TIMELIMIT_MINUTES" =~ ^[0-9]+$ ]] ; then
+    echo "TIMELIMIT_MINUTES is not valid !"
+    exit 1; 
+fi
+
+echo URL: $URL;
+echo BOTS: $BOTS;
+echo TIMELIMIT_MINUTES: $TIMELIMIT_MINUTES "minute(s)";
 
 echo "Executing..."
 
 date=$(date +"%d-%m-%Y")
 
 n=1
-# Increment $N as long as a directory with that name exists
 while [[ -d "data/${date}_${n}" ]] ; do
     n=$(($n+1))
 done
@@ -42,24 +57,18 @@ basePath=data/${date}_${n}
 
 mkdir -p $basePath
 
-# for ((i=0;i<$DURATION_MINUTES;i+1)); do
-for i in {0..$DURATION_MINUTES}; do
-    bots=$BOTS
-    while [ "$bots" -gt 0 ]; do
-        node puppeteer01.js "$URL" "$basePath" $bots $DURATION_MINUTES &> $basePath/puppeteer01.out &
-        pids+=($!)
-        bots=$(($bots-1))
-    done
-    node puppeteer02.js "$URL" "$basePath" $DURATION_MINUTES &> $basePath/puppeteer02.out &
+bots=$BOTS
+TIMELIMIT_SECONDS=$(($TIMELIMIT_MINUTES * 60))
+while [ "$bots" -gt 0 ]; do
+    timeout $TIMELIMIT_SECONDS node bots.js "$URL" "$basePath" $bots $TIMELIMIT_SECONDS &> $basePath/bots.out &
     pids+=($!)
-    k=0
-    while [ $k -lt $DURATION_MINUTES ]; do
-        node puppeteer03.js "$URL" "$basePath" $DURATION_MINUTES &> $basePath/puppeteer03.out &
-        pids+=($!)
-        sleep 60
-        k=$(($k+1))
-    done
+    bots=$(($bots-1))
 done
+timeout $TIMELIMIT_SECONDS node watcher.js "$URL" "$basePath" $TIMELIMIT_SECONDS &> $basePath/watcher.out &
+pids+=($!)
+
+timeout $TIMELIMIT_SECONDS node prober.js "$URL" "$basePath" $TIMELIMIT_SECONDS &> $basePath/prober.out &
+pids+=($!)
 
 function killprocs()
 {
@@ -77,10 +86,9 @@ trap - EXIT
 if [ $? -eq 0 ]
     then
     echo "The Test was ran successfully !"
+    node parser.js $basePath &> $basePath/parser.out &
     exit 0
     else
     echo "There was an error while running your Test !" >&2
     exit 1
 fi
-
-node parser.js $basePath

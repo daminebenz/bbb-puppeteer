@@ -14,7 +14,7 @@ This script generates the log files `puppeteer01.out`, `puppeteer02.out` and `pu
 
 ## Running
 
-To run, execute `./autotest007/run.sh *URL*`
+To run, execute `./autotest007/run.sh -u URL -b BOTS -d TIMELIMIT_MINUTES`
 
 or also running: 
 
@@ -33,24 +33,22 @@ The default script will launch the clients it needs on the server you describe i
 
 ## Outputs
 
-The outputs of `puppeteer02.js` and `puppeteer03.js` will be displayed in `JSON` files: 
-`puppeteer02.json` and `puppeteer03.json`.
+The outputs of `watcher.js` and `prober.js` will be displayed in `JSON` files: 
+`watcher.json` and `prober.json`.
 
 ## Parsing the results
 
-`parser.js` is used to parse the `puppeteer02.json` and `puppeteer03.json` into 2 TSV files `puppeteer02.tsv` and `puppeteer03.tsv`.
+`parser.js` is used to parse the `watcher.json` and `prober.json` into 2 TSV files `watcher.tsv` and `prober.tsv`.
 
 ## Parsing result
 
-Using `parser.js`, running the following command:
+Using `parser.js`, it will be executed at the end of the execution of the test.
 
-`node autotest007/parser.js data/01-01-2019_1` => focusing the logged folder.
-
-This will create `puppeteer02.tsv` and `puppeteer03.tsv` files, that we will simply import them in a Google SpreadSheet to draw our graphs.
+This will create `watcher.tsv` and `prober.tsv` files, that we will simply import them in a Google SpreadSheet to draw our charts.
 
 ## Graphs
 
-`puppeteer02.tsv` and `puppeteer03.tsv` are used to draw graphs in google spreadsheets:
+`watcher.tsv` and `prober.tsv` are used to draw charts in google spreadsheets:
 
 for example: 
 

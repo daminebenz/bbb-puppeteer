@@ -1,3 +1,0 @@
-{ error: ReferenceError: time is not defined
-    at bot (/home/imdt/bbb-puppeteer/autotest007/puppeteer01.js:19:21)
-    at <anonymous> } ' at => ' 2019-11-20T22:18:47.063Z

@@ -1,0 +1,16 @@
+{ error: Error: Protocol error (Input.dispatchKeyEvent): Session closed. Most likely the page has been closed.
+    at CDPSession.send (/home/imdt/bbb-puppeteer/node_modules/puppeteer/lib/Connection.js:180:29)
+    at Keyboard.up (/home/imdt/bbb-puppeteer/node_modules/puppeteer/lib/Input.js:137:24)
+    at Keyboard.<anonymous> (/home/imdt/bbb-puppeteer/node_modules/puppeteer/lib/helper.js:112:23)
+    at Keyboard.press (/home/imdt/bbb-puppeteer/node_modules/puppeteer/lib/Input.js:181:16)
+    at <anonymous>
+  -- ASYNC --
+    at Keyboard.<anonymous> (/home/imdt/bbb-puppeteer/node_modules/puppeteer/lib/helper.js:111:15)
+    at Keyboard.type (/home/imdt/bbb-puppeteer/node_modules/puppeteer/lib/Input.js:164:20)
+    at Keyboard.<anonymous> (/home/imdt/bbb-puppeteer/node_modules/puppeteer/lib/helper.js:112:23)
+    at bot (/home/imdt/bbb-puppeteer/autotest007/puppeteer01.js:20:33)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:189:7) } ' at => ' 2019-11-21T18:28:14.601Z
+at => ' 2019-11-21T18:28:14.569Z
+._tickCallback (internal/process/next_tick.js:189:7)
+     message: 'Protocol error (Input.dispatchKeyEvent): Target closed.' } } ' at => ' 2019-11-21T18:28:14.529Z
