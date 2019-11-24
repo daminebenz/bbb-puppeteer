@@ -1,0 +1,13 @@
+(node:18892) UnhandledPromiseRejectionWarning: Error: Page crashed!
+    at Page._onTargetCrashed (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\Page.js:215:24)
+    at CDPSession.Page.client.on.event (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\Page.js:123:56)
+    at emitOne (events.js:116:13)
+    at CDPSession.emit (events.js:211:7)
+    at CDPSession._onMessage (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\Connection.js:200:12)
+    at Connection._onMessage (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\Connection.js:112:17)
+    at WebSocketTransport._ws.addEventListener.event (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\puppeteer\lib\WebSocketTransport.js:44:24)
+    at WebSocket.onMessage (C:\Users\damin\Desktop\bbb-puppeteer\node_modules\ws\lib\event-target.js:120:16)
+    at emitOne (events.js:116:13)
+    at WebSocket.emit (events.js:211:7)
+(node:18892) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 1)
+(node:18892) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.

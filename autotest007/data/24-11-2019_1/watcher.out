@@ -1,0 +1,13 @@
+{ error: Error: Protocol error (Runtime.callFunctionOn): Session closed. Most likely the page has been closed.
+    at CDPSession.send (/root/bbb-puppeteer/node_modules/puppeteer/lib/Connection.js:180:29)
+    at ExecutionContext._evaluateInternal (/root/bbb-puppeteer/node_modules/puppeteer/lib/ExecutionContext.js:107:44)
+    at ExecutionContext.evaluate (/root/bbb-puppeteer/node_modules/puppeteer/lib/ExecutionContext.js:48:23)
+    at ExecutionContext.<anonymous> (/root/bbb-puppeteer/node_modules/puppeteer/lib/helper.js:112:23)
+    at DOMWorld.evaluate (/root/bbb-puppeteer/node_modules/puppeteer/lib/DOMWorld.js:112:20)
+    at <anonymous>
+  -- ASYNC --
+    at Frame.<anonymous> (/root/bbb-puppeteer/node_modules/puppeteer/lib/helper.js:111:15)
+    at Page.evaluate (/root/bbb-puppeteer/node_modules/puppeteer/lib/Page.js:833:43)
+    at Page.<anonymous> (/root/bbb-puppeteer/node_modules/puppeteer/lib/helper.js:112:23)
+    at watcher (/root/bbb-puppeteer/autotest007/watcher.js:25:40)
+    at <anonymous> } ' at => ' 2019-11-24T19:01:41.324Z
