@@ -18,7 +18,8 @@
     "dotenv": "^8.1.0",
     "moment": "^2.24.0",
     "puppeteer": "^1.11.0",
-    "puppeteer-core": "^1.20.0"
+    "puppeteer-core": "^1.20.0",
+    "stats.js": "^0.17.0"
   },
   "keywords": [
     "bigbluebutton",
