@@ -48,11 +48,16 @@ async function puppeteer1() {
                     var sinceStart = now - startTime;
                     var currentFps = Math.round(1000 / (sinceStart / ++frameCount) * 100) / 100;
                     console.log(currentFps)
+                    var p = document.createElement("p");
+                    p.setAttribute("id","fps");
+                    document.getElementById("fps").innerHTML = currentFps;
+                    document.body.appendChild(p);
+                    
                 }
             })
             
-            console.log(x)
-            const fpsVal = x
+            const fpsVal = await page.evaluate(()=>document.getElementById("fps").innerHTML)
+            console.log(fpsVal)
             const date = new Date()
             const metrics = await page.metrics();
             const performance = await page.evaluate(() => performance.toJSON())
