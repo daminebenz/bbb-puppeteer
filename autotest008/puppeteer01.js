@@ -24,10 +24,10 @@ async function puppeteer1() {
         await page.goto(`${URL}/demo/demoHTML5.jsp?username=Probe&isModerator=false&action=create`);
         await page.waitForSelector('[aria-describedby^="modalDismissDescription"]', {timeout: 0});
         await page.click('[aria-describedby^="modalDismissDescription"]');
-        for (var i = TIMELIMIT_MILLISECONDS; i >= 0; i--) {
-            let x = await page.evaluate(()=>{
+        for (var i = 1; i <= TIMELIMIT_MILLISECONDS; i++) {
+            await page.evaluate(()=>{
                 var frameCount = 0;
-                var fps, fpsInterval, startTime, now, then, elapsed;
+                var fpsInterval, startTime, now, then, elapsed;
                 
                 startAnimating(60);
                 
@@ -49,14 +49,20 @@ async function puppeteer1() {
                     var currentFps = Math.round(1000 / (sinceStart / ++frameCount) * 100) / 100;
                     console.log(currentFps)
                     var p = document.createElement("p");
-                    p.setAttribute("id","fps");
-                    document.getElementById("fps").innerHTML = currentFps;
-                    document.body.appendChild(p);
-                    
+                    var div = document.createElement("div");
+                    p.innerHTML = currentFps;
+                    p.setAttribute('id','fps')
+                    div.appendChild(p);
+
                 }
             })
-            
-            const fpsVal = await page.evaluate(()=>document.getElementById("fps").innerHTML)
+            await page.waitFor(3000)
+
+            const fpsVal = await page.evaluate(async()=>{
+                let lastElement = await document.querySelectorAll('p[id="fps"]')
+                return lastElement ? lastElement[lastElement.length - 1].innerText : "none"
+            })
+
             console.log(fpsVal)
             const date = new Date()
             const metrics = await page.metrics();
@@ -72,9 +78,9 @@ async function puppeteer1() {
                     return;
                 };
             });
-            await page.waitFor(60000)
-            process.exit(0)
-        }  
+            await page.waitFor(5000)
+        }
+        process.exit(0)  
     } 
     catch(error){
         console.log({error})

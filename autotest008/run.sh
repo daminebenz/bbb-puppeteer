@@ -31,7 +31,6 @@ if ! [[ "$TIMELIMIT_MINUTES" =~ ^[0-9]+$ ]] ; then
 fi
 
 echo URL: $URL;
-echo BOTS: $BOTS;
 echo TIMELIMIT_MINUTES: $TIMELIMIT_MINUTES "minute(s)";
 
 echo "Executing..."
